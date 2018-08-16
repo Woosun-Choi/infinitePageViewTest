@@ -12,7 +12,7 @@ class FrameViewController: UIViewController {
     
     let dateModel = DateCoreModel()
     //let noteManager = NoteDataManager()
-    //make changes????
+    
     var date : Date? {
         didSet {
             print("Date Setted")
