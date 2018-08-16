@@ -58,9 +58,9 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="commentView" destination="dLX-8S-8i5" id="oLS-Yg-1fN"/>
                 <outlet property="hashtagView" destination="i4X-gO-Cl4" id="DE4-fs-Nxp"/>
-                <outlet property="imageview" destination="dSw-8E-lOu" id="QOI-Qg-XBI"/>
+                <outlet property="tableViewCell_commentLabel" destination="dLX-8S-8i5" id="oLS-Yg-1fN"/>
+                <outlet property="tableViewCell_imageView" destination="dSw-8E-lOu" id="QOI-Qg-XBI"/>
             </connections>
             <point key="canvasLocation" x="-106" y="36"/>
         </tableViewCell>

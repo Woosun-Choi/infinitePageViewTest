@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class MainViewController: UIViewController, textEditDelegate {
     
@@ -57,12 +58,16 @@ class MainViewController: UIViewController, textEditDelegate {
     
     private func currentView() -> UIViewController? {
         var currentVC : UIViewController?
-        //if mypageView is PageViewController {
+        
         if let currentViewController = mypageView?.viewControllers?[0] as? FrameViewController {
             print("called")
             currentVC = currentViewController
         }
-        //}
+        
+        if let currentViewController = mypageView?.viewControllers?[0] as? NoteTableStyleViewController {
+            print("called")
+            currentVC = currentViewController
+        }
         return currentVC
     }
     
@@ -84,9 +89,18 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             if let originalData = UIImageJPEGRepresentation(pickedImage, 0.7) {
                 let imageData = originalData
-                if let selectedContext = currentView() as? FrameViewController {
+//                if let selectedContext = currentView() as? FrameViewController {
+//                    do {
+//                    try Note.saveDataOrCreateNewNote(selectedContext.note, image: imageData as NSData, comment: nil, date: selectedContext.dateModel.myDate)
+//                    } catch {
+//                        print("error")
+//                    }
+//                    selectedContext.loadData()
+//                }
+                if let selectedContext = currentView() as? NoteTableStyleViewController {
                     do {
-                    try Note.saveDataOrCreateNewNote(selectedContext.note, image: imageData as NSData, comment: nil, date: selectedContext.dateModel.myDate)
+                        print("save method called")
+                        try Note.saveDataOrCeate(selectedContext.diary, note: nil, image: imageData, comment: nil, date: selectedContext.dateModel.myDate)
                     } catch {
                         print("error")
                     }

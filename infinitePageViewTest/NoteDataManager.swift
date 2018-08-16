@@ -21,17 +21,37 @@ class NoteDataManager {
         }
     }
     
-    func loadDataFromDate(_ date: Date) throws -> Note? {
-        
-        let request : NSFetchRequest<Note> = Note.fetchRequest()
-        let predicate = NSPredicate(format: "%K == %@", #keyPath(Note.date), (date) as CVarArg)
+    func loadDiaryFromDate(_ date: Date) throws -> Diary? {
+        let request : NSFetchRequest<Diary> = Diary.fetchRequest()
+        let predicate = NSPredicate(format: "%K == %@", #keyPath(Diary.date), (date) as CVarArg)
         request.predicate = predicate
-        
         do {
-            let notes = try self.context.fetch(request)
-            return notes.first
+            let diaries = try self.context.fetch(request)
+            return diaries.first
         } catch {
             throw error
         }
     }
+    
+    func loadNoteFromDiary(_ diary: Diary) -> [Note] {
+        var notes = [Note]()
+        if let result = diary.notes as? Set<Note> {
+            notes = result.reversed()
+        }
+        return notes
+    }
+    
+    //    func loadDataFromDate(_ date: Date) throws -> Note? {
+    //
+    //        let request : NSFetchRequest<Note> = Note.fetchRequest()
+    //        let predicate = NSPredicate(format: "%K == %@", #keyPath(Note.date), (date) as CVarArg)
+    //        request.predicate = predicate
+    //
+    //        do {
+    //            let notes = try self.context.fetch(request)
+    //            return notes.first
+    //        } catch {
+    //            throw error
+    //        }
+    //    }
 }

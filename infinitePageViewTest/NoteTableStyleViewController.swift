@@ -11,6 +11,9 @@ import UIKit
 class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let dateModel = DateCoreModel()
+    let noteManager = NoteDataManager()
+    
+    var notes = [Note]()
     
     var date : Date? {
         didSet {
@@ -19,7 +22,15 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
         }
     }
     
-    var diary : Diary?
+    var diary : Diary? {
+        didSet {
+            print("diary setted")
+            if diary != nil {
+                notes = noteManager.loadNoteFromDiary(diary!)
+                self.noteTableView.reloadData()
+            }
+        }
+    }
     
     @IBOutlet weak var monthLabel: UILabel! {
         didSet {
@@ -64,14 +75,27 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        loadData()
+    }
+    
+    func loadData() {
+        do {
+            diary = try noteManager.loadDiaryFromDate(dateModel.myDate)
+            //notes = try Note.loadDataFromDate(dateModel.myDate)
+        } catch {
+            
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return notes.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //let cell = tableView.dequeueReusableCell(withIdentifier: "NoteCell") as! NoteTableViewCell
         let cell = tableView.dequeueReusableCell(withIdentifier: "NoteCell", for: indexPath) as! NoteTableViewCell
-        cell.commentView.text = "kkkkkk"
+        cell.note = notes[indexPath.row]
         return cell
     }
     
