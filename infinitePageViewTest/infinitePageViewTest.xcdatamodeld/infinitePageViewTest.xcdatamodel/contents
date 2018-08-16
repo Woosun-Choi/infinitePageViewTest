@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17G65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Diary" representedClassName=".Diary" syncable="YES" codeGenerationType="category">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="notes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Note" inverseName="diary" inverseEntity="Note" syncable="YES"/>
+    </entity>
+    <entity name="HashTag" representedClassName=".HashTag" syncable="YES" codeGenerationType="category">
+        <attribute name="hashtag" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="notes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Note" inverseName="hashtags" inverseEntity="Note" syncable="YES"/>
+    </entity>
     <entity name="Note" representedClassName=".Note" syncable="YES" codeGenerationType="category">
         <attribute name="comment" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
+        <relationship name="diary" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Diary" inverseName="notes" inverseEntity="Diary" syncable="YES"/>
+        <relationship name="hashtags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="HashTag" inverseName="notes" inverseEntity="HashTag" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Note" positionX="-63" positionY="-18" width="128" height="90"/>
+        <element name="Note" positionX="-1962" positionY="-18" width="128" height="118"/>
+        <element name="Diary" positionX="-2151" positionY="-18" width="128" height="73"/>
+        <element name="HashTag" positionX="-1793" positionY="-19" width="128" height="73"/>
     </elements>
 </model>
