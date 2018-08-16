@@ -1,0 +1,104 @@
+//
+//  MainViewController.swift
+//  infinitePageViewTest
+//
+//  Created by goya on 2018. 8. 7..
+//  Copyright © 2018년 goya. All rights reserved.
+//
+
+import UIKit
+
+class MainViewController: UIViewController, textEditDelegate {
+    
+    let imagePickerController = UIImagePickerController()
+    
+    @IBOutlet weak var pageView: UIView!
+    private var mypageView : PageViewController?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        print("mianView didLoad")
+        imagePickerController.delegate = self
+    }
+    
+    @IBAction func barButtonPressed(_ sender: UIBarButtonItem) {
+        switch sender.tag {
+        case 1:
+            performSegue(withIdentifier: "ToTextEdit", sender: self)
+        case 2:
+            imagePickerController.allowsEditing = false
+            imagePickerController.sourceType = .photoLibrary
+            present(imagePickerController, animated: true)
+        default:
+            break
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "PageView":
+            if let loadedPageVC = segue.destination as? PageViewController {
+                self.mypageView = loadedPageVC
+                print("pageview setted")
+            }
+        case "ToTextEdit":
+            if let loadedPageVC = segue.destination as? TextEditViewController {
+                loadedPageVC.delegte = self
+                if let text = (currentView() as? FrameViewController)?.commentLabel.text {
+                    loadedPageVC.text = text
+                } else {
+                    loadedPageVC.text = ""
+                }
+            }
+        default:
+            break
+        }
+    }
+    
+    private func currentView() -> UIViewController? {
+        var currentVC : UIViewController?
+        //if mypageView is PageViewController {
+        if let currentViewController = mypageView?.viewControllers?[0] as? FrameViewController {
+            print("called")
+            currentVC = currentViewController
+        }
+        //}
+        return currentVC
+    }
+    
+    func updateEditedText(_ text: String) {
+        if let selectedContext = currentView() as? FrameViewController {
+            do {
+                try Note.saveDataOrCreateNewNote(selectedContext.note, image: nil, comment: text, date: selectedContext.dateModel.myDate)
+            } catch {
+                print("saveing comment error")
+            }
+            selectedContext.loadData()
+        }
+    }
+}
+
+extension MainViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            if let originalData = UIImageJPEGRepresentation(pickedImage, 0.7) {
+                let imageData = originalData
+                if let selectedContext = currentView() as? FrameViewController {
+                    do {
+                    try Note.saveDataOrCreateNewNote(selectedContext.note, image: imageData as NSData, comment: nil, date: selectedContext.dateModel.myDate)
+                    } catch {
+                        print("error")
+                    }
+                    selectedContext.loadData()
+                }
+            }
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+}
