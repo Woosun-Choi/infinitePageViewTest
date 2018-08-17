@@ -36,22 +36,8 @@ class NoteDataManager {
     func loadNoteFromDiary(_ diary: Diary) -> [Note] {
         var notes = [Note]()
         if let result = diary.notes as? Set<Note> {
-            notes = result.reversed()
+            notes = result.reversed().sorted(by: ({$0.createdDate! > $1.createdDate!}))
         }
         return notes
     }
-    
-    //    func loadDataFromDate(_ date: Date) throws -> Note? {
-    //
-    //        let request : NSFetchRequest<Note> = Note.fetchRequest()
-    //        let predicate = NSPredicate(format: "%K == %@", #keyPath(Note.date), (date) as CVarArg)
-    //        request.predicate = predicate
-    //
-    //        do {
-    //            let notes = try self.context.fetch(request)
-    //            return notes.first
-    //        } catch {
-    //            throw error
-    //        }
-    //    }
 }

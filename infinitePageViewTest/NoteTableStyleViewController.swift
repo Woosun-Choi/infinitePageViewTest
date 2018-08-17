@@ -11,7 +11,6 @@ import UIKit
 class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let dateModel = DateCoreModel()
-    let noteManager = NoteDataManager()
     
     var notes = [Note]()
     
@@ -25,8 +24,8 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
     var diary : Diary? {
         didSet {
             print("diary setted")
-            if diary != nil {
-                notes = noteManager.loadNoteFromDiary(diary!)
+            if let currentDiary = diary {
+                notes = Note.loadNoteFromDiary(currentDiary)
                 self.noteTableView.reloadData()
             }
         }
@@ -76,13 +75,13 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
         loadData()
     }
     
     func loadData() {
         do {
-            diary = try noteManager.loadDiaryFromDate(dateModel.myDate)
-            //notes = try Note.loadDataFromDate(dateModel.myDate)
+            diary = try Diary.loadDiaryFromDate(dateModel.myDate)
         } catch {
             
         }
@@ -93,10 +92,37 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //let cell = tableView.dequeueReusableCell(withIdentifier: "NoteCell") as! NoteTableViewCell
         let cell = tableView.dequeueReusableCell(withIdentifier: "NoteCell", for: indexPath) as! NoteTableViewCell
         cell.note = notes[indexPath.row]
+//        cell.tableViewCell_imageView.alpha = 0
+//        UIView.animate(withDuration: 0.5, animations: {
+//            cell.tableViewCell_imageView.alpha = 1
+//        })
         return cell
     }
+    
+    //MARK: focused cell test
+
+//    var focusedIndexPath : IndexPath?
+//    
+//    override func viewDidLayoutSubviews() {
+//        trakingCellIndexPath()
+//    }
+//
+//    func trakingCellIndexPath() {
+//        if let indexPath = noteTableView.indexPathForRow(at: CGPoint(x: noteTableView.center.x, y: noteTableView.contentOffset.y + view.bounds.height/2)) {
+//            focusedIndexPath = indexPath
+//            if let selectedItem = noteTableView.cellForRow(at: focusedIndexPath!) as? NoteTableViewCell {
+//                UIView.animate(withDuration: 0.5) {
+//                    selectedItem.tableViewCell_imageView.alpha = 1
+//                }
+//            }
+//        }
+//    }
+//
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        trakingCellIndexPath()
+//        print(focusedIndexPath)
+//    }
     
 }

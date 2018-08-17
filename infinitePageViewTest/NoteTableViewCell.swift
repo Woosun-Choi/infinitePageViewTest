@@ -15,15 +15,23 @@ class NoteTableViewCell: UITableViewCell {
             print("Note setted")
             if note?.image != nil {
                 if let image = note?.image {
-                    DispatchQueue.global(qos: .background).async {
-                        let inputImage = UIImage(data: image)?.resizedImageWithinRect(rectSize: CGSize(width: 300, height: 300))
-                        DispatchQueue.main.async {
-                            UIView.animate(withDuration: 0.5, animations: {
-                                self.tableViewCell_imageView.alpha = 1
-                            })
-                            self.tableViewCell_imageView.image = inputImage
-                        }
-                    }
+                    //                    imageViewHeightConstraint.constant = (tableViewCell_imageView?.bounds.width)! * ((UIImage(data: image)?.size.height)!/(UIImage(data: image)?.size.width)!)
+                    //                    DispatchQueue.global(qos: .background).async {
+                    //                        let inputImage = UIImage(data: image)?.resizedImageWithinRect(rectSize: CGSize(width: 300, height: 300))
+                    //                        DispatchQueue.main.async {
+                    //                            UIView.animate(withDuration: 0.5, animations: {
+                    //                                self.tableViewCell_imageView.alpha = 1
+                    //                            })
+                    //                            self.tableViewCell_imageView.image = inputImage
+                    //                        }
+                    //                    }
+                    
+                    let inputImage = UIImage(data: image)?.resizedImageWithinRect(rectSize: CGSize(width: 200, height: 200))
+                    imageViewHeightConstraint.constant = (tableViewCell_imageView?.bounds.width)! * (inputImage?.size.height)!/(inputImage?.size.width)!
+                    UIView.animate(withDuration: 0.5, animations: {
+                        self.tableViewCell_imageView.alpha = 1
+                    })
+                    tableViewCell_imageView.image = inputImage
                 }
             }
             if note?.comment != nil {
@@ -37,9 +45,13 @@ class NoteTableViewCell: UITableViewCell {
     @IBOutlet weak var hashtagView: UIView!
     @IBOutlet weak var tableViewCell_commentLabel: UITextView!
     
+    @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         tableViewCell_imageView.alpha = 0
+        tableViewCell_imageView.image = UIImage()
         // Initialization code
     }
     
@@ -51,7 +63,7 @@ class NoteTableViewCell: UITableViewCell {
     
 }
 
-extension UIImage {
+fileprivate extension UIImage {
     
     /// Returns a image that fills in newSize
     func resizedImage(newSize: CGSize) -> UIImage {

@@ -72,14 +72,14 @@ class MainViewController: UIViewController, textEditDelegate {
     }
     
     func updateEditedText(_ text: String) {
-        if let selectedContext = currentView() as? FrameViewController {
-            do {
-                try Note.saveDataOrCreateNewNote(selectedContext.note, image: nil, comment: text, date: selectedContext.dateModel.myDate)
-            } catch {
-                print("saveing comment error")
-            }
-            selectedContext.loadData()
-        }
+//        if let selectedContext = currentView() as? FrameViewController {
+//            do {
+//                try Note.saveDataOrCreateNewNote(selectedContext.note, image: nil, comment: text, date: selectedContext.dateModel.myDate)
+//            } catch {
+//                print("saveing comment error")
+//            }
+//            selectedContext.loadData()
+//        }
     }
 }
 
@@ -89,14 +89,6 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             if let originalData = UIImageJPEGRepresentation(pickedImage, 0.7) {
                 let imageData = originalData
-//                if let selectedContext = currentView() as? FrameViewController {
-//                    do {
-//                    try Note.saveDataOrCreateNewNote(selectedContext.note, image: imageData as NSData, comment: nil, date: selectedContext.dateModel.myDate)
-//                    } catch {
-//                        print("error")
-//                    }
-//                    selectedContext.loadData()
-//                }
                 if let selectedContext = currentView() as? NoteTableStyleViewController {
                     do {
                         print("save method called")

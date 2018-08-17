@@ -11,6 +11,14 @@ import CoreData
 
 class Note: NSManagedObject {
     
+    static func loadNoteFromDiary(_ diary: Diary) -> [Note] {
+        var notes = [Note]()
+        if let result = diary.notes as? Set<Note> {
+            notes = result.reversed().sorted(by: ({$0.createdDate! > $1.createdDate!}))
+        }
+        return notes
+    }
+    
     class func loadDataFromDate(_ date: Date) throws -> [Note] {
         let request : NSFetchRequest<Diary> = Diary.fetchRequest()
         let predicate = NSPredicate(format: "%K == %@", #keyPath(Diary.date), (date) as CVarArg)
@@ -38,44 +46,28 @@ class Note: NSManagedObject {
             if let comment = commentData {
                 newNote.comment = comment
             }
+            newNote.createdDate = Date()
             let notesDiary = Diary(context: newNote.managedObjectContext!)
             newNote.diary = notesDiary
             newNote.diary?.date = dateData
         } else {
-            let newNote = Note(context: context)
-            if let image = imageData {
-                newNote.image = image as Data
-            }
-            if let comment = commentData {
-                newNote.comment = comment
-            }
-            diary?.addToNotes(newNote)
-        }
-        do {
-            try context.save()
-        } catch {
-            throw error
-        }
-        
-    }
-    
-    class func saveDataOrCreateNewNote(_ note: Note?, image imageData: NSData?, comment commentData: String?, date dateData: Date) throws {
-        let context = AppDelegate.viewContext
-        if note == nil {
-            let newNote = Note(context: context)
-            if let image = imageData {
-                newNote.image = image as Data
-            }
-            if let comment = commentData {
-                newNote.comment = comment
-            }
-            newNote.diary?.date = dateData
-        } else {
-            if let image = imageData {
-                note?.image = image as Data
-            }
-            if let comment = commentData {
-                note?.comment = comment
+            if noteData == nil {
+                let newNote = Note(context: context)
+                if let image = imageData {
+                    newNote.image = image
+                }
+                if let comment = commentData {
+                    newNote.comment = comment
+                }
+                newNote.createdDate = Date()
+                diary?.addToNotes(newNote)
+            } else {
+                if let image = imageData {
+                    noteData?.image = image
+                }
+                if let comment = commentData {
+                    noteData?.comment = comment
+                }
             }
         }
         do {
@@ -84,6 +76,5 @@ class Note: NSManagedObject {
             throw error
         }
     }
-    
     
 }
