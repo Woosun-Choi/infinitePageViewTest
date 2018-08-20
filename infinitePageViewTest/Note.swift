@@ -28,7 +28,7 @@ class Note: NSManagedObject {
         do {
             let diary = try context.fetch(request).first
             if let result = diary?.notes as? Set<Note> {
-                notes = result.reversed()
+                notes = result.reversed().sorted(by: ({$0.createdDate! > $1.createdDate!}))
             }
         } catch {
             throw error

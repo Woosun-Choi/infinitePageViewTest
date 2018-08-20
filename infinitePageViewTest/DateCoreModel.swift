@@ -10,6 +10,30 @@ import Foundation
 
 class DateCoreModel: DateBrain {
     
+    lazy var day_String = {
+        performDateTransformTo(type: .day_String, from: myDate) as! String
+    }()
+    
+    lazy var month_String = {
+        performDateTransformTo(type: .month_String, from: myDate) as! String
+    }()
+    
+    lazy var weekday_String = {
+        performDateTransformTo(type: .weekday_String, from: myDate) as! String
+    }()
+    
+    lazy var dat_Int : Int = {
+        performDateTransformTo(type: .day_Int, from: myDate) as! Int
+    }()
+    
+    lazy var month_Int : Int = {
+        performDateTransformTo(type: .month_Int, from: myDate) as! Int
+    }()
+    
+    lazy var year_Int : Int = {
+        performDateTransformTo(type: .year_Int, from: myDate) as! Int
+    }()
+    
     enum directions {
         case present
         case after

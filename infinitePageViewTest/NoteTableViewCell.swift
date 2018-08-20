@@ -15,44 +15,55 @@ class NoteTableViewCell: UITableViewCell {
             print("Note setted")
             if note?.image != nil {
                 if let image = note?.image {
-                    //                    imageViewHeightConstraint.constant = (tableViewCell_imageView?.bounds.width)! * ((UIImage(data: image)?.size.height)!/(UIImage(data: image)?.size.width)!)
-                    //                    DispatchQueue.global(qos: .background).async {
-                    //                        let inputImage = UIImage(data: image)?.resizedImageWithinRect(rectSize: CGSize(width: 300, height: 300))
-                    //                        DispatchQueue.main.async {
-                    //                            UIView.animate(withDuration: 0.5, animations: {
-                    //                                self.tableViewCell_imageView.alpha = 1
-                    //                            })
-                    //                            self.tableViewCell_imageView.image = inputImage
-                    //                        }
-                    //                    }
-                    
-                    let inputImage = UIImage(data: image)?.resizedImageWithinRect(rectSize: CGSize(width: 200, height: 200))
-                    imageViewHeightConstraint.constant = (tableViewCell_imageView?.bounds.width)! * (inputImage?.size.height)!/(inputImage?.size.width)!
-                    UIView.animate(withDuration: 0.5, animations: {
-                        self.tableViewCell_imageView.alpha = 1
-                    })
-                    tableViewCell_imageView.image = inputImage
+                    resizeImageAndImageView(image: image, size: 300)
                 }
             }
             if note?.comment != nil {
                 tableViewCell_commentLabel.text = note?.comment
             }
         }
-        
     }
     
     @IBOutlet weak var tableViewCell_imageView: UIImageView!
     @IBOutlet weak var hashtagView: UIView!
     @IBOutlet weak var tableViewCell_commentLabel: UITextView!
+    @IBOutlet weak var imageViewContainer: UIView!
     
-    @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
+    var imageViewHeightAnchor : NSLayoutConstraint!
+    var imageViewWidthAnchor : NSLayoutConstraint!
     
+    private func resizingImageView(image imageData: Data) {
+        if let image = UIImage(data: imageData) {
+            let width = imageViewWidthAnchor.constant
+            let height = (width) * ((image.size.height)/(image.size.width))
+            imageViewHeightAnchor = imageViewContainer.heightAnchor.constraint(equalToConstant: height)
+            imageViewHeightAnchor.isActive = true
+            super.setNeedsUpdateConstraints()
+            print(tableViewCell_imageView.bounds.height)
+            print(imageViewHeightAnchor.constant)
+            print(imageViewWidthAnchor.constant)
+            print("resizing")
+        }
+    }
+    
+    private func resizeImageAndImageView(image imageData: Data, size sizeWithRect: CGFloat) {
+        resizingImageView(image: imageData)
+        DispatchQueue.global(qos: .background).async {
+            let newImage = UIImage(data: imageData)
+            let inputImage = newImage?.resizedImageWithinRect(rectSize: CGSize(width: sizeWithRect, height: sizeWithRect))
+            DispatchQueue.main.async {
+                self.tableViewCell_imageView.image = inputImage
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.tableViewCell_imageView.alpha = 1
+                })
+            }
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        tableViewCell_imageView.alpha = 0
-        tableViewCell_imageView.image = UIImage()
-        // Initialization code
+        //self.updateConstraintsIfNeeded()
+        //self.layoutIfNeeded()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -73,10 +84,13 @@ fileprivate extension UIImage {
         var myImage : UIImage?
         UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
         self.draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
-        if let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext() {
-            UIGraphicsEndImageContext()
-            myImage = newImage
-        }
+//        if let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext() {
+//            UIGraphicsEndImageContext()
+//            myImage = newImage
+//        }
+        let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        myImage = newImage
         return myImage!
     }
     
@@ -96,3 +110,10 @@ fileprivate extension UIImage {
         return resized
     }
 }
+
+
+
+
+
+
+

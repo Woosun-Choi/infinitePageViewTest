@@ -34,7 +34,7 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
     @IBOutlet weak var monthLabel: UILabel! {
         didSet {
             if date != nil {
-                monthLabel.text = dateModel.performDateTransformTo(type: .month_String, from: dateModel.myDate) as? String
+                monthLabel.text = dateModel.month_String
             }
         }
     }
@@ -42,7 +42,7 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
     @IBOutlet weak var dayLabel: UILabel! {
         didSet {
             if date != nil {
-                dayLabel.text = dateModel.performDateTransformTo(type: .day_String, from: dateModel.myDate) as? String
+                dayLabel.text = dateModel.day_String
             }
         }
     }
@@ -50,7 +50,7 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
     @IBOutlet weak var weekdayLabel: UILabel! {
         didSet {
             if date != nil {
-                weekdayLabel.text = dateModel.performDateTransformTo(type: .weekday_String, from: dateModel.myDate) as? String
+                weekdayLabel.text = dateModel.weekday_String
             }
         }
     }
@@ -58,11 +58,6 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
     @IBOutlet weak var noteTableView: UITableView! {
         didSet {
             print("tableview has set")
-            noteTableView.delegate = self
-            noteTableView.dataSource = self
-            noteTableView.register(UINib(nibName: "NoteTableViewCell", bundle: nil), forCellReuseIdentifier: "NoteCell")
-            noteTableView.rowHeight = UITableViewAutomaticDimension
-            
         }
     }
     
@@ -71,10 +66,11 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
+        noteTableView.delegate = self
+        noteTableView.dataSource = self
+        noteTableView.register(UINib(nibName: "NoteTableViewCell", bundle: nil), forCellReuseIdentifier: "NoteCell")
+        noteTableView.cellLayoutMarginsFollowReadableWidth = true
+        noteTableView.rowHeight = UITableViewAutomaticDimension
         
         loadData()
     }
@@ -83,7 +79,7 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
         do {
             diary = try Diary.loadDiaryFromDate(dateModel.myDate)
         } catch {
-            
+            print(error.localizedDescription)
         }
     }
     
@@ -93,18 +89,31 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NoteCell", for: indexPath) as! NoteTableViewCell
+        print(cell.bounds.width)
+        setCellLayouts(cell)
+        print("cell setted")
         cell.note = notes[indexPath.row]
-//        cell.tableViewCell_imageView.alpha = 0
-//        UIView.animate(withDuration: 0.5, animations: {
-//            cell.tableViewCell_imageView.alpha = 1
-//        })
         return cell
     }
     
-    //MARK: focused cell test
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
+    }
+    
+    func setCellLayouts(_ cell: NoteTableViewCell) {
+        cell.imageViewHeightAnchor?.isActive = false
+        cell.imageViewWidthAnchor = cell.imageViewContainer.widthAnchor.constraint(equalToConstant: noteTableView.bounds.width)
+        cell.imageViewWidthAnchor.isActive = true
+        cell.tableViewCell_imageView.image = UIImage()
+        cell.tableViewCell_imageView.alpha = 0
+    }
+    
+}
+
+//MARK: focused cell test
 
 //    var focusedIndexPath : IndexPath?
-//    
+//
 //    override func viewDidLayoutSubviews() {
 //        trakingCellIndexPath()
 //    }
@@ -124,5 +133,3 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
 //        trakingCellIndexPath()
 //        print(focusedIndexPath)
 //    }
-    
-}

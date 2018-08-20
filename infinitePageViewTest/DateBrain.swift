@@ -29,7 +29,7 @@ class DateBrain {
         return performDateTransformTo(type: .year_Int, from: currentDate) as! Int
     }
     
-    var targetDate : Date = Date()
+    private var targetDate : Date = Date()
     
     var myDate : Date {
         get {
