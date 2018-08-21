@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PageViewController: UIPageViewController, UIPageViewControllerDataSource {
+class NotePageViewController: UIPageViewController, UIPageViewControllerDataSource {
     
     let dateModel = DateCoreModel()
     

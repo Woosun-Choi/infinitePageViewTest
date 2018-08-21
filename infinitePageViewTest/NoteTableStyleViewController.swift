@@ -61,9 +61,6 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
         }
     }
     
-    @IBAction func addButtonPressed(_ sender: UIButton) {
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         noteTableView.delegate = self
@@ -75,7 +72,12 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
         loadData()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    @IBAction func addButtonPressed(_ sender: UIButton) {
+        switch sender.tag {
+        case 1: performSegue(withIdentifier: "ToEditNote", sender: self)
+        default:
+            break
+        }
     }
     
     func loadData() {
@@ -106,6 +108,22 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "ToEditNote":
+            if let destinationVC = segue.destination as? NoteEditMainViewController {
+                destinationVC.dateModel.myDate = dateModel.myDate
+                if let settedDiary = diary {
+                    destinationVC.diary = settedDiary
+                }
+            }
+        default:
+            break
+        }
+    }
+    
+    //MARK: Cell layout in tableview queue
     
     fileprivate func setCellLayouts(_ cell: NoteTableViewCell) {
         inputData(cell)

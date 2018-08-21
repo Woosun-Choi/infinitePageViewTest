@@ -12,6 +12,10 @@
 		A709A1C32125683E009DACF3 /* NoteTableStyleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A709A1C22125683E009DACF3 /* NoteTableStyleViewController.swift */; };
 		A709A1C621256A00009DACF3 /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A709A1C421256A00009DACF3 /* NoteTableViewCell.swift */; };
 		A709A1C721256A00009DACF3 /* NoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A709A1C521256A00009DACF3 /* NoteTableViewCell.xib */; };
+		A709A1C9212BD205009DACF3 /* ImageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A709A1C8212BD205009DACF3 /* ImageCollectionViewController.swift */; };
+		A709A1CB212BD5C2009DACF3 /* NoteEditMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A709A1CA212BD5C2009DACF3 /* NoteEditMainViewController.swift */; };
+		A709A1D1212BD6E7009DACF3 /* NoteEditPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A709A1D0212BD6E7009DACF3 /* NoteEditPageViewController.swift */; };
+		A709A1D3212BD72E009DACF3 /* ImageEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A709A1D2212BD72E009DACF3 /* ImageEditViewController.swift */; };
 		A73A4A01211999EC00B6F8FE /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73A4A00211999EC00B6F8FE /* Note.swift */; };
 		A73A4A0321199C6600B6F8FE /* TextEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73A4A0221199C6600B6F8FE /* TextEditViewController.swift */; };
 		A7C7F26A21130C1D007C2C84 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C7F26921130C1D007C2C84 /* AppDelegate.swift */; };
@@ -20,7 +24,7 @@
 		A7C7F27221130C1D007C2C84 /* infinitePageViewTest.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A7C7F27021130C1D007C2C84 /* infinitePageViewTest.xcdatamodeld */; };
 		A7C7F27421130C21007C2C84 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7C7F27321130C21007C2C84 /* Assets.xcassets */; };
 		A7C7F27721130C21007C2C84 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7C7F27521130C21007C2C84 /* LaunchScreen.storyboard */; };
-		A7C7F27F21130C53007C2C84 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C7F27E21130C53007C2C84 /* PageViewController.swift */; };
+		A7C7F27F21130C53007C2C84 /* NotePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C7F27E21130C53007C2C84 /* NotePageViewController.swift */; };
 		A7C7F28221134A21007C2C84 /* DateCoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C7F28021134A21007C2C84 /* DateCoreModel.swift */; };
 		A7C7F28321134A21007C2C84 /* DateBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C7F28121134A21007C2C84 /* DateBrain.swift */; };
 		A7C7F2AF2119403C007C2C84 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C7F2AE2119403C007C2C84 /* MainViewController.swift */; };
@@ -33,6 +37,10 @@
 		A709A1C22125683E009DACF3 /* NoteTableStyleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableStyleViewController.swift; sourceTree = "<group>"; };
 		A709A1C421256A00009DACF3 /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
 		A709A1C521256A00009DACF3 /* NoteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteTableViewCell.xib; sourceTree = "<group>"; };
+		A709A1C8212BD205009DACF3 /* ImageCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewController.swift; sourceTree = "<group>"; };
+		A709A1CA212BD5C2009DACF3 /* NoteEditMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteEditMainViewController.swift; sourceTree = "<group>"; };
+		A709A1D0212BD6E7009DACF3 /* NoteEditPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteEditPageViewController.swift; sourceTree = "<group>"; };
+		A709A1D2212BD72E009DACF3 /* ImageEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEditViewController.swift; sourceTree = "<group>"; };
 		A73A4A00211999EC00B6F8FE /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		A73A4A0221199C6600B6F8FE /* TextEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditViewController.swift; sourceTree = "<group>"; };
 		A7C7F26621130C1D007C2C84 /* infinitePageViewTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = infinitePageViewTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -43,7 +51,7 @@
 		A7C7F27321130C21007C2C84 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A7C7F27621130C21007C2C84 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A7C7F27821130C21007C2C84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A7C7F27E21130C53007C2C84 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		A7C7F27E21130C53007C2C84 /* NotePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotePageViewController.swift; sourceTree = "<group>"; };
 		A7C7F28021134A21007C2C84 /* DateCoreModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateCoreModel.swift; sourceTree = "<group>"; };
 		A7C7F28121134A21007C2C84 /* DateBrain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateBrain.swift; sourceTree = "<group>"; };
 		A7C7F2AE2119403C007C2C84 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -61,14 +69,50 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A73A4A06211D28ED00B6F8FE /* Controllers */ = {
+		A709A1CC212BD614009DACF3 /* MainCollectionImageView */ = {
+			isa = PBXGroup;
+			children = (
+				A709A1C8212BD205009DACF3 /* ImageCollectionViewController.swift */,
+			);
+			name = MainCollectionImageView;
+			sourceTree = "<group>";
+		};
+		A709A1CD212BD65E009DACF3 /* MainNotePageView */ = {
+			isa = PBXGroup;
+			children = (
+				A7C7F2AE2119403C007C2C84 /* MainViewController.swift */,
+				A7C7F27E21130C53007C2C84 /* NotePageViewController.swift */,
+				A709A1CF212BD6BF009DACF3 /* NoteEditViews */,
+				A709A1CE212BD692009DACF3 /* NoteTableViews */,
+			);
+			name = MainNotePageView;
+			sourceTree = "<group>";
+		};
+		A709A1CE212BD692009DACF3 /* NoteTableViews */ = {
 			isa = PBXGroup;
 			children = (
 				A709A1C22125683E009DACF3 /* NoteTableStyleViewController.swift */,
 				A709A1C421256A00009DACF3 /* NoteTableViewCell.swift */,
 				A709A1C521256A00009DACF3 /* NoteTableViewCell.xib */,
-				A7C7F2AE2119403C007C2C84 /* MainViewController.swift */,
-				A7C7F27E21130C53007C2C84 /* PageViewController.swift */,
+			);
+			name = NoteTableViews;
+			sourceTree = "<group>";
+		};
+		A709A1CF212BD6BF009DACF3 /* NoteEditViews */ = {
+			isa = PBXGroup;
+			children = (
+				A709A1CA212BD5C2009DACF3 /* NoteEditMainViewController.swift */,
+				A709A1D0212BD6E7009DACF3 /* NoteEditPageViewController.swift */,
+				A709A1D2212BD72E009DACF3 /* ImageEditViewController.swift */,
+			);
+			name = NoteEditViews;
+			sourceTree = "<group>";
+		};
+		A73A4A06211D28ED00B6F8FE /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A709A1CC212BD614009DACF3 /* MainCollectionImageView */,
+				A709A1CD212BD65E009DACF3 /* MainNotePageView */,
 				A7C7F26B21130C1D007C2C84 /* FrameViewController.swift */,
 				A73A4A0221199C6600B6F8FE /* TextEditViewController.swift */,
 			);
@@ -199,16 +243,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A709A1D3212BD72E009DACF3 /* ImageEditViewController.swift in Sources */,
+				A709A1C9212BD205009DACF3 /* ImageCollectionViewController.swift in Sources */,
 				A7C7F2AF2119403C007C2C84 /* MainViewController.swift in Sources */,
 				A73A4A0321199C6600B6F8FE /* TextEditViewController.swift in Sources */,
 				A7C7F26C21130C1D007C2C84 /* FrameViewController.swift in Sources */,
 				A7C7F26A21130C1D007C2C84 /* AppDelegate.swift in Sources */,
 				A73A4A01211999EC00B6F8FE /* Note.swift in Sources */,
+				A709A1CB212BD5C2009DACF3 /* NoteEditMainViewController.swift in Sources */,
 				A709A1C621256A00009DACF3 /* NoteTableViewCell.swift in Sources */,
 				A7C831D62125576E00A62EA1 /* NoteDataManager.swift in Sources */,
 				A7C7F28321134A21007C2C84 /* DateBrain.swift in Sources */,
 				A7C7F27221130C1D007C2C84 /* infinitePageViewTest.xcdatamodeld in Sources */,
-				A7C7F27F21130C53007C2C84 /* PageViewController.swift in Sources */,
+				A7C7F27F21130C53007C2C84 /* NotePageViewController.swift in Sources */,
+				A709A1D1212BD6E7009DACF3 /* NoteEditPageViewController.swift in Sources */,
 				A709A1BD2125630B009DACF3 /* HashTag.swift in Sources */,
 				A7C7F28221134A21007C2C84 /* DateCoreModel.swift in Sources */,
 				A709A1C32125683E009DACF3 /* NoteTableStyleViewController.swift in Sources */,

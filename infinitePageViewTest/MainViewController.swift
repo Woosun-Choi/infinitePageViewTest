@@ -14,7 +14,7 @@ class MainViewController: UIViewController, textEditDelegate {
     let imagePickerController = UIImagePickerController()
     
     @IBOutlet weak var pageView: UIView!
-    private var mypageView : PageViewController?
+    private var mypageView : NotePageViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +38,7 @@ class MainViewController: UIViewController, textEditDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "PageView":
-            if let loadedPageVC = segue.destination as? PageViewController {
+            if let loadedPageVC = segue.destination as? NotePageViewController {
                 self.mypageView = loadedPageVC
                 print("pageview setted")
             }
