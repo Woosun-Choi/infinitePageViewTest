@@ -10,19 +10,22 @@ import UIKit
 
 class NoteTableViewCell: UITableViewCell {
     
-    var note : Note? {
-        didSet {
-            print("Note setted")
-            if note?.image != nil {
-                if let image = note?.image {
-                    resizeImageAndImageView(image: image, size: 300)
-                }
-            }
-            if note?.comment != nil {
-                tableViewCell_commentLabel.text = note?.comment
-            }
-        }
-    }
+    var note : Note?
+//    {
+//        didSet {
+//            print("Note setted")
+//            if note?.image != nil {
+//                if let image = note?.image {
+//                    print(tableViewCell_imageView.bounds.width)
+//                    print(self.contentView.bounds.width)
+//                    resizeImageAndImageView(image: image, size: 300)
+//                }
+//            }
+//            if note?.comment != nil {
+//                tableViewCell_commentLabel.text = note?.comment
+//            }
+//        }
+//    }
     
     @IBOutlet weak var tableViewCell_imageView: UIImageView!
     @IBOutlet weak var hashtagView: UIView!
@@ -32,17 +35,19 @@ class NoteTableViewCell: UITableViewCell {
     var imageViewHeightAnchor : NSLayoutConstraint!
     var imageViewWidthAnchor : NSLayoutConstraint!
     
-    private func resizingImageView(image imageData: Data) {
+    func resizingImageView(image imageData: Data) {
         if let image = UIImage(data: imageData) {
-            let width = imageViewWidthAnchor.constant
+            let width = self.contentView.bounds.width//imageViewWidthAnchor.constant
             let height = (width) * ((image.size.height)/(image.size.width))
             imageViewHeightAnchor = imageViewContainer.heightAnchor.constraint(equalToConstant: height)
             imageViewHeightAnchor.isActive = true
-            super.setNeedsUpdateConstraints()
-            print(tableViewCell_imageView.bounds.height)
-            print(imageViewHeightAnchor.constant)
-            print(imageViewWidthAnchor.constant)
             print("resizing")
+//            let widths = self.contentView.bounds.width
+//            imageViewContainer.bounds.size.height = widths * ((image.size.height)/(image.size.width))
+//            imageViewContainer.setNeedsLayout()
+//            imageViewContainer.setNeedsLayout()
+//            self.contentView.setNeedsLayout()
+//            self.contentView.layoutIfNeeded()
         }
     }
     
@@ -50,7 +55,7 @@ class NoteTableViewCell: UITableViewCell {
         resizingImageView(image: imageData)
         DispatchQueue.global(qos: .background).async {
             let newImage = UIImage(data: imageData)
-            let inputImage = newImage?.resizedImageWithinRect(rectSize: CGSize(width: sizeWithRect, height: sizeWithRect))
+            let inputImage = newImage
             DispatchQueue.main.async {
                 self.tableViewCell_imageView.image = inputImage
                 UIView.animate(withDuration: 0.5, animations: {
@@ -62,8 +67,6 @@ class NoteTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        //self.updateConstraintsIfNeeded()
-        //self.layoutIfNeeded()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
