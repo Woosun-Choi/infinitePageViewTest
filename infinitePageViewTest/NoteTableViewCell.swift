@@ -11,21 +11,21 @@ import UIKit
 class NoteTableViewCell: UITableViewCell {
     
     var note : Note?
-//    {
-//        didSet {
-//            print("Note setted")
-//            if note?.image != nil {
-//                if let image = note?.image {
-//                    print(tableViewCell_imageView.bounds.width)
-//                    print(self.contentView.bounds.width)
-//                    resizeImageAndImageView(image: image, size: 300)
-//                }
-//            }
-//            if note?.comment != nil {
-//                tableViewCell_commentLabel.text = note?.comment
-//            }
-//        }
-//    }
+    {
+        didSet {
+            print("Note setted")
+            if note?.image != nil {
+                if let image = note?.image {
+                    print(tableViewCell_imageView.bounds.width)
+                    print(self.contentView.bounds.width)
+                    resizeImageAndImageView(image: image, size: 300)
+                }
+            }
+            if note?.comment != nil {
+                tableViewCell_commentLabel.text = note?.comment
+            }
+        }
+    }
     
     @IBOutlet weak var tableViewCell_imageView: UIImageView!
     @IBOutlet weak var hashtagView: UIView!
@@ -42,12 +42,6 @@ class NoteTableViewCell: UITableViewCell {
             imageViewHeightAnchor = imageViewContainer.heightAnchor.constraint(equalToConstant: height)
             imageViewHeightAnchor.isActive = true
             print("resizing")
-//            let widths = self.contentView.bounds.width
-//            imageViewContainer.bounds.size.height = widths * ((image.size.height)/(image.size.width))
-//            imageViewContainer.setNeedsLayout()
-//            imageViewContainer.setNeedsLayout()
-//            self.contentView.setNeedsLayout()
-//            self.contentView.layoutIfNeeded()
         }
     }
     

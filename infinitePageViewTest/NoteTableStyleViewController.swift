@@ -93,8 +93,9 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NoteCell", for: indexPath) as! NoteTableViewCell
         print("cell setted")
+        cellLayoutInit(cell)
         cell.note = notes[indexPath.row]
-        setCellLayouts(cell)
+        //setCellLayouts(cell)
         return cell
     }
     
@@ -108,13 +109,11 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
     
     fileprivate func setCellLayouts(_ cell: NoteTableViewCell) {
         inputData(cell)
-        //        cell.contentView.setNeedsLayout()
-        //        cell.contentView.layoutIfNeeded()
-        //        cell.imageViewHeightAnchor?.isActive = false
-        ////        cell.imageViewWidthAnchor = cell.imageViewContainer.widthAnchor.constraint(equalToConstant: noteTableView.bounds.width)
-        ////        cell.imageViewWidthAnchor.isActive = true
-        //        cell.tableViewCell_imageView.image = UIImage()
-        //        cell.tableViewCell_imageView.alpha = 0
+    }
+    
+    fileprivate func inputData(_ cell: NoteTableViewCell) {
+        cellLayoutInit(cell)
+        resizeImageAndImageView(image: (cell.note?.image)!, cell: cell)
     }
     
     fileprivate func cellLayoutInit(_ cell: NoteTableViewCell) {
@@ -122,11 +121,6 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
         cell.imageViewHeightAnchor?.isActive = false
         cell.tableViewCell_imageView.image = UIImage()
         cell.tableViewCell_imageView.alpha = 0
-    }
-    
-    fileprivate func inputData(_ cell: NoteTableViewCell) {
-        cellLayoutInit(cell)
-        resizeImageAndImageView(image: (cell.note?.image)!, cell: cell)
     }
     
     fileprivate func resizingImageView(image imageData: UIImage?, cell settedCell: NoteTableViewCell) {

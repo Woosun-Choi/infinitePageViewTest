@@ -358,6 +358,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y44ARMYDQD;
+				IBC_ERRORS = YES;
+				IBC_FLATTEN_NIBS = YES;
+				IBC_NOTICES = YES;
+				IBC_WARNINGS = YES;
 				INFOPLIST_FILE = infinitePageViewTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -376,6 +380,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y44ARMYDQD;
+				IBC_ERRORS = YES;
+				IBC_FLATTEN_NIBS = YES;
+				IBC_NOTICES = YES;
+				IBC_WARNINGS = YES;
 				INFOPLIST_FILE = infinitePageViewTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
