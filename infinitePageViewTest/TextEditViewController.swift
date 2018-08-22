@@ -8,28 +8,23 @@
 
 import UIKit
 
-protocol textEditDelegate {
-    func updateEditedText(_ text: String)
-}
-
 class TextEditViewController: UIViewController {
     
     var text : String?
-    
-    var delegte : textEditDelegate?
 
     @IBOutlet weak var textField: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        textField.becomeFirstResponder()
-        textField.text = text
+        textField.text = ""
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+    }
+    
 
     @IBAction func donePressed(_ sender: UIButton) {
-        dismiss(animated: true) {
-            self.delegte?.updateEditedText(self.textField.text)
-        }
+        textField.endEditing(true)
     }
 
 }

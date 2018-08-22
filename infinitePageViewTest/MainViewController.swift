@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class MainViewController: UIViewController, textEditDelegate {
+class MainViewController: UIViewController {
     
     let imagePickerController = UIImagePickerController()
     
@@ -41,15 +41,6 @@ class MainViewController: UIViewController, textEditDelegate {
             if let loadedPageVC = segue.destination as? NotePageViewController {
                 self.mypageView = loadedPageVC
                 print("pageview setted")
-            }
-        case "ToTextEdit":
-            if let loadedPageVC = segue.destination as? TextEditViewController {
-                loadedPageVC.delegte = self
-                if let text = (currentView() as? FrameViewController)?.commentLabel.text {
-                    loadedPageVC.text = text
-                } else {
-                    loadedPageVC.text = ""
-                }
             }
         default:
             break

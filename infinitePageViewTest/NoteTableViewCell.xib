@@ -12,7 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell opaque="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NoteCell" rowHeight="457" id="KGk-i7-Jjw" customClass="NoteTableViewCell" customModule="infinitePageViewTest" customModuleProvider="target">
+        <tableViewCell opaque="NO" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="NoteCell" rowHeight="457" id="KGk-i7-Jjw" customClass="NoteTableViewCell" customModule="infinitePageViewTest" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="457"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -35,7 +35,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="dSw-8E-lOu" firstAttribute="leading" secondItem="n5W-jk-R3n" secondAttribute="leading" id="6Xq-yJ-z31"/>
-                                            <constraint firstAttribute="height" constant="285.5" id="JEF-sg-qIA"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" id="JEF-sg-qIA"/>
                                             <constraint firstAttribute="trailing" secondItem="dSw-8E-lOu" secondAttribute="trailing" id="Kia-3j-CP7"/>
                                             <constraint firstAttribute="bottom" secondItem="dSw-8E-lOu" secondAttribute="bottom" id="UHa-3J-f2Z"/>
                                             <constraint firstItem="dSw-8E-lOu" firstAttribute="top" secondItem="n5W-jk-R3n" secondAttribute="top" id="vhv-Uz-mU5"/>
@@ -54,8 +54,8 @@
                                             <constraint firstAttribute="height" constant="60" id="tnV-Ji-T4c"/>
                                         </constraints>
                                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="16"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                 </subviews>
@@ -66,7 +66,6 @@
                                 </constraints>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="adl-of-57m" firstAttribute="top" secondItem="cA4-N6-N10" secondAttribute="top" id="F9f-Ci-T7g"/>
                             <constraint firstItem="adl-of-57m" firstAttribute="leading" secondItem="cA4-N6-N10" secondAttribute="leading" id="g2p-WR-rwX"/>
@@ -75,7 +74,7 @@
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="self.cornerRadius">
-                                <integer key="value" value="16"/>
+                                <integer key="value" value="10"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
@@ -96,6 +95,7 @@
                 <outlet property="hastagViewHeight" destination="VDg-Ea-oRh" id="tkv-94-Dqq"/>
                 <outlet property="imageViewContainer" destination="n5W-jk-R3n" id="Gj1-lg-R34"/>
                 <outlet property="imageViewContainerHeight" destination="JEF-sg-qIA" id="LNg-fT-ef5"/>
+                <outlet property="stackViewBottomEdgeConstraint" destination="v6W-mU-H5k" id="rNg-SE-OnA"/>
                 <outlet property="tableViewCell_commentLabel" destination="dLX-8S-8i5" id="oLS-Yg-1fN"/>
                 <outlet property="tableViewCell_imageView" destination="dSw-8E-lOu" id="QOI-Qg-XBI"/>
             </connections>

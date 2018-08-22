@@ -7,9 +7,19 @@
 //
 
 import UIKit
-import AVFoundation
 
 class ImageEditViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    static var delegate: sendSavingData?
+    
+    var seledtedImage : Data? {
+        didSet {
+            imageView.image = UIImage(data: seledtedImage!)
+            ImageEditViewController.delegate?.sendSavingData(image: seledtedImage!, comment: nil)
+        }
+    }
+    
+    var images = [UIImage]()
 
     @IBOutlet weak var imageView: UIImageView!
     
@@ -17,34 +27,65 @@ class ImageEditViewController: UIViewController, UICollectionViewDelegate, UICol
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        imageCollectionView.delegate = self
+        imageCollectionView.dataSource = self
+        
+        DispatchQueue.global(qos: .background).async {
+            let imageArray = PhotoGenerator.getImageArrayWithThumbnails(200)
+            DispatchQueue.main.async {
+                self.images = imageArray
+                self.imageCollectionView.reloadData()
+            }
+        }
+        //images = PhotoGenerator.getImageArrayWithThumbnails(200)
 
         // Do any additional setup after loading the view.
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return images.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath)
-        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! ImageEditViewCollectionViewCell
+        cell.cell_ImageView.alpha = 0
+        cell.image = images[indexPath.row]
+        //cell.cell_ImageView.image = images[indexPath.row]
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        DispatchQueue.global(qos: .background).async {
+        let result = 
+            PhotoGenerator.getOriginalImageWithImageFetchResultsArray(indexPath.row)
+            DispatchQueue.main.async {
+                self.seledtedImage = result
+            }
+        }
+    }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+}
+
+extension ImageEditViewController: UICollectionViewDelegateFlowLayout {
+    
+    //MARK: Cell layout settings
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let width = collectionView.frame.width / 4 - 7.5
+        
+        return CGSize(width: width, height: width)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 5.0
     }
-    */
-
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 2.5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsetsMake(5.0, 5.0, 5.0, 5.0)
+    }
+    //Cell layout end
 }

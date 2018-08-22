@@ -8,38 +8,54 @@
 
 import UIKit
 
-class NoteEditPageViewController: UIPageViewController {
-
+class NoteEditPageViewController: UIPageViewController, UIPageViewControllerDataSource {
+    
+    lazy var viewControllerList : [UIViewController] = {
+        let vc1 = self.storyboard?.instantiateViewController(withIdentifier: "ImageEditView") as! ImageEditViewController
+        let vc2 = self.storyboard?.instantiateViewController(withIdentifier: "TextEditView") as! TextEditViewController
+        
+        return [vc1, vc2]
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let imageViewController = self.storyboard?.instantiateViewController(withIdentifier: "ImageEditView") as? ImageEditViewController
-        let controllers = [imageViewController]
-        setViewControllers(controllers as? [UIViewController], direction: .forward, animated: true, completion: nil)
-        
-        //dataSource = self
-        
-
-        // Do any additional setup after loading the view.
+        if let firstViewController = viewControllerList.first {
+            self.setViewControllers([firstViewController], direction: .forward, animated: true, completion: nil)
+        }
     }
     
-//    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-//        return nil
-//    }
-//    
-//    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-//        return nil
-//    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        return nil
     }
-    */
-
+    
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        return nil
+    }
+    
+    func nextPage() {
+        
+        if let controller = self.viewControllers?[0] as? ImageEditViewController {
+            let vcIndex = viewControllerList.index(of: controller)
+            let nextViewController = viewControllerList[vcIndex! + 1]
+            self.setViewControllers([nextViewController], direction: .forward, animated: true, completion: nil)
+            
+        }
+        
+        if let controller = self.viewControllers?[0] as? TextEditViewController {
+            
+        }
+    }
+    
+    func previousPage() {
+        
+        if let controller = self.viewControllers?[0] as? TextEditViewController {
+            let vcIndex = viewControllerList.index(of: controller)
+            let nextViewController = viewControllerList[vcIndex! - 1]
+            self.setViewControllers([nextViewController], direction: .reverse, animated: true, completion: nil)
+        }
+    }
+    
+    
+    
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CallUpDateTableView {
     
     let dateModel = DateCoreModel()
     
@@ -95,8 +95,9 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NoteCell", for: indexPath) as! NoteTableViewCell
         print("cell setted")
+        cellLayoutInit(cell)
         cell.note = notes[indexPath.row]
-        setCellLayouts(cell)
+        //setCellLayouts(cell)
         return cell
     }
     
@@ -105,21 +106,8 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
     //    mytableView.endUpdates()
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //        if let cell = tableView.cellForRow(at: indexPath) as? NoteTableViewCell {
-        //            resizingImageView(image: cell.tableViewCell_imageView.image, cell: cell)
-        //            tableView.beginUpdates()
-        //            tableView.endUpdates()
-        //        }
         tableView.deselectRow(at: indexPath, animated: false)
     }
-    
-    //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    //        var height : CGFloat!
-    //        if let cell = tableView.cellForRow(at: indexPath) as? NoteTableViewCell {
-    //            height = cell.contentView.bounds.height
-    //        }
-    //        return height
-    //    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
@@ -128,11 +116,16 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
                 destinationVC.dateModel.myDate = dateModel.myDate
                 if let settedDiary = diary {
                     destinationVC.diary = settedDiary
+                    destinationVC.delegate = self
                 }
             }
         default:
             break
         }
+    }
+    
+    func updateTableView() {
+        loadData()
     }
     
     //MARK: Cell layout in tableview queue
@@ -141,21 +134,18 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
         noteTableView.bounds.width
     }()
     
-    
     fileprivate func setCellLayouts(_ cell: NoteTableViewCell) {
         inputData(cell)
     }
     
-    fileprivate func inputData(_ cell: NoteTableViewCell) {
-        //cellLayoutInit(cell)
-        resizeImageAndImageView(image: (cell.note?.image)!, cell: cell)
-    }
-    
     fileprivate func cellLayoutInit(_ cell: NoteTableViewCell) {
-        //cell.contentView.bounds.size.width = noteTableView.bounds.width
-        //        cell.bottumEdgeConstraint.isActive = false
+        cell.contentView.bounds.size.width = actualWidthOfContentCell
         cell.tableViewCell_imageView.image = UIImage()
         cell.tableViewCell_imageView.alpha = 0
+    }
+    
+    fileprivate func inputData(_ cell: NoteTableViewCell) {
+        resizeImageAndImageView(image: (cell.note?.image)!, cell: cell)
     }
     
     fileprivate func resizingImageView(image imageData: UIImage?, cell settedCell: NoteTableViewCell) {
@@ -169,8 +159,6 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
     fileprivate func resizeImageAndImageView(image imageData: Data, cell settedCell: NoteTableViewCell) {
         let inputImage = UIImage(data: imageData)
         resizingImageView(image: inputImage, cell: settedCell)
-        //        settedCell.bottumEdgeConstraint = NSLayoutConstraint(item: settedCell.contentContainer, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: settedCell.contentView, attribute: .bottom, multiplier: 1, constant: -20)
-        //        settedCell.bottumEdgeConstraint?.isActive = true
         DispatchQueue.global(qos: .background).async {
             DispatchQueue.main.async {
                 settedCell.tableViewCell_imageView.image = inputImage
@@ -181,40 +169,6 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
         }
     }
     
-}
-
-fileprivate extension UIImage {
-    
-    /// Returns a image that fills in newSize
-    func resizedImage(newSize: CGSize) -> UIImage {
-        // Guard newSize is different
-        guard self.size != newSize else { return self }
-        
-        var myImage : UIImage?
-        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
-        self.draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
-        if let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext() {
-            UIGraphicsEndImageContext()
-            myImage = newImage
-        }
-        return myImage!
-    }
-    
-    /// Returns a resized image that fits in rectSize, keeping it's aspect ratio
-    /// Note that the new image size is not rectSize, but within it.
-    func resizedImageWithinRect(rectSize: CGSize) -> UIImage {
-        let widthFactor = size.width / rectSize.width
-        let heightFactor = size.height / rectSize.height
-        
-        var resizeFactor = widthFactor
-        if size.height > size.width {
-            resizeFactor = heightFactor
-        }
-        
-        let newSize = CGSize(width: size.width/resizeFactor, height: size.height/resizeFactor)
-        let resized = resizedImage(newSize: newSize)
-        return resized
-    }
 }
 
 //MARK: focused cell test
