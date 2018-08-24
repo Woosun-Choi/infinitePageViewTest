@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CallUpDateTableView {
+class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SaveNewData {
     
     let dateModel = DateCoreModel()
     

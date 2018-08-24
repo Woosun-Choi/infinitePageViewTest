@@ -35,25 +35,42 @@ class NoteEditPageViewController: UIPageViewController, UIPageViewControllerData
     
     func nextPage() {
         
-        if let controller = self.viewControllers?[0] as? ImageEditViewController {
-            let vcIndex = viewControllerList.index(of: controller)
+        if checkCurrentViewControllerType() == .ImageEditView {
+            let vcIndex = viewControllerList.index(of: currentVC() as! ImageEditViewController)
             let nextViewController = viewControllerList[vcIndex! + 1]
             self.setViewControllers([nextViewController], direction: .forward, animated: true, completion: nil)
-            
         }
         
-        if let controller = self.viewControllers?[0] as? TextEditViewController {
+        if checkCurrentViewControllerType() == .TextEditView {
             
         }
     }
     
     func previousPage() {
         
-        if let controller = self.viewControllers?[0] as? TextEditViewController {
-            let vcIndex = viewControllerList.index(of: controller)
+        if checkCurrentViewControllerType() == .TextEditView {
+            let vcIndex = viewControllerList.index(of: currentVC() as! TextEditViewController)
             let nextViewController = viewControllerList[vcIndex! - 1]
             self.setViewControllers([nextViewController], direction: .reverse, animated: true, completion: nil)
         }
+    }
+    
+    private enum currnetVCType {
+        case none
+        case TextEditView
+        case ImageEditView
+    }
+    
+    private func currentVC() -> UIViewController {
+        return self.viewControllers![0]
+    }
+    
+    private func checkCurrentViewControllerType() -> currnetVCType {
+        let vc = currentVC()
+        var vcType : currnetVCType = .none
+        if vc is TextEditViewController { vcType = .TextEditView; return vcType }
+        if vc is ImageEditViewController { vcType = .ImageEditView; return vcType }
+        return vcType
     }
     
     

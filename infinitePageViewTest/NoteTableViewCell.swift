@@ -23,6 +23,7 @@ class NoteTableViewCell: UITableViewCell {
     @IBOutlet weak var cell_ImageView: UIImageView!
     @IBOutlet weak var hashtagView: UIView!
     @IBOutlet weak var cell_CommentLabel: UILabel!
+    @IBOutlet var topInnerView: UIView!
     
     @IBOutlet var imageViewContainerHeightConstraint: NSLayoutConstraint!
     
@@ -60,6 +61,7 @@ class NoteTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         hashtagView.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        topInnerView.backgroundColor = UIColor.darkGray.withAlphaComponent(0.5)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

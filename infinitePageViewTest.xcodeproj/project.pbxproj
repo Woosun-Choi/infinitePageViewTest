@@ -136,6 +136,15 @@
 			name = DateModels;
 			sourceTree = "<group>";
 		};
+		A74338C6212FE00500F07F36 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A73A4A07211D292C00B6F8FE /* DateModels */,
+				A7E6AF47211D29B500920DAC /* NoteDataModels */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		A7C7F25D21130C1D007C2C84 = {
 			isa = PBXGroup;
 			children = (
@@ -159,8 +168,7 @@
 				A7C7F26D21130C1D007C2C84 /* Main.storyboard */,
 				A709A1D4212C11D5009DACF3 /* CustomExtentions.swift */,
 				A73A4A06211D28ED00B6F8FE /* Controllers */,
-				A73A4A07211D292C00B6F8FE /* DateModels */,
-				A7E6AF47211D29B500920DAC /* NoteDataModels */,
+				A74338C6212FE00500F07F36 /* Models */,
 				A7C7F27521130C21007C2C84 /* LaunchScreen.storyboard */,
 				A7C7F27821130C21007C2C84 /* Info.plist */,
 				A7C7F27321130C21007C2C84 /* Assets.xcassets */,

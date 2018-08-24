@@ -250,6 +250,8 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="Bup-Tb-6qk" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="TgV-4V-zrE" secondAttribute="leading" constant="20" symbolic="YES" id="0TN-LX-VOZ"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="BnL-R0-etD" secondAttribute="trailing" constant="20" symbolic="YES" id="4rO-hO-gbf"/>
                                     <constraint firstItem="BnL-R0-etD" firstAttribute="centerY" secondItem="TgV-4V-zrE" secondAttribute="centerY" id="7K4-ry-LJi"/>
                                     <constraint firstItem="BnL-R0-etD" firstAttribute="leading" secondItem="TgV-4V-zrE" secondAttribute="leading" constant="8" id="NBq-wE-PZm"/>
                                     <constraint firstItem="Bup-Tb-6qk" firstAttribute="centerY" secondItem="TgV-4V-zrE" secondAttribute="centerY" id="Nax-WK-yQt"/>

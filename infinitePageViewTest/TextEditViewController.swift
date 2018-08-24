@@ -8,7 +8,9 @@
 
 import UIKit
 
-class TextEditViewController: UIViewController {
+class TextEditViewController: UIViewController, UITextViewDelegate {
+    
+    static var delegate : SetSavingData?
     
     var text : String?
 
@@ -16,10 +18,16 @@ class TextEditViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        textField.delegate = self
         textField.text = ""
     }
     
     override func viewDidAppear(_ animated: Bool) {
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        print("text did changed")
+        TextEditViewController.delegate?.setSavingData(image: nil, comment: textField.text)
     }
 
 }

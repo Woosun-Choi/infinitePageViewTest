@@ -15,6 +15,7 @@ class Note: NSManagedObject {
         var notes = [Note]()
         let request : NSFetchRequest<Note> = Note.fetchRequest()
         let context = AppDelegate.viewContext
+        
         do {
             var result = try context.fetch(request)
             result.sort(by: ({$0.createdDate! > $1.createdDate!}))
@@ -22,6 +23,7 @@ class Note: NSManagedObject {
         } catch {
             
         }
+        
         return notes
     }
     

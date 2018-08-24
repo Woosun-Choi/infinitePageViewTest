@@ -9,36 +9,38 @@
 import UIKit
 
 class SavingContent {
-    var image : Data? {
+    static var image : Data? {
         didSet {
             print("image data setted")
         }
     }
-    var comment : String?
+    static var comment : String? {
+        didSet {
+            print("comment setted")
+        }
+    }
 }
 
-protocol CallUpDateTableView {
+protocol SaveNewData {
     func saveNewData(image imageData: Data?, comment commentData: String?)
 }
 
-protocol sendSavingData {
-    func sendSavingData(image imageData: Data?, comment commentData: String?)
+protocol SetSavingData {
+    func setSavingData(image imageData: Data?, comment commentData: String?)
 }
 
-class NoteEditMainViewController: UIViewController, sendSavingData {
+class NoteEditMainViewController: UIViewController, SetSavingData {
     
     let dateModel = DateCoreModel()
     
-    var delegate : CallUpDateTableView?
-    
-    var savingContent = SavingContent()
+    var delegate : SaveNewData?
     
     var diary : Diary?
     
     var note : Note? {
         didSet {
             if let image = note?.image {
-                savingContent.image = image
+                SavingContent.image = image
             }
         }
     }
@@ -56,9 +58,10 @@ class NoteEditMainViewController: UIViewController, sendSavingData {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        SavingContent.image = nil
+        SavingContent.comment = nil
         ImageEditViewController.delegate = self
-        
-        // Do any additional setup after loading the view.
+        TextEditViewController.delegate = self
     }
     
     @IBAction func buttonPressed(_ sender: UIButton) {
@@ -66,34 +69,51 @@ class NoteEditMainViewController: UIViewController, sendSavingData {
         case "Cancel":
             self.dismiss(animated: true, completion: nil)
         case "Next":
-            if let _ = currentPageView?.viewControllers![0] as? ImageEditViewController {
+            if checkCurrentViewControllerType() == .ImageEditView {
                 leftButtonItem.setTitle("Back", for: .normal)
-                if savingContent.image != nil {
+                if SavingContent.image != nil {
                     rightButtonItem.setTitle("Done", for: .normal)
-                } else if savingContent.image == nil {
+                } else if SavingContent.image == nil {
                     rightButtonItem.setTitle("Done", for: .normal)
                     rightButtonItem.isEnabled = false
                 }
+                currentPageView?.nextPage()
             }
-            currentPageView?.nextPage()
         case "Back":
-            if let _ = currentPageView?.viewControllers![0] as? TextEditViewController {
+            if checkCurrentViewControllerType() == .TextEditView {
                 if !rightButtonItem.isEnabled {
                     rightButtonItem.isEnabled = true
                 }
                 leftButtonItem.setTitle("Cancel", for: .normal)
                 rightButtonItem.setTitle("Next", for: .normal)
+                currentPageView?.previousPage()
             }
-            currentPageView?.previousPage()
         case "Done":
-            if let textView = currentPageView?.viewControllers![0] as? TextEditViewController {
-                savingContent.comment = textView.textField.text
+            if checkCurrentViewControllerType() == .TextEditView {
+                delegate?.saveNewData(image: SavingContent.image, comment: SavingContent.comment)
+                self.dismiss(animated: true, completion: nil)
             }
-            delegate?.saveNewData(image: savingContent.image, comment: savingContent.comment)
-            self.dismiss(animated: true, completion: nil)
         default:
             break
         }
+    }
+    
+    private enum currnetVCType {
+        case none
+        case TextEditView
+        case ImageEditView
+    }
+    
+    private func currentVC() -> UIViewController {
+        return (currentPageView?.viewControllers![0])!
+    }
+    
+    private func checkCurrentViewControllerType() -> currnetVCType {
+        let vc = currentVC()
+        var vcType : currnetVCType = .none
+        if vc is TextEditViewController { vcType = .TextEditView; return vcType }
+        if vc is ImageEditViewController { vcType = .ImageEditView; return vcType }
+        return vcType
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -107,30 +127,13 @@ class NoteEditMainViewController: UIViewController, sendSavingData {
         }
     }
     
-    func sendSavingData(image imageData: Data?, comment commentData: String?) {
+    func setSavingData(image imageData: Data?, comment commentData: String?) {
         if let image = imageData {
-            savingContent.image = image
+            SavingContent.image = image
         }
         if let comment = commentData {
-            savingContent.comment = comment
+            SavingContent.comment = comment
         }
     }
-    
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
 }

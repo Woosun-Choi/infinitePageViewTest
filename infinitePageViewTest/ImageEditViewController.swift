@@ -10,12 +10,13 @@ import UIKit
 
 class ImageEditViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
-    static var delegate: sendSavingData?
+    static var delegate: SetSavingData?
     
     var seledtedImage : Data? {
         didSet {
             imageView.image = UIImage(data: seledtedImage!)
-            ImageEditViewController.delegate?.sendSavingData(image: seledtedImage!, comment: nil)
+            ImageEditViewController.delegate?.setSavingData(image: seledtedImage!, comment: nil)
+            UIApplication.shared.endIgnoringInteractionEvents()
         }
     }
     
@@ -31,15 +32,12 @@ class ImageEditViewController: UIViewController, UICollectionViewDelegate, UICol
         imageCollectionView.dataSource = self
         
         DispatchQueue.global(qos: .background).async {
-            let imageArray = PhotoGenerator.getImageArrayWithThumbnails(200)
+            let imageArray = PhotoGenerator.getImageArrayWithThumbnails(100)
             DispatchQueue.main.async {
                 self.images = imageArray
                 self.imageCollectionView.reloadData()
             }
         }
-        //images = PhotoGenerator.getImageArrayWithThumbnails(200)
-
-        // Do any additional setup after loading the view.
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -50,11 +48,11 @@ class ImageEditViewController: UIViewController, UICollectionViewDelegate, UICol
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! ImageEditViewCollectionViewCell
         cell.cell_ImageView.alpha = 0
         cell.image = images[indexPath.row]
-        //cell.cell_ImageView.image = images[indexPath.row]
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        UIApplication.shared.beginIgnoringInteractionEvents()
         DispatchQueue.global(qos: .background).async {
         let result = 
             PhotoGenerator.getOriginalImageWithImageFetchResultsArray(indexPath.row)
