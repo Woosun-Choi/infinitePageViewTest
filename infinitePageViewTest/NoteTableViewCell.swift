@@ -26,6 +26,9 @@ class NoteTableViewCell: UITableViewCell {
     @IBOutlet var topInnerView: UIView!
     
     @IBOutlet var imageViewContainerHeightConstraint: NSLayoutConstraint!
+    @IBOutlet var commentViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet var commentViewBottomEdgeConstraint: NSLayoutConstraint!
+    @IBOutlet var commentViewTopEdgeConstraint: NSLayoutConstraint!
     
     var heightConstraint : NSLayoutConstraint!
     
@@ -34,7 +37,12 @@ class NoteTableViewCell: UITableViewCell {
             setImageAndResizingImageView(actualWidth)
         }
         if let comment = note?.comment {
+            commentViewTopEdgeConstraint.constant = 8
+            commentViewBottomEdgeConstraint.constant = 10
             cell_CommentLabel.text = comment
+        }
+        if note?.comment == nil {
+            commentViewHeightConstraint.constant = 0
         }
     }
     

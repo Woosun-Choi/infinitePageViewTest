@@ -13,8 +13,15 @@ class MainImageCollectionViewCell: UICollectionViewCell {
     var note : Note? {
         didSet {
             if let image = note?.image {
-                let inputImage = UIImage(data: image)?.resizedImageWithinRect(rectSize: CGSize(width: 100, height: 100))
-                imageView.image = inputImage
+                DispatchQueue.global(qos: .background).async {
+                    let inputImage = UIImage(data: image)
+                    DispatchQueue.main.async {
+                        self.imageView.image = inputImage
+                        UIView.animate(withDuration: 0.4, animations: {
+                            self.imageView.alpha = 1
+                        })
+                    }
+                }
             }
         }
     }

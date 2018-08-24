@@ -19,6 +19,11 @@ class SavingContent {
             print("comment setted")
         }
     }
+    
+    static func resetSavingContent() {
+        SavingContent.image = nil
+        SavingContent.comment = nil
+    }
 }
 
 protocol SaveNewData {
@@ -50,16 +55,12 @@ class NoteEditMainViewController: UIViewController, SetSavingData {
     
     var currentPageView : NoteEditPageViewController?
     
-    @IBOutlet var barTitle: UILabel! {
-        didSet {
-            barTitle.text = "Add a moment"
-        }
-    }
+    @IBOutlet var barTitle: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        SavingContent.image = nil
-        SavingContent.comment = nil
+        barTitle.text = "choose a moment"
+        SavingContent.resetSavingContent()
         ImageEditViewController.delegate = self
         TextEditViewController.delegate = self
     }
@@ -78,6 +79,7 @@ class NoteEditMainViewController: UIViewController, SetSavingData {
                     rightButtonItem.isEnabled = false
                 }
                 currentPageView?.nextPage()
+                barTitle.text = "write a comment"
             }
         case "Back":
             if checkCurrentViewControllerType() == .TextEditView {
@@ -87,6 +89,7 @@ class NoteEditMainViewController: UIViewController, SetSavingData {
                 leftButtonItem.setTitle("Cancel", for: .normal)
                 rightButtonItem.setTitle("Next", for: .normal)
                 currentPageView?.previousPage()
+                barTitle.text = "choose a moment"
             }
         case "Done":
             if checkCurrentViewControllerType() == .TextEditView {
