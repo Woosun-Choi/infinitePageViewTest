@@ -81,7 +81,7 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
         }
     }
     
-    fileprivate func loadData() {
+    func loadData() {
         do {
             diary = try Diary.loadDiaryFromDate(dateModel.myDate)
         } catch {
