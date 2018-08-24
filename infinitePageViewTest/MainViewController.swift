@@ -50,11 +50,6 @@ class MainViewController: UIViewController {
     private func currentView() -> UIViewController? {
         var currentVC : UIViewController?
         
-        if let currentViewController = mypageView?.viewControllers?[0] as? FrameViewController {
-            print("called")
-            currentVC = currentViewController
-        }
-        
         if let currentViewController = mypageView?.viewControllers?[0] as? NoteTableStyleViewController {
             print("called")
             currentVC = currentViewController

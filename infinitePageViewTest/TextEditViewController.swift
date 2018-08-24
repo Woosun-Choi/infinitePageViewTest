@@ -21,10 +21,5 @@ class TextEditViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
     }
-    
-
-    @IBAction func donePressed(_ sender: UIButton) {
-        textField.endEditing(true)
-    }
 
 }

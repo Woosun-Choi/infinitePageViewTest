@@ -10,65 +10,56 @@ import UIKit
 
 class NoteTableViewCell: UITableViewCell {
     
-    var note : Note? {
+    var note : Note?
+    {
         didSet {
-            if let image = note?.image {
-                resizeImageAndImageView(image: image)
-            }
-            if let comment = note?.comment {
-                tableViewCell_commentLabel.text = comment
-            }
+            setData()
         }
     }
     
-    @IBOutlet weak var tableViewCell_imageView: UIImageView!
-    @IBOutlet weak var imageViewContainer: UIView!
-    @IBOutlet var imageViewContainerHeight: NSLayoutConstraint!
+    var actualWidth : CGFloat!
     
+    @IBOutlet var contentContainer: UIView!
+    @IBOutlet weak var cell_ImageView: UIImageView!
     @IBOutlet weak var hashtagView: UIView!
-    @IBOutlet weak var hastagViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var cell_CommentLabel: UILabel!
     
-    @IBOutlet weak var tableViewCell_commentLabel: UITextView!
-    @IBOutlet weak var commentLabelHeight: NSLayoutConstraint!
+    @IBOutlet var imageViewContainerHeightConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var contentContainer: UIView!
+    var heightConstraint : NSLayoutConstraint!
     
-    @IBOutlet var bottumEdgeConstraint: NSLayoutConstraint!
-    
-    @IBOutlet var stackViewBottomEdgeConstraint: NSLayoutConstraint!
-    
-    
-    fileprivate func resizingImageView(image imageData: UIImage?) {
-//        bottumEdgeConstraint.isActive = false
-//        stackViewBottomEdgeConstraint.isActive = false
-        if let image = imageData {
-            let height = (self.contentView.bounds.width) * ((image.size.height)/(image.size.width))
-            //tableViewCell_imageView.bounds.size.height = height
-            imageViewContainerHeight.constant = height
-            print(imageViewContainerHeight.constant)
-            print("resized")
+    func setData() {
+        if let _ = note?.image {
+            setImageAndResizingImageView(actualWidth)
+        }
+        if let comment = note?.comment {
+            cell_CommentLabel.text = comment
         }
     }
     
-    fileprivate func resizeImageAndImageView(image imageData: Data) {
-        let inputImage = UIImage(data: imageData)
-        resizingImageView(image: inputImage)
-//        bottumEdgeConstraint.isActive = true
-//        stackViewBottomEdgeConstraint.isActive = true
-        print(self.contentView.bounds.width)
-        print(self.contentView.bounds.height)
-        DispatchQueue.global(qos: .background).async {
-            DispatchQueue.main.async {
-                self.tableViewCell_imageView.image = inputImage
-                UIView.animate(withDuration: 0.5, animations: {
-                    self.tableViewCell_imageView.alpha = 1
-                })
+    func setImageAndResizingImageView(_ actualWidth: CGFloat) {
+        if let imageData = note?.image {
+            let image = UIImage(data: imageData)
+            let width = actualWidth - 20
+            let height = width * ((image?.size.height)!/(image?.size.width)!)
+            imageViewContainerHeightConstraint.constant = height
+            DispatchQueue.global(qos: .background).async {
+                let newImage = image
+                DispatchQueue.main.async {
+                    self.cell_ImageView.image = newImage
+                    UIView.animate(withDuration: 0.5, animations: {
+                        self.cell_ImageView.alpha = 1
+                    })
+                }
             }
         }
+        self.contentContainer.layer.borderWidth = 0.5
+        self.contentContainer.layer.borderColor = UIColor.black.withAlphaComponent(0.2).cgColor
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        hashtagView.backgroundColor = UIColor.white.withAlphaComponent(0.5)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

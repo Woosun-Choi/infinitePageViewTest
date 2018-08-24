@@ -22,17 +22,10 @@ class NotePageViewController: UIPageViewController, UIPageViewControllerDataSour
         
         dataSource = self
         let controllers = [generateTableViewWithDate(dateModel.currentDate)]
-        //let controllers = [generateFrameViewWithDate(dateModel.currentDate)]
         setViewControllers(controllers as? [UIViewController], direction: .reverse, animated: true, completion: nil)
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        
-//        if let dateInFocusedPage = (viewController as! FrameViewController).date {
-//            if let result = generateFrameViewWithDate(dateModel.setNewDateWithDistanceFromDate(direction: .present, from: dateInFocusedPage, distance: dateDistance.aDay)!) {
-//                return result
-//            }
-//        }
         
         if let dateInFocusedPage = (viewController as! NoteTableStyleViewController).date {
             if let result = generateTableViewWithDate(dateModel.setNewDateWithDistanceFromDate(direction: .present, from: dateInFocusedPage, distance: dateDistance.aDay)!) {
@@ -44,14 +37,6 @@ class NotePageViewController: UIPageViewController, UIPageViewControllerDataSour
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         
-//        if let dateInFocusedPage = (viewController as! FrameViewController).date {
-//            if dateInFocusedPage < dateModel.currentDate {
-//                if let result = generateFrameViewWithDate(dateModel.setNewDateWithDistanceFromDate(direction: .after, from: dateInFocusedPage, distance: dateDistance.aDay)!) {
-//                    return result
-//                }
-//            }
-//        }
-        
         if let dateInFocusedPage = (viewController as! NoteTableStyleViewController).date {
             if dateInFocusedPage < dateModel.currentDate {
                 if let result = generateTableViewWithDate(dateModel.setNewDateWithDistanceFromDate(direction: .after, from: dateInFocusedPage, distance: dateDistance.aDay)!) {
@@ -60,12 +45,6 @@ class NotePageViewController: UIPageViewController, UIPageViewControllerDataSour
             }
         }
         return nil
-    }
-    
-    func generateFrameViewWithDate(_ date: Date) -> FrameViewController? {
-        let frameViewController = self.storyboard?.instantiateViewController(withIdentifier: "FrameViewController") as? FrameViewController
-        frameViewController?.date = date
-        return frameViewController
     }
     
     func generateTableViewWithDate(_ date: Date) -> NoteTableStyleViewController? {

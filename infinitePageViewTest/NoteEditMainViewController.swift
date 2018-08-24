@@ -18,7 +18,7 @@ class SavingContent {
 }
 
 protocol CallUpDateTableView {
-    func updateTableView()
+    func saveNewData(image imageData: Data?, comment commentData: String?)
 }
 
 protocol sendSavingData {
@@ -89,12 +89,7 @@ class NoteEditMainViewController: UIViewController, sendSavingData {
             if let textView = currentPageView?.viewControllers![0] as? TextEditViewController {
                 savingContent.comment = textView.textField.text
             }
-            do {
-                try Note.saveDataOrCeate(diary, note: note, image: savingContent.image, comment: savingContent.comment, date: dateModel.myDate)
-                delegate?.updateTableView()
-            } catch {
-                
-            }
+            delegate?.saveNewData(image: savingContent.image, comment: savingContent.comment)
             self.dismiss(animated: true, completion: nil)
         default:
             break

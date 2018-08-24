@@ -43,7 +43,7 @@ class PhotoGenerator {
         
         requestOptions.isSynchronous = true
         requestOptions.isNetworkAccessAllowed = true
-        requestOptions.deliveryMode = .highQualityFormat
+        requestOptions.deliveryMode = .opportunistic
         fetchOptions.sortDescriptors = [NSSortDescriptor(key:"creationDate", ascending: false)]
         
         let fetchResault : PHFetchResult = PHAsset.fetchAssets(with: .image, options: fetchOptions)

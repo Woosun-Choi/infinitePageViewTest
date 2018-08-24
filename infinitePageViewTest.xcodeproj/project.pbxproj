@@ -23,7 +23,6 @@
 		A73A4A01211999EC00B6F8FE /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73A4A00211999EC00B6F8FE /* Note.swift */; };
 		A73A4A0321199C6600B6F8FE /* TextEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73A4A0221199C6600B6F8FE /* TextEditViewController.swift */; };
 		A7C7F26A21130C1D007C2C84 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C7F26921130C1D007C2C84 /* AppDelegate.swift */; };
-		A7C7F26C21130C1D007C2C84 /* FrameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C7F26B21130C1D007C2C84 /* FrameViewController.swift */; };
 		A7C7F26F21130C1D007C2C84 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7C7F26D21130C1D007C2C84 /* Main.storyboard */; };
 		A7C7F27221130C1D007C2C84 /* infinitePageViewTest.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A7C7F27021130C1D007C2C84 /* infinitePageViewTest.xcdatamodeld */; };
 		A7C7F27421130C21007C2C84 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7C7F27321130C21007C2C84 /* Assets.xcassets */; };
@@ -53,7 +52,6 @@
 		A73A4A0221199C6600B6F8FE /* TextEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditViewController.swift; sourceTree = "<group>"; };
 		A7C7F26621130C1D007C2C84 /* infinitePageViewTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = infinitePageViewTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7C7F26921130C1D007C2C84 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A7C7F26B21130C1D007C2C84 /* FrameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameViewController.swift; sourceTree = "<group>"; };
 		A7C7F26E21130C1D007C2C84 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A7C7F27121130C1D007C2C84 /* infinitePageViewTest.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = infinitePageViewTest.xcdatamodel; sourceTree = "<group>"; };
 		A7C7F27321130C21007C2C84 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -125,7 +123,6 @@
 			children = (
 				A709A1CC212BD614009DACF3 /* MainCollectionImageView */,
 				A709A1CD212BD65E009DACF3 /* MainNotePageView */,
-				A7C7F26B21130C1D007C2C84 /* FrameViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -259,7 +256,6 @@
 				A709A1C9212BD205009DACF3 /* ImageCollectionViewController.swift in Sources */,
 				A7C7F2AF2119403C007C2C84 /* MainViewController.swift in Sources */,
 				A73A4A0321199C6600B6F8FE /* TextEditViewController.swift in Sources */,
-				A7C7F26C21130C1D007C2C84 /* FrameViewController.swift in Sources */,
 				A709A1DD212CFD01009DACF3 /* PhotoGenerator.swift in Sources */,
 				A7C7F26A21130C1D007C2C84 /* AppDelegate.swift in Sources */,
 				A73A4A01211999EC00B6F8FE /* Note.swift in Sources */,

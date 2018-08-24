@@ -16,14 +16,12 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
     
     var date : Date? {
         didSet {
-            print("Date Setted")
             dateModel.myDate = date!
         }
     }
     
     var diary : Diary? {
         didSet {
-            print("diary setted")
             if let currentDiary = diary {
                 notes = Note.loadNoteFromDiary(currentDiary)
                 self.noteTableView.reloadData()
@@ -61,12 +59,15 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
         }
     }
     
+    fileprivate lazy var actualMaxWidthOfContentCell = {
+        noteTableView.bounds.width
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         noteTableView.delegate = self
         noteTableView.dataSource = self
         noteTableView.register(UINib(nibName: "NoteTableViewCell", bundle: nil), forCellReuseIdentifier: "NoteCell")
-        noteTableView.cellLayoutMarginsFollowReadableWidth = true
         noteTableView.rowHeight = UITableViewAutomaticDimension
         
         loadData()
@@ -80,7 +81,7 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
         }
     }
     
-    func loadData() {
+    fileprivate func loadData() {
         do {
             diary = try Diary.loadDiaryFromDate(dateModel.myDate)
         } catch {
@@ -94,10 +95,8 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NoteCell", for: indexPath) as! NoteTableViewCell
-        print("cell setted")
-        cellLayoutInit(cell)
-        cell.note = notes[indexPath.row]
-        //setCellLayouts(cell)
+        //setCell(note: notes[indexPath.row], cell: cell)
+        generateCell(actualWidth: actualMaxWidthOfContentCell, noteData: notes[indexPath.row], targetCell: cell)
         return cell
     }
     
@@ -116,60 +115,75 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
                 destinationVC.dateModel.myDate = dateModel.myDate
                 if let settedDiary = diary {
                     destinationVC.diary = settedDiary
-                    destinationVC.delegate = self
                 }
+                destinationVC.delegate = self
             }
         default:
             break
         }
     }
     
-    func updateTableView() {
-        loadData()
-    }
-    
-    //MARK: Cell layout in tableview queue
-    
-    lazy var actualWidthOfContentCell = {
-        noteTableView.bounds.width
-    }()
-    
-    fileprivate func setCellLayouts(_ cell: NoteTableViewCell) {
-        inputData(cell)
-    }
-    
-    fileprivate func cellLayoutInit(_ cell: NoteTableViewCell) {
-        cell.contentView.bounds.size.width = actualWidthOfContentCell
-        cell.tableViewCell_imageView.image = UIImage()
-        cell.tableViewCell_imageView.alpha = 0
-    }
-    
-    fileprivate func inputData(_ cell: NoteTableViewCell) {
-        resizeImageAndImageView(image: (cell.note?.image)!, cell: cell)
-    }
-    
-    fileprivate func resizingImageView(image imageData: UIImage?, cell settedCell: NoteTableViewCell) {
-        cellLayoutInit(settedCell)
-        if let image = imageData {
-            let height = (actualWidthOfContentCell) * ((image.size.height)/(image.size.width))
-            settedCell.imageViewContainerHeight.constant = height
+    func saveNewData(image imageData: Data?, comment commentData: String?) {
+        do {
+            try Note.saveDataOrCeate(diary, note: nil, image: imageData, comment: commentData, date: dateModel.myDate)
+            loadData()
+        } catch {
+            
         }
     }
     
-    fileprivate func resizeImageAndImageView(image imageData: Data, cell settedCell: NoteTableViewCell) {
-        let inputImage = UIImage(data: imageData)
-        resizingImageView(image: inputImage, cell: settedCell)
-        DispatchQueue.global(qos: .background).async {
-            DispatchQueue.main.async {
-                settedCell.tableViewCell_imageView.image = inputImage
-                UIView.animate(withDuration: 0.5, animations: {
-                    settedCell.tableViewCell_imageView.alpha = 1
-                })
-            }
+    fileprivate func generateCell(actualWidth width: CGFloat, noteData note: Note, targetCell cell: NoteTableViewCell) {
+        
+        func initalizingCell(cell targetCell: NoteTableViewCell) {
+            targetCell.cell_ImageView.alpha = 0
+            targetCell.cell_ImageView.image = UIImage()
         }
+        
+        initalizingCell(cell: cell)
+        cell.actualWidth = width
+        cell.note = note
     }
     
 }
+
+//MARK: Cell layout in tableview queue
+
+//func setCell(note noteData: Note, cell targetCell: NoteTableViewCell) {
+//    targetCell.note = noteData
+//    resizingView(actualMaxWidthOfContentCell, cell: targetCell)
+//}
+//
+//func initalizingCell(cell targetCell: NoteTableViewCell) {
+//    targetCell.cell_ImageView.alpha = 0
+//    targetCell.cell_ImageView.image = UIImage()
+//}
+//
+//func resizingView(_ actualWidth: CGFloat, cell targetCell: NoteTableViewCell) {
+//    initalizingCell(cell: targetCell)
+//    if let imageData = targetCell.note?.image {
+//        targetCell.needsUpdateConstraints()
+//        let image = UIImage(data: imageData)
+//        let width = actualWidth - 20
+//        let height = width * ((image?.size.height)!/(image?.size.width)!)
+//        targetCell.imageViewContainerHeightConstraint.constant = height
+//        DispatchQueue.global(qos: .background).async {
+//            let newImage = image
+//            DispatchQueue.main.async {
+//                targetCell.cell_ImageView.image = newImage
+//                UIView.animate(withDuration: 0.5, animations: {
+//                    targetCell.cell_ImageView.alpha = 1
+//                })
+//            }
+//        }
+//    }
+//
+//    if let commentData = targetCell.note?.comment {
+//        targetCell.cell_CommentLabel.text = commentData
+//    }
+//
+//    targetCell.contentContainer.layer.borderWidth = 0.5
+//    targetCell.contentContainer.layer.borderColor = UIColor.black.withAlphaComponent(0.2).cgColor
+//}
 
 //MARK: focused cell test
 
