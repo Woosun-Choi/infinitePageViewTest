@@ -8,32 +8,6 @@
 
 import UIKit
 
-class SavingContent {
-    static var image : Data? {
-        didSet {
-            print("image data setted")
-        }
-    }
-    static var comment : String? {
-        didSet {
-            print("comment setted")
-        }
-    }
-    
-    static func resetSavingContent() {
-        SavingContent.image = nil
-        SavingContent.comment = nil
-    }
-}
-
-protocol SaveNewData {
-    func saveNewData(image imageData: Data?, comment commentData: String?)
-}
-
-protocol SetSavingData {
-    func setSavingData(image imageData: Data?, comment commentData: String?)
-}
-
 class NoteEditMainViewController: UIViewController, SetSavingData {
     
     let dateModel = DateCoreModel()

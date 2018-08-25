@@ -64,6 +64,7 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
     }()
     
     override func viewDidLoad() {
+        print("tableview viewdid laoded")
         super.viewDidLoad()
         noteTableView.delegate = self
         noteTableView.dataSource = self
@@ -145,6 +146,13 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
         resetCell(cell: cell)
         cell.actualWidth = width
         cell.note = note
+    }
+    
+    func moveToTargetCell(_ index: IndexPath) {
+        DispatchQueue.main.async {
+            self.noteTableView.scrollToRow(at: index, at: .middle, animated: true)
+        }
+        
     }
     
 }

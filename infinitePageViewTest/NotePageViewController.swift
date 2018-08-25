@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NotePageViewController: UIPageViewController, UIPageViewControllerDataSource {
+class NotePageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     
     let dateModel = DateCoreModel()
     
@@ -19,10 +19,9 @@ class NotePageViewController: UIPageViewController, UIPageViewControllerDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        delegate = self
         dataSource = self
-        let controllers = [generateTableViewWithDate(dateModel.currentDate)]
-        setViewControllers(controllers as? [UIViewController], direction: .reverse, animated: true, completion: nil)
+        loadFisrtViewController(dateModel.currentDate)
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
@@ -45,6 +44,14 @@ class NotePageViewController: UIPageViewController, UIPageViewControllerDataSour
             }
         }
         return nil
+    }
+    
+    func loadFisrtViewController(_ date: Date) {
+        dataSource = nil
+        let controllers = [generateTableViewWithDate(date)]
+        setViewControllers(controllers as? [UIViewController], direction: .reverse, animated: true, completion: nil)
+        dataSource = self
+        
     }
     
     func generateTableViewWithDate(_ date: Date) -> NoteTableStyleViewController? {

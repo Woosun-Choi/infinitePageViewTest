@@ -14,16 +14,17 @@ class Note: NSManagedObject {
     static func fetchAllNoteData() throws -> [Note] {
         var notes = [Note]()
         let request : NSFetchRequest<Note> = Note.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "createdDate", ascending: false)
+        request.sortDescriptors = [sortDescriptor]
         let context = AppDelegate.viewContext
         
         do {
-            var result = try context.fetch(request)
-            result.sort(by: ({$0.createdDate! > $1.createdDate!}))
-            notes = result
+            notes = try context.fetch(request)
+            //result.sort(by: ({$0.createdDate! > $1.createdDate!}))
+            
         } catch {
             
         }
-        
         return notes
     }
     

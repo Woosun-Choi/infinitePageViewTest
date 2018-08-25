@@ -190,7 +190,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hb2-BL-D39" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2204" y="931.48425787106453"/>
+            <point key="canvasLocation" x="3287" y="-517"/>
         </scene>
         <!--Text Edit View Controller-->
         <scene sceneID="xf7-Lb-pdK">
@@ -228,7 +228,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bzF-J7-K9L" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2885.5999999999999" y="926.98650674662679"/>
+            <point key="canvasLocation" x="3983" y="-518"/>
         </scene>
         <!--Note Edit Main View Controller-->
         <scene sceneID="lYT-re-mao">
@@ -311,12 +311,12 @@
                 <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="1Yp-5S-MEk" customClass="NoteEditPageViewController" customModule="infinitePageViewTest" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bDL-dO-rlU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2361" y="190"/>
+            <point key="canvasLocation" x="2580" y="-547"/>
         </scene>
-        <!--Main View Controller-->
+        <!--Note Main View Controller-->
         <scene sceneID="VDO-8p-Oul">
             <objects>
-                <viewController id="Oc8-BL-ZO5" customClass="MainViewController" customModule="infinitePageViewTest" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Oc8-BL-ZO5" customClass="NoteMainViewController" customModule="infinitePageViewTest" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fV7-6h-png">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -368,10 +368,10 @@
             </objects>
             <point key="canvasLocation" x="236" y="160.56971514242881"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Main Tab Bar View Controller-->
         <scene sceneID="4fG-sd-stU">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="7er-R3-E5b" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="7er-R3-E5b" customClass="MainTabBarViewController" customModule="infinitePageViewTest" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="FiU-nu-sd9">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -389,10 +389,10 @@
             </objects>
             <point key="canvasLocation" x="-1713" y="729"/>
         </scene>
-        <!--Image Collection View Controller-->
+        <!--Main Collection View Controller-->
         <scene sceneID="H37-ar-U8x">
             <objects>
-                <collectionViewController id="E1K-C3-gXO" customClass="ImageCollectionViewController" customModule="infinitePageViewTest" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController id="E1K-C3-gXO" customClass="MainCollectionViewController" customModule="infinitePageViewTest" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="6Ii-61-XKM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -436,7 +436,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="imG-Gb-kn6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-612" y="869.41529235382313"/>
+            <point key="canvasLocation" x="-615" y="1094"/>
         </scene>
     </scenes>
 </document>
