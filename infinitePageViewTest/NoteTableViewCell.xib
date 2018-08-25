@@ -22,23 +22,23 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cA4-N6-N10" userLabel="ContentContainer">
-                        <rect key="frame" x="10" y="10" width="300" height="449"/>
+                        <rect key="frame" x="0.0" y="10" width="320" height="449"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n5W-jk-R3n" userLabel="ImageViewContainer">
-                                <rect key="frame" x="0.0" y="0.0" width="300" height="449"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="449"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dSw-8E-lOu">
-                                        <rect key="frame" x="0.0" y="0.0" width="300" height="449"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="449"/>
                                     </imageView>
                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rSj-lf-ZJR" userLabel="hashtagView">
-                                        <rect key="frame" x="0.0" y="399" width="300" height="50"/>
+                                        <rect key="frame" x="0.0" y="399" width="320" height="50"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="ROZ-lm-VbR"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JJu-Ik-2zE" userLabel="TopInnerView">
-                                        <rect key="frame" x="0.0" y="0.0" width="300" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kvl-Gg-ydA">
                                                 <rect key="frame" x="8" y="0.0" width="46" height="30"/>
@@ -70,7 +70,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jzi-8r-3s7">
-                                <rect key="frame" x="15" y="449" width="270" height="0.0"/>
+                                <rect key="frame" x="16" y="449" width="288" height="0.0"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" id="HjJ-yu-kqd"/>
                                 </constraints>
@@ -88,16 +88,11 @@
                             <constraint firstAttribute="trailing" secondItem="n5W-jk-R3n" secondAttribute="trailing" id="n9o-Lt-W16"/>
                             <constraint firstItem="n5W-jk-R3n" firstAttribute="leading" secondItem="cA4-N6-N10" secondAttribute="leading" id="qr6-vh-vP3"/>
                         </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="self.cornerRadius">
-                                <integer key="value" value="10"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="cA4-N6-N10" secondAttribute="trailing" constant="10" id="Fkt-af-4vt"/>
-                    <constraint firstItem="cA4-N6-N10" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Jwp-f4-9Q9"/>
+                    <constraint firstAttribute="trailing" secondItem="cA4-N6-N10" secondAttribute="trailing" id="Fkt-af-4vt"/>
+                    <constraint firstItem="cA4-N6-N10" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Jwp-f4-9Q9"/>
                     <constraint firstAttribute="bottom" secondItem="cA4-N6-N10" secondAttribute="bottom" constant="10" id="UXf-5h-hXt"/>
                     <constraint firstItem="cA4-N6-N10" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="bRb-1A-LSW"/>
                 </constraints>
