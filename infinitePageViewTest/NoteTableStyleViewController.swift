@@ -147,9 +147,7 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
     fileprivate func generateCell(actualWidth width: CGFloat, noteData note: Note, targetCell cell: NoteTableViewCell) {
         
         func resetCell(cell targetCell: NoteTableViewCell) {
-            targetCell.cell_ImageView.image = nil
             targetCell.cell_CommentLabel.text = nil
-            targetCell.imageViewContainer.backgroundColor = UIColor.groupTableViewBackground
             targetCell.commentViewBottomEdgeConstraint.constant = 0
             targetCell.commentViewTopEdgeConstraint.constant = 0
             targetCell.cell_ImageView.alpha = 0

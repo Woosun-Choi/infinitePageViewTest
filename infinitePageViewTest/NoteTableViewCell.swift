@@ -52,17 +52,15 @@ class NoteTableViewCell: UITableViewCell {
             let image = UIImage(data: imageData)
             let width = actualWidth - 30
             let height = width * ((image?.size.height)!/(image?.size.width)!)
-            imageViewContainerHeightConstraint.constant = height
-            let newImage = image
+//            imageViewContainerHeightConstraint.constant = height
+//            print(imageViewContainerHeightConstraint.constant)
+            let newImage = image?.resizedImage(newSize: CGSize(width: width, height: height))
             self.cell_ImageView.image = newImage
             UIView.animate(withDuration: 0.5, animations: {
-                self.imageViewContainer.backgroundColor = UIColor.white
                 self.cell_ImageView.alpha = 1
             })
         }
     }
-    //        self.contentContainer.layer.borderWidth = 0.5
-    //        self.contentContainer.layer.borderColor = UIColor.black.withAlphaComponent(0.2).cgColor
     
     override func awakeFromNib() {
         super.awakeFromNib()
