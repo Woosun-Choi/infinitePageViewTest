@@ -22,7 +22,6 @@
 		A709A1DF212D092C009DACF3 /* ImageEditViewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A709A1DE212D092C009DACF3 /* ImageEditViewCollectionViewCell.swift */; };
 		A73A4A01211999EC00B6F8FE /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73A4A00211999EC00B6F8FE /* Note.swift */; };
 		A73A4A0321199C6600B6F8FE /* TextEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73A4A0221199C6600B6F8FE /* TextEditViewController.swift */; };
-		A74338C821301F9300F07F36 /* SavingContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74338C721301F9300F07F36 /* SavingContent.swift */; };
 		A74338CB2130201B00F07F36 /* NoteEditProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74338CA2130201B00F07F36 /* NoteEditProtocols.swift */; };
 		A74338CE2130344400F07F36 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74338CD2130344400F07F36 /* MainTabBarViewController.swift */; };
 		A74338D021313F8700F07F36 /* MyFetchedResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74338CF21313F8700F07F36 /* MyFetchedResultsController.swift */; };
@@ -55,7 +54,6 @@
 		A709A1DE212D092C009DACF3 /* ImageEditViewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEditViewCollectionViewCell.swift; sourceTree = "<group>"; };
 		A73A4A00211999EC00B6F8FE /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		A73A4A0221199C6600B6F8FE /* TextEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditViewController.swift; sourceTree = "<group>"; };
-		A74338C721301F9300F07F36 /* SavingContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingContent.swift; sourceTree = "<group>"; };
 		A74338CA2130201B00F07F36 /* NoteEditProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteEditProtocols.swift; sourceTree = "<group>"; };
 		A74338CD2130344400F07F36 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		A74338CF21313F8700F07F36 /* MyFetchedResultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFetchedResultsController.swift; sourceTree = "<group>"; };
@@ -159,7 +157,6 @@
 		A74338C921301FEC00F07F36 /* NoteEditModels */ = {
 			isa = PBXGroup;
 			children = (
-				A74338C721301F9300F07F36 /* SavingContent.swift */,
 				A709A1DC212CFD01009DACF3 /* PhotoGenerator.swift */,
 				A74338CA2130201B00F07F36 /* NoteEditProtocols.swift */,
 			);
@@ -295,7 +292,6 @@
 				A709A1D3212BD72E009DACF3 /* ImageEditViewController.swift in Sources */,
 				A709A1C9212BD205009DACF3 /* MainCollectionViewController.swift in Sources */,
 				A7C7F2AF2119403C007C2C84 /* NoteMainViewController.swift in Sources */,
-				A74338C821301F9300F07F36 /* SavingContent.swift in Sources */,
 				A73A4A0321199C6600B6F8FE /* TextEditViewController.swift in Sources */,
 				A709A1DD212CFD01009DACF3 /* PhotoGenerator.swift in Sources */,
 				A7C7F26A21130C1D007C2C84 /* AppDelegate.swift in Sources */,

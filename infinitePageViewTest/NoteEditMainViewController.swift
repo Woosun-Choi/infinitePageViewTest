@@ -24,6 +24,24 @@ class NoteEditMainViewController: UIViewController, SetSavingData {
         }
     }
     
+    private struct SavingContent {
+        static var image : Data? {
+            didSet {
+                print("image data setted")
+            }
+        }
+        static var comment : String? {
+            didSet {
+                print("comment setted")
+            }
+        }
+        
+        static func resetSavingContent() {
+            SavingContent.image = nil
+            SavingContent.comment = nil
+        }
+    }
+    
     @IBOutlet var leftButtonItem: UIButton!
     @IBOutlet var rightButtonItem: UIButton!
     
@@ -34,7 +52,9 @@ class NoteEditMainViewController: UIViewController, SetSavingData {
     override func viewDidLoad() {
         super.viewDidLoad()
         barTitle.text = "choose a moment"
-        SavingContent.resetSavingContent()
+        leftButtonItem.setTitleColor(UIColor.gray, for: .disabled)
+        rightButtonItem.setTitleColor(UIColor.gray, for: .disabled)
+        rightButtonItem.isEnabled = false
         ImageEditViewController.delegate = self
         TextEditViewController.delegate = self
     }
@@ -46,20 +66,12 @@ class NoteEditMainViewController: UIViewController, SetSavingData {
         case "Next":
             if checkCurrentViewControllerType() == .ImageEditView {
                 leftButtonItem.setTitle("Back", for: .normal)
-                if SavingContent.image != nil {
-                    rightButtonItem.setTitle("Done", for: .normal)
-                } else if SavingContent.image == nil {
-                    rightButtonItem.setTitle("Done", for: .normal)
-                    rightButtonItem.isEnabled = false
-                }
+                rightButtonItem.setTitle("Done", for: .normal)
                 currentPageView?.nextPage()
                 barTitle.text = "write a comment"
             }
         case "Back":
             if checkCurrentViewControllerType() == .TextEditView {
-                if !rightButtonItem.isEnabled {
-                    rightButtonItem.isEnabled = true
-                }
                 leftButtonItem.setTitle("Cancel", for: .normal)
                 rightButtonItem.setTitle("Next", for: .normal)
                 currentPageView?.previousPage()
@@ -107,6 +119,7 @@ class NoteEditMainViewController: UIViewController, SetSavingData {
     func setSavingData(image imageData: Data?, comment commentData: String?) {
         if let image = imageData {
             SavingContent.image = image
+            rightButtonItem.isEnabled = true
         }
         if let comment = commentData {
             SavingContent.comment = comment

@@ -96,7 +96,6 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NoteCell", for: indexPath) as! NoteTableViewCell
-        //setCell(note: notes[indexPath.row], cell: cell)
         generateCell(actualWidth: actualMaxWidthOfContentCell, noteData: notes[indexPath.row], targetCell: cell)
         return cell
     }
@@ -106,6 +105,9 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
     //    mytableView.endUpdates()
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) as? NoteTableViewCell {
+            cell.selectedAction()
+        }
         tableView.deselectRow(at: indexPath, animated: false)
     }
     
@@ -125,22 +127,32 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func saveNewData(image imageData: Data?, comment commentData: String?) {
-        do {
-            try Note.saveDataOrCeate(diary, note: nil, image: imageData, comment: commentData, date: dateModel.myDate)
-            loadData()
-        } catch {
-            
+        var newImageData: Data! {
+            didSet {
+                do {
+                    try Note.saveDataOrCeate(diary, note: nil, image: newImageData, comment: commentData, date: dateModel.myDate)
+                    loadData()
+                } catch {
+                }
+            }
         }
+        
+        let fullImage = UIImage(data: imageData!)
+        let newWidth = actualMaxWidthOfContentCell - 30
+        let newHeight = newWidth * ((fullImage?.size.height)!/(fullImage?.size.width)!)
+        let newImage = fullImage?.resizedImage(newSize:CGSize(width: newWidth, height: newHeight))
+        newImageData = UIImageJPEGRepresentation(newImage!, 1)
     }
     
     fileprivate func generateCell(actualWidth width: CGFloat, noteData note: Note, targetCell cell: NoteTableViewCell) {
         
         func resetCell(cell targetCell: NoteTableViewCell) {
+            targetCell.cell_ImageView.image = nil
             targetCell.cell_CommentLabel.text = nil
+            targetCell.imageViewContainer.backgroundColor = UIColor.groupTableViewBackground
             targetCell.commentViewBottomEdgeConstraint.constant = 0
             targetCell.commentViewTopEdgeConstraint.constant = 0
             targetCell.cell_ImageView.alpha = 0
-            targetCell.cell_ImageView.image = UIImage()
         }
         
         resetCell(cell: cell)
@@ -153,6 +165,41 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
             self.noteTableView.scrollToRow(at: index, at: .middle, animated: true)
         }
         
+    }
+    
+    //MARK : Cell layout settings
+    
+    func setData(_ cell:NoteTableViewCell) {
+        
+        func setImageAndResizingImageView(_ actualWidth: CGFloat) {
+            if let imageData = cell.note?.image {
+                let image = UIImage(data: imageData)
+                let width = actualWidth
+                let height = width * ((image?.size.height)!/(image?.size.width)!)
+                cell.imageViewContainerHeightConstraint.constant = height
+                DispatchQueue.global(qos: .background).async {
+                    let newImage = image?.resizedImage(newSize: CGSize(width: width, height: height))
+                    DispatchQueue.main.async {
+                        cell.cell_ImageView.image = newImage
+                        UIView.animate(withDuration: 0.5, animations: {
+                            cell.cell_ImageView.alpha = 1
+                        })
+                    }
+                }
+            }
+        }
+        
+        if let _ = cell.note?.image {
+            setImageAndResizingImageView(actualMaxWidthOfContentCell)
+        }
+        if let comment = cell.note?.comment {
+            cell.commentViewTopEdgeConstraint.constant = 8
+            cell.commentViewBottomEdgeConstraint.constant = 10
+            cell.cell_CommentLabel.text = comment
+        }
+        if cell.note?.comment == nil {
+            cell.commentViewHeightConstraint.constant = 0
+        }
     }
     
 }

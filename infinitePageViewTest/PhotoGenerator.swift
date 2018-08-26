@@ -21,6 +21,7 @@ class PhotoGenerator {
         
         requestOptions.isSynchronous = true
         requestOptions.deliveryMode = .fastFormat
+        requestOptions.resizeMode = .fast
         fetchOptions.sortDescriptors = [NSSortDescriptor(key:"creationDate", ascending: false)]
         
         let fetchResault : PHFetchResult = PHAsset.fetchAssets(with: .image, options: fetchOptions)

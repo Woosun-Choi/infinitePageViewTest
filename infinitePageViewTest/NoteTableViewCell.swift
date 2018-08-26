@@ -24,6 +24,7 @@ class NoteTableViewCell: UITableViewCell {
     @IBOutlet weak var hashtagView: UIView!
     @IBOutlet weak var cell_CommentLabel: UILabel!
     @IBOutlet var topInnerView: UIView!
+    @IBOutlet var imageViewContainer: UIView!
     
     @IBOutlet var imageViewContainerHeightConstraint: NSLayoutConstraint!
     @IBOutlet var commentViewHeightConstraint: NSLayoutConstraint!
@@ -49,27 +50,42 @@ class NoteTableViewCell: UITableViewCell {
     func setImageAndResizingImageView(_ actualWidth: CGFloat) {
         if let imageData = note?.image {
             let image = UIImage(data: imageData)
-            let width = actualWidth - 20
+            let width = actualWidth - 30
             let height = width * ((image?.size.height)!/(image?.size.width)!)
             imageViewContainerHeightConstraint.constant = height
-            DispatchQueue.global(qos: .background).async {
-                let newImage = image
-                DispatchQueue.main.async {
-                    self.cell_ImageView.image = newImage
-                    UIView.animate(withDuration: 0.5, animations: {
-                        self.cell_ImageView.alpha = 1
-                    })
-                }
-            }
+            let newImage = image
+            self.cell_ImageView.image = newImage
+            UIView.animate(withDuration: 0.5, animations: {
+                self.imageViewContainer.backgroundColor = UIColor.white
+                self.cell_ImageView.alpha = 1
+            })
         }
-        self.contentContainer.layer.borderWidth = 0.5
-        self.contentContainer.layer.borderColor = UIColor.black.withAlphaComponent(0.2).cgColor
     }
+    //        self.contentContainer.layer.borderWidth = 0.5
+    //        self.contentContainer.layer.borderColor = UIColor.black.withAlphaComponent(0.2).cgColor
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        hashtagView.backgroundColor = UIColor.white.withAlphaComponent(0.5)
-        topInnerView.backgroundColor = UIColor.darkGray.withAlphaComponent(0.5)
+        hashtagView.backgroundColor = UIColor.darkGray.withAlphaComponent(0.7)
+        hashtagView.isHidden = true
+        topInnerView.backgroundColor = UIColor.darkGray.withAlphaComponent(0.7)
+        topInnerView.isHidden = true
+        topInnerView.alpha = 0
+    }
+    
+    var zeroHeight : NSLayoutConstraint!
+    
+    func selectedAction() {
+        
+        UIView.animate(withDuration: 0.25) {
+            if self.topInnerView.isHidden {
+                self.topInnerView.isHidden = false
+                self.topInnerView.alpha = 1
+            } else if !self.topInnerView.isHidden {
+                self.topInnerView.isHidden = true
+                self.topInnerView.alpha = 0
+            }
+        }
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

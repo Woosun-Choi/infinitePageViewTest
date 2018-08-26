@@ -30,6 +30,9 @@ class ImageEditViewController: UIViewController, UICollectionViewDelegate, UICol
         super.viewDidLoad()
         imageCollectionView.delegate = self
         imageCollectionView.dataSource = self
+        imageView.layer.backgroundColor = UIColor.white.withAlphaComponent(0).cgColor
+        imageView.layer.borderWidth = 0.5
+        imageView.layer.borderColor = UIColor(red: 50/255, green: 51/255, blue: 51/255, alpha: 0.7).cgColor
         
         DispatchQueue.global(qos: .background).async {
             let imageArray = PhotoGenerator.getImageArrayWithThumbnails(100)
