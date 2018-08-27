@@ -38,11 +38,19 @@
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="no memories in this date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hBQ-9U-mOI">
+                                        <rect key="frame" x="72.5" y="308" width="198.5" height="21.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
+                                    <constraint firstItem="hBQ-9U-mOI" firstAttribute="centerX" secondItem="wiC-e4-pNS" secondAttribute="centerX" id="Nyw-UK-alW"/>
                                     <constraint firstItem="u8L-hm-w7P" firstAttribute="top" secondItem="wiC-e4-pNS" secondAttribute="top" constant="10" id="Zsy-Je-Mh0"/>
                                     <constraint firstItem="u8L-hm-w7P" firstAttribute="leading" secondItem="wiC-e4-pNS" secondAttribute="leading" id="b69-qG-qdo"/>
+                                    <constraint firstItem="hBQ-9U-mOI" firstAttribute="centerY" secondItem="wiC-e4-pNS" secondAttribute="centerY" id="oZS-c6-wyK"/>
                                     <constraint firstAttribute="bottom" secondItem="u8L-hm-w7P" secondAttribute="bottom" constant="10" id="z2F-xC-B9n"/>
                                     <constraint firstAttribute="trailing" secondItem="u8L-hm-w7P" secondAttribute="trailing" id="zRH-Gp-rHz"/>
                                 </constraints>
@@ -63,6 +71,8 @@
                     </view>
                     <connections>
                         <outlet property="noteTableView" destination="u8L-hm-w7P" id="IbB-G6-xwu"/>
+                        <outlet property="placeHolderTextLabel" destination="hBQ-9U-mOI" id="Igi-j8-pWY"/>
+                        <outlet property="tableViewContainer" destination="wiC-e4-pNS" id="lWS-GN-bia"/>
                         <segue destination="ufa-Q0-82r" kind="show" identifier="ToEditNote" id="EjF-nT-Syh"/>
                     </connections>
                 </viewController>
@@ -516,6 +526,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="fdD-0Z-BV6"/>
+        <segue reference="EjF-nT-Syh"/>
     </inferredMetricsTieBreakers>
 </document>

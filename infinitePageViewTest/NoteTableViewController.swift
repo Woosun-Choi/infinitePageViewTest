@@ -24,7 +24,7 @@ class NoteTableViewController: UIViewController, UITableViewDelegate, UITableVie
         didSet {
             if let currentDiary = diary {
                 notes = Note.loadNoteFromDiary(currentDiary)
-                self.noteTableView.reloadData()
+                reloadTableView()
             }
         }
     }
@@ -34,6 +34,10 @@ class NoteTableViewController: UIViewController, UITableViewDelegate, UITableVie
             print("tableview has set")
         }
     }
+    
+    @IBOutlet var tableViewContainer: UIView!
+    
+    @IBOutlet var placeHolderTextLabel: UILabel!
     
     lazy var actualMaxWidthOfContentCell = {
         noteTableView.bounds.width
@@ -50,12 +54,21 @@ class NoteTableViewController: UIViewController, UITableViewDelegate, UITableVie
         loadData()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        checkNotesAndPresentPlaceHolder()
+    }
+    
     func loadData() {
         do {
             diary = try Diary.loadDiaryFromDate(dateModel.myDate)
         } catch {
             print(error.localizedDescription)
         }
+    }
+    
+    func reloadTableView() {
+        noteTableView.reloadData()
+        checkNotesAndPresentPlaceHolder()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -107,7 +120,7 @@ class NoteTableViewController: UIViewController, UITableViewDelegate, UITableVie
                 let index = self.notes.index(of: note)
                 Note.deleteNote(note)
                 self.notes.remove(at: index!)
-                self.noteTableView.reloadData()
+                self.reloadTableView()
                 if self.notes.count != 0 {
                     DispatchQueue.main.async {
                         self.noteTableView.scrollToRow(at: [0,0], at: .middle, animated: true)
@@ -147,81 +160,21 @@ class NoteTableViewController: UIViewController, UITableViewDelegate, UITableVie
             self.noteTableView.scrollToRow(at: index, at: .middle, animated: true)
         }
     }
+    
+    //MARK : placeholdersettings
+    
+    var placeHolderExist : Bool = false
+    
+    func checkNotesAndPresentPlaceHolder() {
+        if notes.count == 0, !placeHolderExist {
+            placeHolderTextLabel.isHidden = false
+            placeHolderExist = true
+        } else if notes.count > 0 {
+            placeHolderTextLabel.isHidden = true
+            placeHolderExist = false
+        }
+    }
 }
-
-//MARK : Cell layout settings
-
-//func setData(_ cell:NoteTableViewCell) {
-//    
-//    func setImageAndResizingImageView(_ actualWidth: CGFloat) {
-//        if let imageData = cell.note?.image {
-//            let image = UIImage(data: imageData)
-//            let width = actualWidth
-//            let height = width * ((image?.size.height)!/(image?.size.width)!)
-//            cell.imageViewContainerHeightConstraint.constant = height
-//            DispatchQueue.global(qos: .background).async {
-//                let newImage = image?.resizedImage(newSize: CGSize(width: width, height: height))
-//                DispatchQueue.main.async {
-//                    cell.cell_ImageView.image = newImage
-//                    UIView.animate(withDuration: 0.5, animations: {
-//                        cell.cell_ImageView.alpha = 1
-//                    })
-//                }
-//            }
-//        }
-//    }
-//    
-//    if let _ = cell.note?.image {
-//        setImageAndResizingImageView(actualMaxWidthOfContentCell)
-//    }
-//    if let comment = cell.note?.comment {
-//        cell.commentViewTopEdgeConstraint.constant = 8
-//        cell.commentViewBottomEdgeConstraint.constant = 10
-//        cell.cell_CommentLabel.text = comment
-//    }
-//    if cell.note?.comment == nil {
-//        cell.commentViewHeightConstraint.constant = 0
-//    }
-//}
-
-//MARK: Cell layout in tableview queue
-
-//func setCell(note noteData: Note, cell targetCell: NoteTableViewCell) {
-//    targetCell.note = noteData
-//    resizingView(actualMaxWidthOfContentCell, cell: targetCell)
-//}
-//
-//func initalizingCell(cell targetCell: NoteTableViewCell) {
-//    targetCell.cell_ImageView.alpha = 0
-//    targetCell.cell_ImageView.image = UIImage()
-//}
-//
-//func resizingView(_ actualWidth: CGFloat, cell targetCell: NoteTableViewCell) {
-//    initalizingCell(cell: targetCell)
-//    if let imageData = targetCell.note?.image {
-//        targetCell.needsUpdateConstraints()
-//        let image = UIImage(data: imageData)
-//        let width = actualWidth - 20
-//        let height = width * ((image?.size.height)!/(image?.size.width)!)
-//        targetCell.imageViewContainerHeightConstraint.constant = height
-//        DispatchQueue.global(qos: .background).async {
-//            let newImage = image
-//            DispatchQueue.main.async {
-//                targetCell.cell_ImageView.image = newImage
-//                UIView.animate(withDuration: 0.5, animations: {
-//                    targetCell.cell_ImageView.alpha = 1
-//                })
-//            }
-//        }
-//    }
-//
-//    if let commentData = targetCell.note?.comment {
-//        targetCell.cell_CommentLabel.text = commentData
-//    }
-//
-//    targetCell.contentContainer.layer.borderWidth = 0.5
-//    targetCell.contentContainer.layer.borderColor = UIColor.black.withAlphaComponent(0.2).cgColor
-//}
 
 //MARK: focused cell test
 

@@ -14,7 +14,7 @@ class NotePhotoCollectionViewCell: UICollectionViewCell {
         didSet {
             if let image = note?.thumbnail {
                 DispatchQueue.global(qos: .background).async {
-                    let inputImage = UIImage(data: image)
+                    let inputImage = UIImage(data: image)?.resizedImage(newSize: CGSize(width: 100, height: 100))
                     DispatchQueue.main.async {
                         self.imageView.image = inputImage
                         UIView.animate(withDuration: 0.4, animations: {

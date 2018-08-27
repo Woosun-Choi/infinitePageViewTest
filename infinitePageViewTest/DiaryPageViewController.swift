@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol sendCurrentPagesDate {
+protocol sendCurrentPagesDate: class {
     func passedDate(_ date: Date)
 }
 
@@ -16,7 +16,7 @@ class DiaryPageViewController: UIPageViewController, UIPageViewControllerDataSou
     
     let dateModel = DateCoreModel()
     
-    var pageviewDelegate : sendCurrentPagesDate?
+    weak var pageviewDelegate : sendCurrentPagesDate?
     
     fileprivate struct dateDistance {
         static let aDay = 1

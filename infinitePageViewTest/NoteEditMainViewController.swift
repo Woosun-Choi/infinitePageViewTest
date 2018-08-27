@@ -10,9 +10,9 @@ import UIKit
 
 class NoteEditMainViewController: UIViewController, SetSavingData {
     
-    let dateModel = DateCoreModel()
+    static weak var noteEditDelegate : PrepareForSavingNewData?
     
-    static var noteEditDelegate : PrepareForSavingNewData?
+    let dateModel = DateCoreModel()
     
     var diary : Diary? {
         didSet {

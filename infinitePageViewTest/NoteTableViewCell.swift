@@ -13,13 +13,13 @@ enum requestedActionCases {
     case edit
 }
 
-protocol RequestActionForNote {
+protocol RequestActionForNote: class {
     func requestAction(_ note: Note, request requestAction: requestedActionCases)
 }
 
 class NoteTableViewCell: UITableViewCell {
     
-    var delegate : RequestActionForNote?
+    weak var delegate : RequestActionForNote?
     
     var note : Note?
     {

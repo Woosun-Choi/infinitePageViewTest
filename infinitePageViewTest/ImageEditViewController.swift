@@ -10,7 +10,7 @@ import UIKit
 
 class ImageEditViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
-    static var delegate: SetSavingData?
+    static weak var delegate: SetSavingData?
     
     var thumbnail : Data? {
         didSet {

@@ -16,7 +16,7 @@ class MainPageViewController: UIPageViewController {
         
         return [vc1, vc2]
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         if let firstViewController = viewControllerList.first {
@@ -55,5 +55,5 @@ class MainPageViewController: UIPageViewController {
         if vc is NotePhotoCollectionViewController { vcType = .MainCollectionViewController; return vcType }
         return vcType
     }
-
+    
 }

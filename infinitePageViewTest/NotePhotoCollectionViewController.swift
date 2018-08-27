@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-protocol SendSeletedNotePhotoData {
+protocol SendSeletedNotePhotoData: class {
     func moveToDiaryWithSelectedNoteData(_ date: Date, note noteData: Note)
 }
 
@@ -17,7 +17,13 @@ private let reuseIdentifier = "Cell"
 
 class NotePhotoCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, NSFetchedResultsControllerDelegate {
     
-    static var photoCellectionDelegate : SendSeletedNotePhotoData?
+    static weak var photoCellectionDelegate : SendSeletedNotePhotoData?
+    
+//    lazy var myFetchResultController : NSFetchedResultsController<Note> = {
+//        let fetchCN = MyFetchedResultsControllerModel.NoteFetchedResultController()
+//        fetchCN.delegate = self
+//        return fetchCN
+//    }()
     
     var myFetchResultController : NSFetchedResultsController<Note>!
     
@@ -27,17 +33,14 @@ class NotePhotoCollectionViewController: UICollectionViewController, UICollectio
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
         myFetchResultController = MyFetchedResultsControllerModel.NoteFetchedResultController()
-        myFetchResultController.delegate = self
-        
+        myFetchResultController?.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         do {
-            try myFetchResultController.performFetch()
-            collectionView?.reloadData()
-        } catch {
-            
-        }
+            try self.myFetchResultController.performFetch()
+            self.collectionView?.reloadData()
+        } catch { return }
         print("collectionview view appear")
     }
     
@@ -48,7 +51,7 @@ class NotePhotoCollectionViewController: UICollectionViewController, UICollectio
     // MARK: UICollectionViewDataSource
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+        return myFetchResultController.sections?.count ?? 1
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
