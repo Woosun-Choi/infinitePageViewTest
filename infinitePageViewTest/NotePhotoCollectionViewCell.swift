@@ -10,18 +10,14 @@ import UIKit
 
 class NotePhotoCollectionViewCell: UICollectionViewCell {
     
-    var note : Note? {
+    weak var note : Note? {
         didSet {
             if let image = note?.thumbnail {
-                DispatchQueue.global(qos: .background).async {
-                    let inputImage = UIImage(data: image)?.resizedImage(newSize: CGSize(width: 100, height: 100))
-                    DispatchQueue.main.async {
-                        self.imageView.image = inputImage
-                        UIView.animate(withDuration: 0.4, animations: {
-                            self.imageView.alpha = 1
-                        })
-                    }
-                }
+                let inputImage = UIImage(data: image)
+                imageView.image = inputImage
+                UIView.animate(withDuration: 0.4, animations: {
+                    self.imageView.alpha = 1
+                })
             }
         }
     }
@@ -32,5 +28,5 @@ class NotePhotoCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
 }

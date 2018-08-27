@@ -12,7 +12,7 @@ class MainViewController: UIViewController, PrepareForSavingNewData, SendSeleted
     
     @IBOutlet var maincontainerView: UIView!
     
-    var mypageView : MainPageViewController?
+    private var mypageView : MainPageViewController?
     
     @IBOutlet var leftEdgeButton: UIButton!
     
@@ -31,7 +31,7 @@ class MainViewController: UIViewController, PrepareForSavingNewData, SendSeleted
         // Do any additional setup after loading the view.
     }
     
-    func setButtonColorForState() {
+    private func setButtonColorForState() {
         leftEdgeButton.setTitleColor(UIColor.gray, for: .normal)
         leftEdgeButton.setTitleColor(UIColor.white, for: .selected)
         rightEdgeButton.setTitleColor(UIColor.gray, for: .normal)
