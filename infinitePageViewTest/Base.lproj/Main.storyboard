@@ -26,7 +26,7 @@
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="u8L-hm-w7P">
                                         <rect key="frame" x="0.0" y="10" width="343" height="617"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="Cell" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="68" id="22b-OV-z8f">
                                                 <rect key="frame" x="0.0" y="28" width="343" height="68"/>
@@ -39,7 +39,7 @@
                                         </prototypes>
                                     </tableView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="u8L-hm-w7P" firstAttribute="top" secondItem="wiC-e4-pNS" secondAttribute="top" constant="10" id="Zsy-Je-Mh0"/>
                                     <constraint firstItem="u8L-hm-w7P" firstAttribute="leading" secondItem="wiC-e4-pNS" secondAttribute="leading" id="b69-qG-qdo"/>
@@ -359,6 +359,7 @@
                         <outlet property="dayLabel" destination="2zD-Eo-2BG" id="se0-ZX-v6I"/>
                         <outlet property="monthLabel" destination="hKz-TL-Tgd" id="x3F-fB-hSr"/>
                         <outlet property="pageView" destination="c2H-E5-Ynm" id="PoS-2p-lQ1"/>
+                        <outlet property="topContainerView" destination="tqe-Xo-LJ5" id="JFV-sj-FSL"/>
                         <outlet property="weekdayLabel" destination="AWD-fy-ufP" id="0hO-c6-jZU"/>
                     </connections>
                 </viewController>
@@ -442,6 +443,7 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KDI-dg-z2x">
                                         <rect key="frame" x="15" y="15" width="33" height="30"/>
+                                        <color key="tintColor" red="0.1960784314" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" title="main"/>
                                         <connections>
                                             <action selector="bottomButtonPressed:" destination="dYb-pf-PY9" eventType="touchUpInside" id="qrK-DT-MaH"/>
@@ -449,6 +451,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MTT-hV-8JS">
                                         <rect key="frame" x="293" y="15" width="67" height="30"/>
+                                        <color key="tintColor" red="0.1960784314" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" title="collection"/>
                                         <connections>
                                             <action selector="bottomButtonPressed:" destination="dYb-pf-PY9" eventType="touchUpInside" id="sDl-Xs-yDp"/>
@@ -477,7 +480,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.31372549020000001" green="0.31764705879999999" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.1960784314" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="9Kj-DV-fQk" firstAttribute="trailing" secondItem="0fb-qH-0g0" secondAttribute="trailing" id="1JV-UP-ooS"/>
                             <constraint firstItem="0fb-qH-0g0" firstAttribute="leading" secondItem="9Kj-DV-fQk" secondAttribute="leading" id="3eA-gM-6WP"/>

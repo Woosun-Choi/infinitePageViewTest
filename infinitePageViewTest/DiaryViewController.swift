@@ -17,10 +17,6 @@ class DiaryViewController: UIViewController, sendCurrentPagesDate {
         didSet {
             dateModel.myDate = settedDate!
             if weekdayLabel.text != dateModel.weekday_String {
-//                UIView.transition(with: weekdayLabel,duration: 0.2,options: [.transitionFlipFromTop,.curveLinear],
-//                                  animations: {
-//                                    self.weekdayLabel.text = self.dateModel.weekday_String
-//                },completion: nil)}
             UIView.transition(with: weekdayLabel,duration: 0.2,options: [.transitionCrossDissolve,.curveEaseInOut],
                               animations: {
                                 self.weekdayLabel.text = self.dateModel.weekday_String
@@ -41,13 +37,20 @@ class DiaryViewController: UIViewController, sendCurrentPagesDate {
     @IBOutlet var weekdayLabel: UILabel!
     @IBOutlet var dayLabel: UILabel!
     @IBOutlet var monthLabel: UILabel!
+    @IBOutlet var topContainerView: UIView!
     
     @IBOutlet weak var pageView: UIView!
     var mypageView : DiaryPageViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("mianView didLoad")
+        let tabGuestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(backToCurrentDate))
+        tabGuestureRecognizer.numberOfTapsRequired = 2
+        topContainerView.addGestureRecognizer(tabGuestureRecognizer)
+    }
+    
+    @objc func backToCurrentDate() {
+        mypageView?.loadFisrtViewController(dateModel.currentDate)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

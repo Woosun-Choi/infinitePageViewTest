@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -40,19 +39,28 @@
                                         <rect key="frame" x="0.0" y="0.0" width="290" height="30"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kvl-Gg-ydA">
-                                                <rect key="frame" x="8" y="0.0" width="45" height="30"/>
+                                                <rect key="frame" x="8" y="0.0" width="51" height="30"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <state key="normal" title="Delete"/>
+                                                <state key="normal" title="remove"/>
                                                 <connections>
                                                     <action selector="buttonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="AYz-Pp-7C7"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RFr-os-OEv">
+                                                <rect key="frame" x="252" y="0.0" width="30" height="30"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="edit"/>
+                                                <connections>
+                                                    <action selector="buttonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="2hS-sB-lW1"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
-                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="kvl-Gg-ydA" firstAttribute="top" secondItem="JJu-Ik-2zE" secondAttribute="top" id="OkA-uH-R82"/>
+                                            <constraint firstItem="kvl-Gg-ydA" firstAttribute="leading" secondItem="JJu-Ik-2zE" secondAttribute="leading" constant="8" id="BIn-OD-uq8"/>
+                                            <constraint firstAttribute="trailing" secondItem="RFr-os-OEv" secondAttribute="trailing" constant="8" id="VQg-HP-qvp"/>
+                                            <constraint firstItem="kvl-Gg-ydA" firstAttribute="top" secondItem="JJu-Ik-2zE" secondAttribute="top" id="Va0-RD-mzS"/>
                                             <constraint firstAttribute="height" constant="30" id="egs-ON-lmg"/>
-                                            <constraint firstItem="kvl-Gg-ydA" firstAttribute="leading" secondItem="JJu-Ik-2zE" secondAttribute="leadingMargin" id="gBY-qb-CCE"/>
+                                            <constraint firstItem="RFr-os-OEv" firstAttribute="top" secondItem="JJu-Ik-2zE" secondAttribute="top" id="pJy-Wm-3NW"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -94,7 +102,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.95294117647058818" green="0.95294117647058818" blue="0.95294117647058818" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="GbB-J6-EBe" firstAttribute="top" secondItem="n5W-jk-R3n" secondAttribute="bottom" id="5Hc-bF-FBC"/>
                             <constraint firstAttribute="trailing" secondItem="GbB-J6-EBe" secondAttribute="trailing" id="H5L-ea-GSf"/>
@@ -112,6 +120,7 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
+                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="cA4-N6-N10" secondAttribute="trailing" constant="15" id="Fkt-af-4vt"/>
                     <constraint firstItem="cA4-N6-N10" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="Jwp-f4-9Q9"/>

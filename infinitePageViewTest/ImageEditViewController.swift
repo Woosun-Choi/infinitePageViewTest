@@ -49,6 +49,16 @@ class ImageEditViewController: UIViewController, UICollectionViewDelegate, UICol
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        checkData()
+    }
+    
+    func checkData() {
+        if SavingContent.image != nil {
+            seledtedImage = SavingContent.image
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return images.count
     }
@@ -62,11 +72,11 @@ class ImageEditViewController: UIViewController, UICollectionViewDelegate, UICol
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         UIApplication.shared.beginIgnoringInteractionEvents()
-        DispatchQueue.global(qos: .background).async {
-            if let cell = collectionView.cellForItem(at: indexPath) as? ImageEditViewCollectionViewCell {
-                self.thumbnail = UIImageJPEGRepresentation(cell.cell_ImageView.image!, 1)
-                let result =
-                    PhotoGenerator.getOriginalImageWithImageFetchResultsArray(indexPath.row)
+        
+        if let cell = collectionView.cellForItem(at: indexPath) as? ImageEditViewCollectionViewCell {
+            thumbnail = UIImageJPEGRepresentation(cell.cell_ImageView.image!, 1)
+            DispatchQueue.global(qos: .background).async {
+                let result = PhotoGenerator.getOriginalImageWithImageFetchResultsArray(indexPath.row)
                 DispatchQueue.main.async {
                     self.seledtedImage = result
                 }

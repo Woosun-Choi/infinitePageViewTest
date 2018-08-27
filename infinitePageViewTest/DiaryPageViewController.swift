@@ -25,8 +25,8 @@ class DiaryPageViewController: UIPageViewController, UIPageViewControllerDataSou
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        delegate = self
-        dataSource = self
+        self.delegate = self
+        self.dataSource = self
         loadFisrtViewController(dateModel.currentDate)
     }
     
@@ -64,15 +64,16 @@ class DiaryPageViewController: UIPageViewController, UIPageViewControllerDataSou
     }
     
     func loadFisrtViewController(_ date: Date) {
-        dataSource = nil
+        print("loadFisrtViewController function called")
+        self.dataSource = nil
         let controllers = [generateTableViewWithDate(date)]
+        setViewControllers(controllers as? [UIViewController], direction: .reverse, animated: false, completion: nil)
+        self.dataSource = self
         pageviewDelegate?.passedDate(date)
-        setViewControllers(controllers as? [UIViewController], direction: .reverse, animated: true, completion: nil)
-        dataSource = self
-        
     }
     
     func generateTableViewWithDate(_ date: Date) -> NoteTableViewController? {
+        print("new note table page generated")
         let tableViewController = self.storyboard?.instantiateViewController(withIdentifier: "NoteTableView") as? NoteTableViewController
         tableViewController?.date = date
         return tableViewController

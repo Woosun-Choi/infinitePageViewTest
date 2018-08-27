@@ -12,7 +12,7 @@ class NoteEditMainViewController: UIViewController, SetSavingData {
     
     let dateModel = DateCoreModel()
     
-    var delegate : PrepareForSavingNewData?
+    static var noteEditDelegate : PrepareForSavingNewData?
     
     var diary : Diary? {
         didSet {
@@ -24,11 +24,15 @@ class NoteEditMainViewController: UIViewController, SetSavingData {
     
     var note : Note? {
         didSet {
+            SavingContent.note = note
             if let image = note?.image {
                 SavingContent.image = image
             }
             if let comment = note?.comment {
                 SavingContent.comment = comment
+            }
+            if let thumbnail = note?.thumbnail {
+                SavingContent.thumbnail = thumbnail
             }
         }
     }
@@ -71,11 +75,21 @@ class NoteEditMainViewController: UIViewController, SetSavingData {
         case "Done":
             if checkCurrentViewControllerType() == .TextEditView {
                 SavingContent.date = dateModel.myDate
-                delegate?.saveNewData(diary: SavingContent.diary, note: SavingContent.note, image: SavingContent.image, thumbnail: SavingContent.thumbnail, comment: SavingContent.comment, date: SavingContent.date)
+                NoteEditMainViewController.noteEditDelegate?.saveNewData(diary: SavingContent.diary, note: SavingContent.note, image: SavingContent.image, thumbnail: SavingContent.thumbnail, comment: SavingContent.comment, date: SavingContent.date)
                 self.dismiss(animated: true, completion: nil)
             }
         default:
             break
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        checkData()
+    }
+    
+    func checkData() {
+        if SavingContent.image != nil {
+            rightButtonItem.isEnabled = true
         }
     }
     
@@ -117,7 +131,6 @@ class NoteEditMainViewController: UIViewController, SetSavingData {
         }
         if let image = imageData {
             SavingContent.image = image
-            rightButtonItem.isEnabled = true
         }
         if let thumbnail = thumbnailData {
             SavingContent.thumbnail = thumbnail
@@ -125,6 +138,7 @@ class NoteEditMainViewController: UIViewController, SetSavingData {
         if let comment = commentData {
             SavingContent.comment = comment
         }
+        checkData()
     }
     
     func initailizeEditSettings() {

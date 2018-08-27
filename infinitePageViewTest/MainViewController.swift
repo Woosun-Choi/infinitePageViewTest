@@ -25,6 +25,7 @@ class MainViewController: UIViewController, PrepareForSavingNewData, SendSeleted
         setButtonColorForState()
         leftEdgeButton.isSelected = true
         
+        NoteEditMainViewController.noteEditDelegate = self
         NotePhotoCollectionViewController.photoCellectionDelegate = self
         
         // Do any additional setup after loading the view.
@@ -75,7 +76,6 @@ class MainViewController: UIViewController, PrepareForSavingNewData, SendSeleted
         case "ToCreateNote":
             if let destinationVC = segue.destination as? NoteEditMainViewController {
                 SavingContent.resetSavingContent()
-                destinationVC.delegate = self
                 if let noteTableVC = grabNoteTableStyleVC() {
                     destinationVC.dateModel.myDate = noteTableVC.dateModel.myDate
                     if let settedDiary = noteTableVC.diary {
@@ -107,6 +107,7 @@ class MainViewController: UIViewController, PrepareForSavingNewData, SendSeleted
     }
     
     func saveNewData(diary diaryData: Diary?, note noteData: Note?, image imageData: Data?, thumbnail thumbnailData: Data?, comment commentData: String?, date dateData: Date?) {
+        print("saving data confirmed")
         var newImageData: Data! {
             didSet {
                 do {

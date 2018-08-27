@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainPageViewController: UIPageViewController, UIPageViewControllerDataSource {
+class MainPageViewController: UIPageViewController {
     
     lazy var viewControllerList : [UIViewController] = {
         let vc1 = self.storyboard?.instantiateViewController(withIdentifier: "NoteMainViewController") as! DiaryViewController
@@ -22,14 +22,6 @@ class MainPageViewController: UIPageViewController, UIPageViewControllerDataSour
         if let firstViewController = viewControllerList.first {
             self.setViewControllers([firstViewController], direction: .forward, animated: true, completion: nil)
         }
-    }
-    
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        return nil
-    }
-    
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        return nil
     }
     
     var loadedVCIndex = 0

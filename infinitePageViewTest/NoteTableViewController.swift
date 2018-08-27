@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NoteTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, PrepareForDeletion {
+class NoteTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, RequestActionForNote {
     
     let dateModel = DateCoreModel()
     
@@ -68,6 +68,21 @@ class NoteTableViewController: UIViewController, UITableViewDelegate, UITableVie
         return cell
     }
     
+    var noteForEditing: Note!
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "ToEditNote":
+            if let destinationVC = segue.destination as? NoteEditMainViewController {
+                SavingContent.resetSavingContent()
+                destinationVC.note = noteForEditing
+                destinationVC.diary = diary
+            }
+        default:
+            break
+        }
+    }
+    
     //MARK: Tip -  if wants to change cell or table views layout just call this method
     //    mytableView.beginUpdates()
     //    mytableView.endUpdates()
@@ -75,40 +90,44 @@ class NoteTableViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? NoteTableViewCell {
             cell.selectedAction()
+            noteTableView.scrollToRow(at: indexPath, at: .middle, animated: true)
         }
         tableView.deselectRow(at: indexPath, animated: false)
     }
     
-    func deletionActivated(_ note: Note) {
-        
-        let alert = UIAlertController(title: "Forget this moment", message: "are you sure to forget this moment?", preferredStyle: .alert)
-        let noButton = UIAlertAction(title: "NO", style: .cancel) { (action) in
-            alert.dismiss(animated: true, completion: nil)
-        }
-        let okButton = UIAlertAction(title: "YES", style: .default, handler: {(action) in
-            let index = self.notes.index(of: note)
-            Note.deleteNote(note)
-            self.notes.remove(at: index!)
-            self.noteTableView.reloadData()
-            if self.notes.count != 0 {
-                DispatchQueue.main.async {
-                    self.noteTableView.scrollToRow(at: [0,0], at: .middle, animated: true)
-                }
+    
+    func requestAction(_ note: Note, request requestAction: requestedActionCases) {
+        switch requestAction {
+        case .delete:
+            let alert = UIAlertController(title: "Remove this moment", message: "are you sure to remove this moment in your memory?", preferredStyle: .alert)
+            let noButton = UIAlertAction(title: "NO", style: .cancel) { (action) in
+                alert.dismiss(animated: true, completion: nil)
             }
-            alert.dismiss(animated: true, completion: nil)
-        })
-        
-        alert.addAction(noButton)
-        alert.addAction(okButton)
-        
-        
-        super.present(alert, animated: true)
-        
+            let okButton = UIAlertAction(title: "YES", style: .default, handler: {(action) in
+                let index = self.notes.index(of: note)
+                Note.deleteNote(note)
+                self.notes.remove(at: index!)
+                self.noteTableView.reloadData()
+                if self.notes.count != 0 {
+                    DispatchQueue.main.async {
+                        self.noteTableView.scrollToRow(at: [0,0], at: .middle, animated: true)
+                    }
+                }
+                alert.dismiss(animated: true, completion: nil)
+            })
+            alert.addAction(noButton)
+            alert.addAction(okButton)
+            super.present(alert, animated: true)
+        case .edit:
+            noteForEditing = note
+            performSegue(withIdentifier: "ToEditNote", sender: self)
+        }
     }
     
     fileprivate func generateCell(actualWidth width: CGFloat, noteData note: Note, targetCell cell: NoteTableViewCell) {
         
         func resetCell(cell targetCell: NoteTableViewCell) {
+            targetCell.blurView?.removeFromSuperview()
             targetCell.delegate = self
             targetCell.cell_CommentLabel.text = nil
             targetCell.commentViewBottomEdgeConstraint.constant = 0

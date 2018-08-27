@@ -55,6 +55,7 @@ class Note: NSManagedObject {
     }
     
     class func saveDataOrCeate(_ diary: Diary?, note noteData: Note?, image imageData: Data?, thumbnail thumbnailData: Data? ,comment commentData: String?, date dateData: Date) throws {
+        print("saveing method called")
         let context = AppDelegate.viewContext
         if diary == nil {
             let newNote = Note(context: context)
@@ -72,7 +73,19 @@ class Note: NSManagedObject {
             newNote.diary = notesDiary
             newNote.diary?.date = dateData
         } else {
-            if noteData == nil {
+            print("diary else state activated")
+            if noteData != nil {
+                if let image = imageData {
+                    noteData?.image = image
+                }
+                if let comment = commentData {
+                    noteData?.comment = comment
+                }
+                if let thumbnail = thumbnailData {
+                    noteData?.thumbnail = thumbnail
+                }
+            } else if noteData == nil {
+                print("note else state activated")
                 let newNote = Note(context: context)
                 if let image = imageData {
                     newNote.image = image
@@ -85,16 +98,6 @@ class Note: NSManagedObject {
                 }
                 newNote.createdDate = Date()
                 diary?.addToNotes(newNote)
-            } else {
-                if let image = imageData {
-                    noteData?.image = image
-                }
-                if let comment = commentData {
-                    noteData?.comment = comment
-                }
-                if let thumbnail = thumbnailData {
-                    noteData?.thumbnail = thumbnail
-                }
             }
         }
         do {

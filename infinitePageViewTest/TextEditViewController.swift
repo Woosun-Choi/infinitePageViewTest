@@ -23,6 +23,13 @@ class TextEditViewController: UIViewController, UITextViewDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        checkData()
+    }
+    
+    func checkData() {
+        if SavingContent.comment != nil {
+            textField.text = SavingContent.comment
+        }
     }
     
     func textViewDidChange(_ textView: UITextView) {
