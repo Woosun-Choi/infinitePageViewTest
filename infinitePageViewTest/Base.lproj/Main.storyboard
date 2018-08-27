@@ -467,6 +467,7 @@
                                     </button>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="MTT-hV-8JS" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="0fb-qH-0g0" secondAttribute="leading" constant="20" symbolic="YES" id="6nz-Gq-YfS"/>
                                     <constraint firstItem="8Za-mi-PK4" firstAttribute="centerX" secondItem="0fb-qH-0g0" secondAttribute="centerX" id="A1L-H7-Qkm"/>
                                     <constraint firstAttribute="height" constant="60" id="DYa-Wv-CcW"/>
                                     <constraint firstItem="KDI-dg-z2x" firstAttribute="top" secondItem="0fb-qH-0g0" secondAttribute="top" constant="15" id="RMX-S7-Sok"/>
@@ -475,6 +476,7 @@
                                     <constraint firstItem="MTT-hV-8JS" firstAttribute="top" secondItem="0fb-qH-0g0" secondAttribute="top" constant="15" id="fhp-LG-Xor"/>
                                     <constraint firstAttribute="bottom" secondItem="8Za-mi-PK4" secondAttribute="bottom" constant="15" id="hWT-fi-sVf"/>
                                     <constraint firstAttribute="bottom" secondItem="KDI-dg-z2x" secondAttribute="bottom" constant="15" id="myn-qU-biD"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="KDI-dg-z2x" secondAttribute="trailing" constant="20" symbolic="YES" id="opo-pA-J2s"/>
                                     <constraint firstItem="8Za-mi-PK4" firstAttribute="top" secondItem="0fb-qH-0g0" secondAttribute="top" constant="15" id="osA-G8-PIA"/>
                                     <constraint firstAttribute="bottom" secondItem="MTT-hV-8JS" secondAttribute="bottom" constant="15" id="y6x-xC-yAq"/>
                                 </constraints>
@@ -514,6 +516,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="EjF-nT-Syh"/>
+        <segue reference="fdD-0Z-BV6"/>
     </inferredMetricsTieBreakers>
 </document>

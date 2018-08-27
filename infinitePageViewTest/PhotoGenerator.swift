@@ -55,7 +55,7 @@ class PhotoGenerator {
                 myImageData = data
             }
         } else {
-            print("You got no photos")
+            
         }
         return myImageData
     }

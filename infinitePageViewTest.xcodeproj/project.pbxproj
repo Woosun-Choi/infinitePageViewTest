@@ -28,6 +28,7 @@
 		A74338D42132E43600F07F36 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74338D32132E43600F07F36 /* MainViewController.swift */; };
 		A74338D62132E45200F07F36 /* MainPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74338D52132E45200F07F36 /* MainPageViewController.swift */; };
 		A74338D92132F69B00F07F36 /* SavingContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74338D82132F69B00F07F36 /* SavingContent.swift */; };
+		A74C3B5C213455FD0032EB3C /* NoteTableDefaultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74C3B5B213455FD0032EB3C /* NoteTableDefaultVC.swift */; };
 		A7C7F26A21130C1D007C2C84 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C7F26921130C1D007C2C84 /* AppDelegate.swift */; };
 		A7C7F26F21130C1D007C2C84 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7C7F26D21130C1D007C2C84 /* Main.storyboard */; };
 		A7C7F27221130C1D007C2C84 /* infinitePageViewTest.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A7C7F27021130C1D007C2C84 /* infinitePageViewTest.xcdatamodeld */; };
@@ -62,6 +63,7 @@
 		A74338D32132E43600F07F36 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		A74338D52132E45200F07F36 /* MainPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageViewController.swift; sourceTree = "<group>"; };
 		A74338D82132F69B00F07F36 /* SavingContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingContent.swift; sourceTree = "<group>"; };
+		A74C3B5B213455FD0032EB3C /* NoteTableDefaultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableDefaultVC.swift; sourceTree = "<group>"; };
 		A7C7F26621130C1D007C2C84 /* infinitePageViewTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = infinitePageViewTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7C7F26921130C1D007C2C84 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A7C7F26E21130C1D007C2C84 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -87,16 +89,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A709A1CC212BD614009DACF3 /* MainCollectionImageView */ = {
+		A709A1CC212BD614009DACF3 /* NotePhotoCollectionImageViews */ = {
 			isa = PBXGroup;
 			children = (
 				A709A1C8212BD205009DACF3 /* NotePhotoCollectionViewController.swift */,
 				A709A1D6212C248E009DACF3 /* NotePhotoCollectionViewCell.swift */,
 			);
-			name = MainCollectionImageView;
+			name = NotePhotoCollectionImageViews;
 			sourceTree = "<group>";
 		};
-		A709A1CD212BD65E009DACF3 /* MainNotePageView */ = {
+		A709A1CD212BD65E009DACF3 /* DiaryViews */ = {
 			isa = PBXGroup;
 			children = (
 				A7C7F2AE2119403C007C2C84 /* DiaryViewController.swift */,
@@ -104,12 +106,13 @@
 				A709A1CF212BD6BF009DACF3 /* NoteEditViews */,
 				A709A1CE212BD692009DACF3 /* NoteTableViews */,
 			);
-			name = MainNotePageView;
+			name = DiaryViews;
 			sourceTree = "<group>";
 		};
 		A709A1CE212BD692009DACF3 /* NoteTableViews */ = {
 			isa = PBXGroup;
 			children = (
+				A74C3B5B213455FD0032EB3C /* NoteTableDefaultVC.swift */,
 				A709A1C22125683E009DACF3 /* NoteTableViewController.swift */,
 				A709A1C421256A00009DACF3 /* NoteTableViewCell.swift */,
 				A709A1C521256A00009DACF3 /* NoteTableViewCell.xib */,
@@ -132,9 +135,9 @@
 		A73A4A06211D28ED00B6F8FE /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				A74338D72132F11500F07F36 /* Testing */,
-				A709A1CC212BD614009DACF3 /* MainCollectionImageView */,
-				A709A1CD212BD65E009DACF3 /* MainNotePageView */,
+				A74338D72132F11500F07F36 /* MainViews */,
+				A709A1CC212BD614009DACF3 /* NotePhotoCollectionImageViews */,
+				A709A1CD212BD65E009DACF3 /* DiaryViews */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -176,13 +179,13 @@
 			name = CustomExtentions;
 			sourceTree = "<group>";
 		};
-		A74338D72132F11500F07F36 /* Testing */ = {
+		A74338D72132F11500F07F36 /* MainViews */ = {
 			isa = PBXGroup;
 			children = (
 				A74338D32132E43600F07F36 /* MainViewController.swift */,
 				A74338D52132E45200F07F36 /* MainPageViewController.swift */,
 			);
-			name = Testing;
+			name = MainViews;
 			sourceTree = "<group>";
 		};
 		A7C7F25D21130C1D007C2C84 = {
@@ -325,6 +328,7 @@
 				A709A1D1212BD6E7009DACF3 /* NoteEditPageViewController.swift in Sources */,
 				A709A1BD2125630B009DACF3 /* HashTag.swift in Sources */,
 				A7C7F28221134A21007C2C84 /* DateCoreModel.swift in Sources */,
+				A74C3B5C213455FD0032EB3C /* NoteTableDefaultVC.swift in Sources */,
 				A709A1D8212C248E009DACF3 /* NotePhotoCollectionViewCell.swift in Sources */,
 				A709A1C32125683E009DACF3 /* NoteTableViewController.swift in Sources */,
 				A74338D62132E45200F07F36 /* MainPageViewController.swift in Sources */,

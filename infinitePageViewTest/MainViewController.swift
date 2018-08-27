@@ -71,7 +71,7 @@ class MainViewController: UIViewController, PrepareForSavingNewData, SendSeleted
         case "MainPageView":
             if let loadedPageVC = segue.destination as? MainPageViewController {
                 self.mypageView = loadedPageVC
-                print("pageview setted")
+                print("main pageview setted")
             }
         case "ToCreateNote":
             if let destinationVC = segue.destination as? NoteEditMainViewController {
@@ -108,20 +108,40 @@ class MainViewController: UIViewController, PrepareForSavingNewData, SendSeleted
     
     func saveNewData(diary diaryData: Diary?, note noteData: Note?, image imageData: Data?, thumbnail thumbnailData: Data?, comment commentData: String?, date dateData: Date?) {
         print("saving data confirmed")
-        var newImageData: Data! {
-            didSet {
-                do {
-                    try Note.saveDataOrCeate(diaryData, note: noteData, image: newImageData, thumbnail: thumbnailData, comment: commentData, date: dateData!)
-                    grabNoteTableStyleVC()?.loadData()
-                } catch {
+        if imageData != nil {
+            var newImageData: Data! {
+                didSet {
+                    do {
+                        try Note.saveDataOrCeate(diaryData, note: noteData, image: newImageData, thumbnail: thumbnailData, comment: commentData, date: dateData!)
+                        grabNoteTableStyleVC()?.loadData()
+                    } catch { return }
                 }
             }
+            
+            func resizeImageForSave() {
+                let fullImage = UIImage(data: imageData!)
+                let newWidth = (grabNoteTableStyleVC()?.actualMaxWidthOfContentCell)! - 30
+                let newHeight = newWidth * ((fullImage?.size.height)!/(fullImage?.size.width)!)
+                let newImage = fullImage?.resizedImage(newSize:CGSize(width: newWidth, height: newHeight))
+                newImageData = UIImageJPEGRepresentation(newImage!, 1)
+            }
+            
+            if noteData == nil {
+                print("note nil case called")
+                resizeImageForSave()
+            } else if noteData != nil, noteData?.image != imageData {
+                print("deferent image case called")
+                resizeImageForSave()
+            } else if noteData != nil, noteData?.image == imageData {
+                print("same image case called")
+                newImageData = imageData
+            }
+        } else if imageData == nil {
+            do {
+                try Note.saveDataOrCeate(diaryData, note: noteData, image: imageData, thumbnail: thumbnailData, comment: commentData, date: dateData!)
+                grabNoteTableStyleVC()?.loadData()
+            } catch { return }
         }
-        let fullImage = UIImage(data: imageData!)
-        let newWidth = (grabNoteTableStyleVC()?.actualMaxWidthOfContentCell)! - 30
-        let newHeight = newWidth * ((fullImage?.size.height)!/(fullImage?.size.width)!)
-        let newImage = fullImage?.resizedImage(newSize:CGSize(width: newWidth, height: newHeight))
-        newImageData = UIImageJPEGRepresentation(newImage!, 1)
     }
     
     func moveToDiaryWithSelectedNoteData(_ date: Date, note noteData: Note) {

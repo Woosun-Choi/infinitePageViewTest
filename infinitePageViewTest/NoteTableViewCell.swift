@@ -74,8 +74,6 @@ class NoteTableViewCell: UITableViewCell {
             let image = UIImage(data: imageData)
             let width = actualWidth - 30
             let height = width * ((image?.size.height)!/(image?.size.width)!)
-            //            imageViewContainerHeightConstraint.constant = height
-            //            print(imageViewContainerHeightConstraint.constant)
             let newImage = image?.resizedImage(newSize: CGSize(width: width, height: height))
             self.cell_ImageView.image = newImage
             UIView.animate(withDuration: 0.5, animations: {

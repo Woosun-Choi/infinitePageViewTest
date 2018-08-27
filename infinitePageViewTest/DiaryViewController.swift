@@ -59,7 +59,7 @@ class DiaryViewController: UIViewController, sendCurrentPagesDate {
             if let loadedPageVC = segue.destination as? DiaryPageViewController {
                 loadedPageVC.pageviewDelegate = self
                 self.mypageView = loadedPageVC
-                print("pageview setted")
+                print("diary pageview setted")
             }
         default:
             break

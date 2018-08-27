@@ -14,31 +14,31 @@ struct SavingContent {
     
     static var diary : Diary? {
         didSet {
-            
+            print("SavingContent_ diary data setted")
         }
     }
     
     static var note : Note? {
         didSet {
-            
+            print("SavingContent_ note data setted")
         }
     }
     
     static var image : Data? {
         didSet {
-            print("image data setted")
+            print("SavingContent_ image data setted")
         }
     }
     
     static var thumbnail : Data? {
         didSet {
-            
+            print("SavingContent_ thumbnail data setted")
         }
     }
     
     static var comment : String? {
         didSet {
-            print("comment setted")
+            print("SavingContent_ comment setted")
         }
     }
     
