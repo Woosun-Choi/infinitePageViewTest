@@ -8,9 +8,15 @@
 
 import UIKit
 
-class NotePageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+protocol sendCurrentPagesDate {
+    func passedDate(_ date: Date)
+}
+
+class DiaryPageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     
     let dateModel = DateCoreModel()
+    
+    var pageviewDelegate : sendCurrentPagesDate?
     
     fileprivate struct dateDistance {
         static let aDay = 1
@@ -26,7 +32,7 @@ class NotePageViewController: UIPageViewController, UIPageViewControllerDataSour
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         
-        if let dateInFocusedPage = (viewController as! NoteTableStyleViewController).date {
+        if let dateInFocusedPage = (viewController as! NoteTableViewController).date {
             if let result = generateTableViewWithDate(dateModel.setNewDateWithDistanceFromDate(direction: .present, from: dateInFocusedPage, distance: dateDistance.aDay)!) {
                 return result
             }
@@ -36,7 +42,7 @@ class NotePageViewController: UIPageViewController, UIPageViewControllerDataSour
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         
-        if let dateInFocusedPage = (viewController as! NoteTableStyleViewController).date {
+        if let dateInFocusedPage = (viewController as! NoteTableViewController).date {
             if dateInFocusedPage < dateModel.currentDate {
                 if let result = generateTableViewWithDate(dateModel.setNewDateWithDistanceFromDate(direction: .after, from: dateInFocusedPage, distance: dateDistance.aDay)!) {
                     return result
@@ -46,17 +52,30 @@ class NotePageViewController: UIPageViewController, UIPageViewControllerDataSour
         return nil
     }
     
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool)
+    {
+        if (!completed)
+        {
+            return
+        }
+        if let currentPage = pageViewController.viewControllers![0] as? NoteTableViewController {
+            pageviewDelegate?.passedDate(currentPage.dateModel.myDate)
+        }
+    }
+    
     func loadFisrtViewController(_ date: Date) {
         dataSource = nil
         let controllers = [generateTableViewWithDate(date)]
+        pageviewDelegate?.passedDate(date)
         setViewControllers(controllers as? [UIViewController], direction: .reverse, animated: true, completion: nil)
         dataSource = self
         
     }
     
-    func generateTableViewWithDate(_ date: Date) -> NoteTableStyleViewController? {
-        let tableViewController = self.storyboard?.instantiateViewController(withIdentifier: "NoteTableView") as? NoteTableStyleViewController
+    func generateTableViewWithDate(_ date: Date) -> NoteTableViewController? {
+        let tableViewController = self.storyboard?.instantiateViewController(withIdentifier: "NoteTableView") as? NoteTableViewController
         tableViewController?.date = date
         return tableViewController
     }
+    
 }

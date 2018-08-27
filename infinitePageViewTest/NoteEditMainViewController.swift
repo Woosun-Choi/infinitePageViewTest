@@ -12,33 +12,24 @@ class NoteEditMainViewController: UIViewController, SetSavingData {
     
     let dateModel = DateCoreModel()
     
-    var delegate : SaveNewData?
+    var delegate : PrepareForSavingNewData?
     
-    var diary : Diary?
+    var diary : Diary? {
+        didSet {
+            if let settedDiary = diary {
+                SavingContent.diary = settedDiary
+            }
+        }
+    }
     
     var note : Note? {
         didSet {
             if let image = note?.image {
                 SavingContent.image = image
             }
-        }
-    }
-    
-    private struct SavingContent {
-        static var image : Data? {
-            didSet {
-                print("image data setted")
+            if let comment = note?.comment {
+                SavingContent.comment = comment
             }
-        }
-        static var comment : String? {
-            didSet {
-                print("comment setted")
-            }
-        }
-        
-        static func resetSavingContent() {
-            SavingContent.image = nil
-            SavingContent.comment = nil
         }
     }
     
@@ -79,7 +70,8 @@ class NoteEditMainViewController: UIViewController, SetSavingData {
             }
         case "Done":
             if checkCurrentViewControllerType() == .TextEditView {
-                delegate?.saveNewData(image: SavingContent.image, comment: SavingContent.comment)
+                SavingContent.date = dateModel.myDate
+                delegate?.saveNewData(diary: SavingContent.diary, note: SavingContent.note, image: SavingContent.image, thumbnail: SavingContent.thumbnail, comment: SavingContent.comment, date: SavingContent.date)
                 self.dismiss(animated: true, completion: nil)
             }
         default:
@@ -116,14 +108,28 @@ class NoteEditMainViewController: UIViewController, SetSavingData {
         }
     }
     
-    func setSavingData(image imageData: Data?, comment commentData: String?) {
+    func setSavingData(diary diaryData: Diary?, note noteData: Note?, image imageData: Data?, thumbnail thumbnailData: Data?, comment commentData: String?) {
+        if let diary = diaryData {
+            SavingContent.diary = diary
+        }
+        if let note = noteData {
+            SavingContent.note = note
+        }
         if let image = imageData {
             SavingContent.image = image
             rightButtonItem.isEnabled = true
         }
+        if let thumbnail = thumbnailData {
+            SavingContent.thumbnail = thumbnail
+        }
         if let comment = commentData {
             SavingContent.comment = comment
         }
+    }
+    
+    func initailizeEditSettings() {
+        diary = nil
+        note = nil
     }
     
 }

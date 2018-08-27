@@ -8,11 +8,11 @@
 
 import UIKit
 
-class MainImageCollectionViewCell: UICollectionViewCell {
+class NotePhotoCollectionViewCell: UICollectionViewCell {
     
     var note : Note? {
         didSet {
-            if let image = note?.image {
+            if let image = note?.thumbnail {
                 DispatchQueue.global(qos: .background).async {
                     let inputImage = UIImage(data: image)
                     DispatchQueue.main.async {

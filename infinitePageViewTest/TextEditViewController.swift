@@ -27,7 +27,7 @@ class TextEditViewController: UIViewController, UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
         print("text did changed")
-        TextEditViewController.delegate?.setSavingData(image: nil, comment: textField.text)
+        TextEditViewController.delegate?.setSavingData(diary: nil, note: nil, image: nil, thumbnail: nil, comment: textField.text)
     }
 
 }

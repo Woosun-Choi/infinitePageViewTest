@@ -10,17 +10,17 @@ import Foundation
 
 class DateCoreModel: DateBrain {
     
-    lazy var day_String = {
-        performDateTransformTo(type: .day_String, from: myDate) as! String
-    }()
+    var day_String : String {
+        return performDateTransformTo(type: .day_String, from: myDate) as! String
+    }
     
-    lazy var month_String = {
-        performDateTransformTo(type: .month_String, from: myDate) as! String
-    }()
+    var month_String : String {
+        return performDateTransformTo(type: .month_String, from: myDate) as! String
+    }
     
-    lazy var weekday_String = {
-        performDateTransformTo(type: .weekday_String, from: myDate) as! String
-    }()
+    var weekday_String : String {
+        return performDateTransformTo(type: .weekday_String, from: myDate) as! String
+    }
     
     lazy var dat_Int : Int = {
         performDateTransformTo(type: .day_Int, from: myDate) as! Int

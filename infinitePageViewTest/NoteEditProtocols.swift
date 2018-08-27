@@ -8,10 +8,10 @@
 
 import Foundation
 
-protocol SaveNewData {
-    func saveNewData(image imageData: Data?, comment commentData: String?)
+protocol PrepareForSavingNewData {
+    func saveNewData(diary diaryData: Diary?, note noteData: Note?, image imageData: Data?, thumbnail thumbnailData: Data?, comment commentData: String?, date dateData: Date?)
 }
 
 protocol SetSavingData {
-    func setSavingData(image imageData: Data?, comment commentData: String?)
+    func setSavingData(diary diaryData: Diary?, note noteData: Note?, image imageData: Data?, thumbnail thumbnailData: Data?, comment commentData: String?)
 }

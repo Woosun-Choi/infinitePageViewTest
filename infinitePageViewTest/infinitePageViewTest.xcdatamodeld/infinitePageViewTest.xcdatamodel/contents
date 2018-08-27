@@ -12,12 +12,13 @@
         <attribute name="comment" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="createdDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="thumbnail" optional="YES" attributeType="Binary" syncable="YES"/>
         <relationship name="diary" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Diary" inverseName="notes" inverseEntity="Diary" syncable="YES"/>
         <relationship name="hashtags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="HashTag" inverseName="notes" inverseEntity="HashTag" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Note" positionX="-1962" positionY="-18" width="128" height="118"/>
         <element name="Diary" positionX="-2151" positionY="-18" width="128" height="73"/>
         <element name="HashTag" positionX="-1793" positionY="-19" width="128" height="73"/>
+        <element name="Note" positionX="-1962" positionY="-18" width="128" height="135"/>
     </elements>
 </model>

@@ -8,7 +8,13 @@
 
 import UIKit
 
+protocol PrepareForDeletion {
+    func deletionActivated(_ note: Note)
+}
+
 class NoteTableViewCell: UITableViewCell {
+    
+    var delegate : PrepareForDeletion?
     
     var note : Note?
     {
@@ -32,6 +38,10 @@ class NoteTableViewCell: UITableViewCell {
     @IBOutlet var commentViewTopEdgeConstraint: NSLayoutConstraint!
     
     var heightConstraint : NSLayoutConstraint!
+    
+    @IBAction func buttonPressed(_ sender: UIButton) {
+        delegate?.deletionActivated(self.note!)
+    }
     
     func setData() {
         if let _ = note?.image {
@@ -79,6 +89,7 @@ class NoteTableViewCell: UITableViewCell {
             if self.topInnerView.isHidden {
                 self.topInnerView.isHidden = false
                 self.topInnerView.alpha = 1
+                //self.contentContainer.dropShadow(color: UIColor.black, opacity: 0.5, offSet: CGSize(width: 3, height: 3), radius: 5, scale: true)
             } else if !self.topInnerView.isHidden {
                 self.topInnerView.isHidden = true
                 self.topInnerView.alpha = 0

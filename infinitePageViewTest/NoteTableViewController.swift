@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SaveNewData {
+class NoteTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, PrepareForDeletion {
     
     let dateModel = DateCoreModel()
     
@@ -29,37 +29,13 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
         }
     }
     
-    @IBOutlet weak var monthLabel: UILabel! {
-        didSet {
-            if date != nil {
-                monthLabel.text = dateModel.month_String
-            }
-        }
-    }
-    
-    @IBOutlet weak var dayLabel: UILabel! {
-        didSet {
-            if date != nil {
-                dayLabel.text = dateModel.day_String
-            }
-        }
-    }
-    
-    @IBOutlet weak var weekdayLabel: UILabel! {
-        didSet {
-            if date != nil {
-                weekdayLabel.text = dateModel.weekday_String
-            }
-        }
-    }
-    
     @IBOutlet weak var noteTableView: UITableView! {
         didSet {
             print("tableview has set")
         }
     }
     
-    fileprivate lazy var actualMaxWidthOfContentCell = {
+    lazy var actualMaxWidthOfContentCell = {
         noteTableView.bounds.width
     }()
     
@@ -72,14 +48,6 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
         noteTableView.rowHeight = UITableViewAutomaticDimension
         
         loadData()
-    }
-    
-    @IBAction func addButtonPressed(_ sender: UIButton) {
-        switch sender.tag {
-        case 1: performSegue(withIdentifier: "ToEditNote", sender: self)
-        default:
-            break
-        }
     }
     
     func loadData() {
@@ -111,46 +79,43 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
         tableView.deselectRow(at: indexPath, animated: false)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier {
-        case "ToEditNote":
-            if let destinationVC = segue.destination as? NoteEditMainViewController {
-                destinationVC.dateModel.myDate = dateModel.myDate
-                if let settedDiary = diary {
-                    destinationVC.diary = settedDiary
-                }
-                destinationVC.delegate = self
-            }
-        default:
-            break
-        }
-    }
-    
-    func saveNewData(image imageData: Data?, comment commentData: String?) {
-        var newImageData: Data! {
-            didSet {
-                do {
-                    try Note.saveDataOrCeate(diary, note: nil, image: newImageData, comment: commentData, date: dateModel.myDate)
-                    loadData()
-                } catch {
-                }
-            }
-        }
+    func deletionActivated(_ note: Note) {
         
-        let fullImage = UIImage(data: imageData!)
-        let newWidth = actualMaxWidthOfContentCell - 30
-        let newHeight = newWidth * ((fullImage?.size.height)!/(fullImage?.size.width)!)
-        let newImage = fullImage?.resizedImage(newSize:CGSize(width: newWidth, height: newHeight))
-        newImageData = UIImageJPEGRepresentation(newImage!, 1)
+        let alert = UIAlertController(title: "Forget this moment", message: "are you sure to forget this moment?", preferredStyle: .alert)
+        let noButton = UIAlertAction(title: "NO", style: .cancel) { (action) in
+            alert.dismiss(animated: true, completion: nil)
+        }
+        let okButton = UIAlertAction(title: "YES", style: .default, handler: {(action) in
+            let index = self.notes.index(of: note)
+            Note.deleteNote(note)
+            self.notes.remove(at: index!)
+            self.noteTableView.reloadData()
+            if self.notes.count != 0 {
+                DispatchQueue.main.async {
+                    self.noteTableView.scrollToRow(at: [0,0], at: .middle, animated: true)
+                }
+            }
+            alert.dismiss(animated: true, completion: nil)
+        })
+        
+        alert.addAction(noButton)
+        alert.addAction(okButton)
+        
+        
+        super.present(alert, animated: true)
+        
     }
     
     fileprivate func generateCell(actualWidth width: CGFloat, noteData note: Note, targetCell cell: NoteTableViewCell) {
         
         func resetCell(cell targetCell: NoteTableViewCell) {
+            targetCell.delegate = self
             targetCell.cell_CommentLabel.text = nil
             targetCell.commentViewBottomEdgeConstraint.constant = 0
             targetCell.commentViewTopEdgeConstraint.constant = 0
             targetCell.cell_ImageView.alpha = 0
+            targetCell.topInnerView.isHidden = true
+            targetCell.topInnerView.alpha = 0
         }
         
         resetCell(cell: cell)
@@ -159,48 +124,46 @@ class NoteTableStyleViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func moveToTargetCell(_ index: IndexPath) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.noteTableView.scrollToRow(at: index, at: .middle, animated: true)
         }
-        
     }
-    
-    //MARK : Cell layout settings
-    
-    func setData(_ cell:NoteTableViewCell) {
-        
-        func setImageAndResizingImageView(_ actualWidth: CGFloat) {
-            if let imageData = cell.note?.image {
-                let image = UIImage(data: imageData)
-                let width = actualWidth
-                let height = width * ((image?.size.height)!/(image?.size.width)!)
-                cell.imageViewContainerHeightConstraint.constant = height
-                DispatchQueue.global(qos: .background).async {
-                    let newImage = image?.resizedImage(newSize: CGSize(width: width, height: height))
-                    DispatchQueue.main.async {
-                        cell.cell_ImageView.image = newImage
-                        UIView.animate(withDuration: 0.5, animations: {
-                            cell.cell_ImageView.alpha = 1
-                        })
-                    }
-                }
-            }
-        }
-        
-        if let _ = cell.note?.image {
-            setImageAndResizingImageView(actualMaxWidthOfContentCell)
-        }
-        if let comment = cell.note?.comment {
-            cell.commentViewTopEdgeConstraint.constant = 8
-            cell.commentViewBottomEdgeConstraint.constant = 10
-            cell.cell_CommentLabel.text = comment
-        }
-        if cell.note?.comment == nil {
-            cell.commentViewHeightConstraint.constant = 0
-        }
-    }
-    
 }
+
+//MARK : Cell layout settings
+
+//func setData(_ cell:NoteTableViewCell) {
+//    
+//    func setImageAndResizingImageView(_ actualWidth: CGFloat) {
+//        if let imageData = cell.note?.image {
+//            let image = UIImage(data: imageData)
+//            let width = actualWidth
+//            let height = width * ((image?.size.height)!/(image?.size.width)!)
+//            cell.imageViewContainerHeightConstraint.constant = height
+//            DispatchQueue.global(qos: .background).async {
+//                let newImage = image?.resizedImage(newSize: CGSize(width: width, height: height))
+//                DispatchQueue.main.async {
+//                    cell.cell_ImageView.image = newImage
+//                    UIView.animate(withDuration: 0.5, animations: {
+//                        cell.cell_ImageView.alpha = 1
+//                    })
+//                }
+//            }
+//        }
+//    }
+//    
+//    if let _ = cell.note?.image {
+//        setImageAndResizingImageView(actualMaxWidthOfContentCell)
+//    }
+//    if let comment = cell.note?.comment {
+//        cell.commentViewTopEdgeConstraint.constant = 8
+//        cell.commentViewBottomEdgeConstraint.constant = 10
+//        cell.cell_CommentLabel.text = comment
+//    }
+//    if cell.note?.comment == nil {
+//        cell.commentViewHeightConstraint.constant = 0
+//    }
+//}
 
 //MARK: Cell layout in tableview queue
 

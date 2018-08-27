@@ -9,24 +9,20 @@
 import UIKit
 import CoreData
 
+protocol SendSeletedNotePhotoData {
+    func moveToDiaryWithSelectedNoteData(_ date: Date, note noteData: Note)
+}
+
 private let reuseIdentifier = "Cell"
 
-class MainCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, NSFetchedResultsControllerDelegate {
+class NotePhotoCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, NSFetchedResultsControllerDelegate {
     
-    var tabViewController : UITabBarController?
-
+    static var photoCellectionDelegate : SendSeletedNotePhotoData?
+    
     var myFetchResultController : NSFetchedResultsController<Note>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        tabViewController = tabBarController as? MainTabBarViewController
-//        let tabVC = tabBarController as? MainTabBarViewController
-//        if tabVC?.viewControllers![0] is NoteMainViewController {
-//            print("noteView!!")
-//        } else if tabVC?.viewControllers![1] is NotePageViewController {
-//            print("imageView!!")
-//        }
         self.collectionView?.delegate = self
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
@@ -56,12 +52,11 @@ class MainCollectionViewController: UICollectionViewController, UICollectionView
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return notes.count
         return myFetchResultController.fetchedObjects?.count ?? 0
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainCollectionViewCell", for: indexPath) as! MainImageCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainCollectionViewCell", for: indexPath) as! NotePhotoCollectionViewCell
         cell.imageView.image = UIImage()
         cell.imageView.alpha = 0
         cell.note = myFetchResultController.object(at: indexPath) as Note
@@ -69,24 +64,18 @@ class MainCollectionViewController: UICollectionViewController, UICollectionView
         return cell
     }
     
+    //MARK: passing note data to mainView
+    
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let cell = collectionView.cellForItem(at: indexPath) as? MainImageCollectionViewCell {
+        if let cell = collectionView.cellForItem(at: indexPath) as? NotePhotoCollectionViewCell {
             passingDate = returnMyDate(cell)
-            toNoteMainView(cell.note!)
+            toNoteMainPageView(cell.note!)
         }
     }
     
-    private func toNoteMainView(_ note: Note) {
-        if let targetView = tabViewController?.viewControllers![0] as? NoteMainViewController {
-            targetView.mypageView?.loadFisrtViewController(passingDate)
-            if let targetInnerView = targetView.currentView() as? NoteTableStyleViewController {
-                if let targetIndex = targetInnerView.notes.index(of: note) {
-                    let indexPath = IndexPath(row: targetIndex, section: 0)
-                    targetInnerView.moveToTargetCell(indexPath)
-                }
-            }
-            tabViewController?.selectedIndex = 0
-        }
+    
+    private func toNoteMainPageView(_ note: Note) {
+        NotePhotoCollectionViewController.photoCellectionDelegate?.moveToDiaryWithSelectedNoteData(passingDate, note: note)
     }
     
     private var targetDate : Date!
@@ -99,7 +88,7 @@ class MainCollectionViewController: UICollectionViewController, UICollectionView
         }
     }
     
-    private func returnMyDate(_ cell: MainImageCollectionViewCell) -> Date {
+    private func returnMyDate(_ cell: NotePhotoCollectionViewCell) -> Date {
         return (cell.note?.diary?.date)!
     }
     

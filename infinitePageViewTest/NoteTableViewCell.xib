@@ -40,9 +40,12 @@
                                         <rect key="frame" x="0.0" y="0.0" width="290" height="30"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kvl-Gg-ydA">
-                                                <rect key="frame" x="8" y="0.0" width="46" height="30"/>
+                                                <rect key="frame" x="8" y="0.0" width="45" height="30"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <state key="normal" title="Button"/>
+                                                <state key="normal" title="Delete"/>
+                                                <connections>
+                                                    <action selector="buttonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="AYz-Pp-7C7"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -74,12 +77,12 @@
                                 <rect key="frame" x="0.0" y="449" width="290" height="0.0"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jzi-8r-3s7">
-                                        <rect key="frame" x="29" y="0.0" width="232" height="0.0"/>
+                                        <rect key="frame" x="14.5" y="0.0" width="261" height="0.0"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" id="HjJ-yu-kqd"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="14"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="textColor" red="0.19607843137254902" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -91,13 +94,13 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.31372549020000001" green="0.31764705879999999" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="GbB-J6-EBe" firstAttribute="top" secondItem="n5W-jk-R3n" secondAttribute="bottom" id="5Hc-bF-FBC"/>
                             <constraint firstAttribute="trailing" secondItem="GbB-J6-EBe" secondAttribute="trailing" id="H5L-ea-GSf"/>
                             <constraint firstItem="GbB-J6-EBe" firstAttribute="leading" secondItem="cA4-N6-N10" secondAttribute="leading" id="TIH-7Q-iks"/>
                             <constraint firstItem="n5W-jk-R3n" firstAttribute="top" secondItem="cA4-N6-N10" secondAttribute="top" id="dUZ-0H-4pJ"/>
-                            <constraint firstItem="jzi-8r-3s7" firstAttribute="width" secondItem="n5W-jk-R3n" secondAttribute="width" multiplier="0.8" id="hB2-rR-hij"/>
+                            <constraint firstItem="jzi-8r-3s7" firstAttribute="width" secondItem="n5W-jk-R3n" secondAttribute="width" multiplier="0.9" id="hB2-rR-hij"/>
                             <constraint firstAttribute="bottom" secondItem="GbB-J6-EBe" secondAttribute="bottom" id="igz-ex-3nx"/>
                             <constraint firstAttribute="trailing" secondItem="n5W-jk-R3n" secondAttribute="trailing" id="n9o-Lt-W16"/>
                             <constraint firstItem="n5W-jk-R3n" firstAttribute="leading" secondItem="cA4-N6-N10" secondAttribute="leading" id="qr6-vh-vP3"/>
