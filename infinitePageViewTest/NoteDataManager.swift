@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 // I dont use this in this time but soon it can be needed
-class NoteDataManager {
+class NoteDataManager: Note {
     
     let context = AppDelegate.viewContext
     

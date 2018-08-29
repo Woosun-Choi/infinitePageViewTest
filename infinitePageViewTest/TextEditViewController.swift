@@ -10,7 +10,7 @@ import UIKit
 
 class TextEditViewController: UIViewController, UITextViewDelegate {
     
-    static var delegate : SetSavingData?
+    static weak var delegate : SetSavingData?
     
     var text : String?
 

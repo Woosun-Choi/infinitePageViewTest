@@ -26,7 +26,7 @@
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="u8L-hm-w7P">
                                         <rect key="frame" x="0.0" y="10" width="343" height="617"/>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <color key="backgroundColor" red="0.1960784314" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="Cell" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="68" id="22b-OV-z8f">
                                                 <rect key="frame" x="0.0" y="28" width="343" height="68"/>
@@ -45,7 +45,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.1960784314" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="hBQ-9U-mOI" firstAttribute="centerX" secondItem="wiC-e4-pNS" secondAttribute="centerX" id="Nyw-UK-alW"/>
                                     <constraint firstItem="u8L-hm-w7P" firstAttribute="top" secondItem="wiC-e4-pNS" secondAttribute="top" constant="10" id="Zsy-Je-Mh0"/>
@@ -392,7 +392,7 @@
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="6Ii-61-XKM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.1960784314" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="OGI-hs-MN3">
                             <size key="itemSize" width="90" height="90"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -434,10 +434,10 @@
             </objects>
             <point key="canvasLocation" x="-615" y="1094"/>
         </scene>
-        <!--Main View Controller-->
+        <!--Main View Controller Default-->
         <scene sceneID="bel-F8-O80">
             <objects>
-                <viewController id="dYb-pf-PY9" customClass="MainViewController" customModule="infinitePageViewTest" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="dYb-pf-PY9" customClass="MainViewController_Default" customModule="infinitePageViewTest" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hAd-IR-NvM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -526,6 +526,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="EjF-nT-Syh"/>
+        <segue reference="fdD-0Z-BV6"/>
     </inferredMetricsTieBreakers>
 </document>

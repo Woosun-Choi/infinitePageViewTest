@@ -13,7 +13,7 @@ class ImageEditViewCollectionViewCell: UICollectionViewCell {
     var image : UIImage? {
         didSet {
             cell_ImageView.image = image
-            UIView.animate(withDuration: 0.35) {
+            UIView.animate(withDuration: 0.35) { [unowned self] in
                 self.cell_ImageView.alpha = 1
             }
         }

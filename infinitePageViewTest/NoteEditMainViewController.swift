@@ -14,6 +14,8 @@ class NoteEditMainViewController: UIViewController, SetSavingData {
     
     let dateModel = DateCoreModel()
     
+    private var myPageView : NoteEditPageViewController!
+    
     var diary : Diary? {
         didSet {
             if let settedDiary = diary {
@@ -39,9 +41,6 @@ class NoteEditMainViewController: UIViewController, SetSavingData {
     
     @IBOutlet var leftButtonItem: UIButton!
     @IBOutlet var rightButtonItem: UIButton!
-    
-    var currentPageView : NoteEditPageViewController?
-    
     @IBOutlet var barTitle: UILabel!
     
     override func viewDidLoad() {
@@ -54,26 +53,30 @@ class NoteEditMainViewController: UIViewController, SetSavingData {
         TextEditViewController.delegate = self
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        checkData()
+    }
+    
     @IBAction func buttonPressed(_ sender: UIButton) {
         switch sender.currentTitle {
         case "Cancel":
             self.dismiss(animated: true, completion: nil)
         case "Next":
-            if checkCurrentViewControllerType() == .ImageEditView {
+            if checkedCurrentViewType == .ImageEditView {
                 leftButtonItem.setTitle("Back", for: .normal)
                 rightButtonItem.setTitle("Done", for: .normal)
-                currentPageView?.nextPage()
+                myPageView.nextPage()
                 barTitle.text = "write a comment"
             }
         case "Back":
-            if checkCurrentViewControllerType() == .TextEditView {
+            if checkedCurrentViewType == .TextEditView {
                 leftButtonItem.setTitle("Cancel", for: .normal)
                 rightButtonItem.setTitle("Next", for: .normal)
-                currentPageView?.previousPage()
+                myPageView.previousPage()
                 barTitle.text = "choose a moment"
             }
         case "Done":
-            if checkCurrentViewControllerType() == .TextEditView {
+            if checkedCurrentViewType == .TextEditView {
                 SavingContent.date = dateModel.myDate
                 NoteEditMainViewController.noteEditDelegate?.saveNewData(diary: SavingContent.diary, note: SavingContent.note, image: SavingContent.image, thumbnail: SavingContent.thumbnail, comment: SavingContent.comment, date: SavingContent.date)
                 self.dismiss(animated: true, completion: nil)
@@ -81,10 +84,6 @@ class NoteEditMainViewController: UIViewController, SetSavingData {
         default:
             break
         }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        checkData()
     }
     
     func checkData() {
@@ -99,23 +98,21 @@ class NoteEditMainViewController: UIViewController, SetSavingData {
         case ImageEditView
     }
     
-    private func currentVC() -> UIViewController {
-        return (currentPageView?.viewControllers![0])!
+    private var currentView : UIViewController {
+        return (myPageView?.viewControllers![0])!
     }
     
-    private func checkCurrentViewControllerType() -> currnetVCType {
-        let vc = currentVC()
-        var vcType : currnetVCType = .none
-        if vc is TextEditViewController { vcType = .TextEditView; return vcType }
-        if vc is ImageEditViewController { vcType = .ImageEditView; return vcType }
-        return vcType
+    private var checkedCurrentViewType : currnetVCType {
+        if currentView is TextEditViewController { return .TextEditView }
+        if currentView is ImageEditViewController { return .ImageEditView}
+        return .none
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "NoteEditPageView":
             if let loadedVC = segue.destination as? NoteEditPageViewController {
-                currentPageView = loadedVC
+                myPageView = loadedVC
             }
         default:
             break
@@ -139,11 +136,6 @@ class NoteEditMainViewController: UIViewController, SetSavingData {
             SavingContent.comment = comment
         }
         checkData()
-    }
-    
-    func initailizeEditSettings() {
-        diary = nil
-        note = nil
     }
     
 }

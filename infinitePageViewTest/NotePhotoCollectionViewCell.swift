@@ -15,7 +15,7 @@ class NotePhotoCollectionViewCell: UICollectionViewCell {
             if let image = note?.thumbnail {
                 let inputImage = UIImage(data: image)
                 imageView.image = inputImage
-                UIView.animate(withDuration: 0.4, animations: {
+                UIView.animate(withDuration: 0.5, animations: { [unowned self] in
                     self.imageView.alpha = 1
                 })
             }

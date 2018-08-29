@@ -13,24 +13,18 @@ class DiaryViewController: UIViewController, sendCurrentPagesDate {
     
     let dateModel = DateCoreModel()
     
+    var mypageView : DiaryPageViewController!
+    
+    var visibleNoteTableView : NoteTableViewController {
+        return (mypageView.viewControllers?[0] as? NoteTableViewController)!
+    }
+    
     var settedDate : Date? {
         didSet {
             dateModel.myDate = settedDate!
-            if weekdayLabel.text != dateModel.weekday_String {
-            UIView.transition(with: weekdayLabel,duration: 0.2,options: [.transitionCrossDissolve,.curveEaseInOut],
-                              animations: {
-                                self.weekdayLabel.text = self.dateModel.weekday_String
-            },completion: nil)}
-            if monthLabel.text != dateModel.month_String {
-                UIView.transition(with: monthLabel,duration: 0.2,options: [.transitionCrossDissolve,.curveEaseInOut],
-                                  animations: {
-                                    self.monthLabel.text = self.dateModel.month_String
-                },completion: nil)}
-            if dayLabel.text != dateModel.day_String {
-                UIView.transition(with: dayLabel,duration: 0.2,options: [.transitionCrossDissolve,.curveEaseInOut],
-                                  animations: {
-                                    self.dayLabel.text = self.dateModel.day_String
-                },completion: nil)}
+            checkLabelTextAndTransitionTo(weekdayLabel, text: dateModel.weekday_String)
+            checkLabelTextAndTransitionTo(monthLabel, text: dateModel.month_String)
+            checkLabelTextAndTransitionTo((dayLabel), text: dateModel.day_String)
         }
     }
     
@@ -38,9 +32,7 @@ class DiaryViewController: UIViewController, sendCurrentPagesDate {
     @IBOutlet var dayLabel: UILabel!
     @IBOutlet var monthLabel: UILabel!
     @IBOutlet var topContainerView: UIView!
-    
     @IBOutlet weak var pageView: UIView!
-    var mypageView : DiaryPageViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +42,7 @@ class DiaryViewController: UIViewController, sendCurrentPagesDate {
     }
     
     @objc func backToCurrentDate() {
-        mypageView?.loadFisrtViewController(dateModel.currentDate)
+        mypageView?.setVisibleNoteTableViewWithRequestedDate(dateModel.currentDate)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -66,14 +58,18 @@ class DiaryViewController: UIViewController, sendCurrentPagesDate {
         }
     }
     
-    func currentView() -> UIViewController? {
-        var currentVC : UIViewController?
-        
-        if let currentViewController = mypageView?.viewControllers?[0] as? NoteTableViewController {
-            print("called")
-            currentVC = currentViewController
+    private func checkLabelTextAndTransitionTo(_ label: UILabel, text textData: String) {
+        if label.text != textData {
+            labelTextTransition(label, text: textData)
         }
-        return currentVC
+    }
+    
+    private func labelTextTransition(_ label: UILabel, text textData: String) {
+        UIView.transition(with: label,duration: 0.2,
+                          options: [.transitionCrossDissolve,.curveEaseInOut],
+                          animations: {
+                            label.text = textData},
+                          completion: nil)
     }
     
     func passedDate(_ date: Date) {

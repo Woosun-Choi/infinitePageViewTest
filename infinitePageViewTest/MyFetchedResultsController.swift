@@ -10,7 +10,7 @@ import CoreData
 
 class MyFetchedResultsControllerModel {
     
-    static func NoteFetchedResultController() -> NSFetchedResultsController<Note> {
+    class func NoteFetchedResultController() -> NSFetchedResultsController<Note> {
         let fetchRequest : NSFetchRequest<Note> = Note.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createdDate", ascending: false)]
         let context = AppDelegate.viewContext

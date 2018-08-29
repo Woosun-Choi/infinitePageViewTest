@@ -27,7 +27,7 @@ class DiaryPageViewController: UIPageViewController, UIPageViewControllerDataSou
         super.viewDidLoad()
         self.delegate = self
         self.dataSource = self
-        loadFisrtViewController(dateModel.currentDate)
+        setVisibleNoteTableViewWithRequestedDate(dateModel.currentDate)
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
@@ -63,7 +63,7 @@ class DiaryPageViewController: UIPageViewController, UIPageViewControllerDataSou
         }
     }
     
-    func loadFisrtViewController(_ date: Date) {
+    func setVisibleNoteTableViewWithRequestedDate(_ date: Date) {
         print("loadFisrtViewController function called")
         self.dataSource = nil
         let controllers = [generateTableViewWithDate(date)]

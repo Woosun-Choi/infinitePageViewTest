@@ -81,6 +81,16 @@ class NoteTableViewController: UIViewController, UITableViewDelegate, UITableVie
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) as? NoteTableViewCell {
+            cell.selectedAction()
+            noteTableView.scrollToRow(at: indexPath, at: .middle, animated: true)
+        }
+        tableView.deselectRow(at: indexPath, animated: false)
+    }
+    
+    //MARK : note edit or delete on selected cell settings
+    
     var noteForEditing: Note!
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -96,19 +106,6 @@ class NoteTableViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
-    //MARK: Tip -  if wants to change cell or table views layout just call this method
-    //    mytableView.beginUpdates()
-    //    mytableView.endUpdates()
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let cell = tableView.cellForRow(at: indexPath) as? NoteTableViewCell {
-            cell.selectedAction()
-            noteTableView.scrollToRow(at: indexPath, at: .middle, animated: true)
-        }
-        tableView.deselectRow(at: indexPath, animated: false)
-    }
-    
-    
     func requestAction(_ note: Note, request requestAction: requestedActionCases) {
         switch requestAction {
         case .delete:
@@ -116,7 +113,7 @@ class NoteTableViewController: UIViewController, UITableViewDelegate, UITableVie
             let noButton = UIAlertAction(title: "NO", style: .cancel) { (action) in
                 alert.dismiss(animated: true, completion: nil)
             }
-            let okButton = UIAlertAction(title: "YES", style: .default, handler: {(action) in
+            let okButton = UIAlertAction(title: "YES", style: .default, handler: {[unowned self] (action) in
                 let index = self.notes.index(of: note)
                 Note.deleteNote(note)
                 self.notes.remove(at: index!)
@@ -140,14 +137,12 @@ class NoteTableViewController: UIViewController, UITableViewDelegate, UITableVie
     fileprivate func generateCell(actualWidth width: CGFloat, noteData note: Note, targetCell cell: NoteTableViewCell) {
         
         func resetCell(cell targetCell: NoteTableViewCell) {
-            targetCell.blurView?.removeFromSuperview()
             targetCell.delegate = self
             targetCell.cell_CommentLabel.text = nil
             targetCell.commentViewBottomEdgeConstraint.constant = 0
             targetCell.commentViewTopEdgeConstraint.constant = 0
             targetCell.cell_ImageView.alpha = 0
-            targetCell.topInnerView.isHidden = true
-            targetCell.topInnerView.alpha = 0
+            targetCell.topBlurView.isHidden = true
         }
         
         resetCell(cell: cell)
@@ -156,12 +151,13 @@ class NoteTableViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func moveToTargetCell(_ index: IndexPath) {
+        print("move starts")
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.noteTableView.scrollToRow(at: index, at: .middle, animated: true)
         }
     }
     
-    //MARK : placeholdersettings
+    //MARK : placeholder settings
     
     var placeHolderExist : Bool = false
     

@@ -10,11 +10,11 @@ import UIKit
 
 class MainPageViewController: UIPageViewController {
     
-    lazy var viewControllerList : [UIViewController] = {
+    var viewControllerList : [UIViewController] {
         let vc1 = self.storyboard?.instantiateViewController(withIdentifier: "NoteMainViewController") as! DiaryViewController
         let vc2 = self.storyboard?.instantiateViewController(withIdentifier: "MainCollectionViewController") as! NotePhotoCollectionViewController
         return [vc1, vc2]
-    }()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

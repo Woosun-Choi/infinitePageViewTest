@@ -34,9 +34,9 @@ class NoteTableViewCell: UITableViewCell {
     @IBOutlet weak var cell_ImageView: UIImageView!
     @IBOutlet weak var hashtagView: UIView!
     @IBOutlet weak var cell_CommentLabel: UILabel!
-    @IBOutlet var topInnerView: UIView!
     @IBOutlet var imageViewContainer: UIView!
     
+    @IBOutlet var topBlurView: UIVisualEffectView!
     @IBOutlet var imageViewContainerHeightConstraint: NSLayoutConstraint!
     @IBOutlet var commentViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet var commentViewBottomEdgeConstraint: NSLayoutConstraint!
@@ -82,48 +82,21 @@ class NoteTableViewCell: UITableViewCell {
         }
     }
     
-    func makeBlurView(_ view: UIView) -> UIVisualEffectView {
-        let blurEffect = UIBlurEffect(style: .regular)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.frame = view.bounds
-        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        blurEffectView.alpha = 0.9
-        return blurEffectView
-    }
-    
-    var blurView: UIVisualEffectView?
-    
-    func addBlurView(_ view: UIView) {
-        let blurEffect = UIBlurEffect(style: .light)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.frame = view.bounds
-        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        view.addSubview(blurEffectView)
-    }
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         hashtagView.backgroundColor = UIColor.darkGray.withAlphaComponent(0.7)
         hashtagView.isHidden = true
-        topInnerView.backgroundColor = UIColor.white.withAlphaComponent(0)
-        topInnerView.isHidden = true
-        topInnerView.alpha = 0
+        topBlurView.isHidden = true
     }
     
     var zeroHeight : NSLayoutConstraint!
     
     func selectedAction() {
         
-        if self.topInnerView.isHidden {
-            self.topInnerView.isHidden = false
-            self.topInnerView.alpha = 1
-            self.blurView = self.makeBlurView(self.topInnerView)
-            self.cell_ImageView.addSubview(self.blurView!)
-            //self.contentContainer.dropShadow(color: UIColor.black, opacity: 0.5, offSet: CGSize(width: 3, height: 3), radius: 5, scale: true)
-        } else if !self.topInnerView.isHidden {
-            self.topInnerView.isHidden = true
-            self.topInnerView.alpha = 0
-            self.blurView?.removeFromSuperview()
+        if self.topBlurView.isHidden {
+            self.topBlurView.isHidden = false
+        } else if !self.topBlurView.isHidden {
+            self.topBlurView.isHidden = true
         }
     }
     

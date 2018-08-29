@@ -19,24 +19,27 @@ class NotePhotoCollectionViewController: UICollectionViewController, UICollectio
     
     static weak var photoCellectionDelegate : SendSeletedNotePhotoData?
     
-//    lazy var myFetchResultController : NSFetchedResultsController<Note> = {
-//        let fetchCN = MyFetchedResultsControllerModel.NoteFetchedResultController()
-//        fetchCN.delegate = self
-//        return fetchCN
-//    }()
+    lazy var myFetchResultController : NSFetchedResultsController<Note> = {
+        let fetchRequest : NSFetchRequest<Note> = Note.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createdDate", ascending: false)]
+        let context = AppDelegate.viewContext
+        let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        frc.delegate = self
+        return frc
+    }()
     
-    var myFetchResultController : NSFetchedResultsController<Note>!
+    //var myFetchResultController : NSFetchedResultsController<Note>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.collectionView?.delegate = self
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
-        myFetchResultController = MyFetchedResultsControllerModel.NoteFetchedResultController()
-        myFetchResultController?.delegate = self
+        //        myFetchResultController = MyFetchedResultsControllerModel.NoteFetchedResultController()
+        //        myFetchResultController?.delegate = self
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         do {
             try self.myFetchResultController.performFetch()
             self.collectionView?.reloadData()
