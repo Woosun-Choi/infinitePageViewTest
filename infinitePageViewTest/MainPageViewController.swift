@@ -39,20 +39,18 @@ class MainPageViewController: UIPageViewController {
     
     enum currnetVCType {
         case none
-        case NoteMainViewController
-        case MainCollectionViewController
+        case DiaryView
+        case PhotoCollection
     }
     
-    private func currentVC() -> UIViewController {
+    private var currentView : UIViewController {
         return self.viewControllers![0]
     }
     
-    func checkCurrentViewControllerType() -> currnetVCType {
-        let vc = currentVC()
-        var vcType : currnetVCType = .none
-        if vc is DiaryViewController { vcType = .NoteMainViewController; return vcType }
-        if vc is NotePhotoCollectionViewController { vcType = .MainCollectionViewController; return vcType }
-        return vcType
+    var checkedCurrentViewType : currnetVCType {
+        if currentView is DiaryViewController { return .DiaryView }
+        if currentView is NotePhotoCollectionViewController { return .PhotoCollection }
+        return .none
     }
     
 }

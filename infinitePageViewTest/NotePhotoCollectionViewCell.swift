@@ -12,7 +12,7 @@ class NotePhotoCollectionViewCell: UICollectionViewCell {
     
     weak var note : Note? {
         didSet {
-            if let image = note?.thumbnail {
+            if let image = note?.noteImage?.thumbnailImage {
                 let inputImage = UIImage(data: image)
                 imageView.image = inputImage
                 UIView.animate(withDuration: 0.5, animations: { [unowned self] in
@@ -27,6 +27,12 @@ class NotePhotoCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+    }
+    
+    override func prepareForReuse() {
+        note = nil
+        imageView.image = nil
+        imageView.alpha = 0
     }
     
 }

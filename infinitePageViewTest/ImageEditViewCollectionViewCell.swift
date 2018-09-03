@@ -25,4 +25,9 @@ class ImageEditViewCollectionViewCell: UICollectionViewCell {
         
     }
     
+    override func prepareForReuse() {
+        cell_ImageView.image = nil
+        cell_ImageView.alpha = 0
+    }
+    
 }

@@ -9,7 +9,7 @@
 import Foundation
 
 protocol PrepareForSavingNewData: class {
-    func saveNewData(diary diaryData: Diary?, note noteData: Note?, image imageData: Data?, thumbnail thumbnailData: Data?, comment commentData: String?, date dateData: Date?)
+    func saveNewData()
 }
 
 protocol SetSavingData: class {

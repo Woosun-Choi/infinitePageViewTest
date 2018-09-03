@@ -21,8 +21,8 @@ class NoteTableViewCell: UITableViewCell {
     
     weak var delegate : RequestActionForNote?
     
-    var note : Note?
-    {
+    weak var note : Note?
+        {
         didSet {
             setData()
         }
@@ -30,19 +30,27 @@ class NoteTableViewCell: UITableViewCell {
     
     var actualWidth : CGFloat!
     
-    @IBOutlet var contentContainer: UIView!
     @IBOutlet weak var cell_ImageView: UIImageView!
+    
     @IBOutlet weak var hashtagView: UIView!
+    
     @IBOutlet weak var cell_CommentLabel: UILabel!
+    
+    @IBOutlet var contentContainer: UIView!
+    
     @IBOutlet var imageViewContainer: UIView!
     
     @IBOutlet var topBlurView: UIVisualEffectView!
+    
     @IBOutlet var imageViewContainerHeightConstraint: NSLayoutConstraint!
+    
     @IBOutlet var commentViewHeightConstraint: NSLayoutConstraint!
+    
     @IBOutlet var commentViewBottomEdgeConstraint: NSLayoutConstraint!
+    
     @IBOutlet var commentViewTopEdgeConstraint: NSLayoutConstraint!
     
-    var heightConstraint : NSLayoutConstraint!
+    var heightAnk : NSLayoutConstraint!
     
     @IBAction func buttonPressed(_ sender: UIButton) {
         switch sender.currentTitle {
@@ -56,7 +64,7 @@ class NoteTableViewCell: UITableViewCell {
     }
     
     func setData() {
-        if let _ = note?.image {
+        if let _ = note?.noteImage?.originalImage {
             setImageAndResizingImageView(actualWidth)
         }
         if let comment = note?.comment {
@@ -70,15 +78,22 @@ class NoteTableViewCell: UITableViewCell {
     }
     
     func setImageAndResizingImageView(_ actualWidth: CGFloat) {
-        if let imageData = note?.image {
-            let image = UIImage(data: imageData)
-            let width = actualWidth - 30
-            let height = width * ((image?.size.height)!/(image?.size.width)!)
-            let newImage = image?.resizedImage(newSize: CGSize(width: width, height: height))
-            self.cell_ImageView.image = newImage
-            UIView.animate(withDuration: 0.5, animations: {
-                self.cell_ImageView.alpha = 1
-            })
+        if let imageData = self.note?.noteImage?.originalImage {
+            if let image = UIImage(data: imageData) {
+                let width = actualWidth - 30 // table view - sum of margins
+                let ratio = image.size.height/image.size.width
+                let height = width * ratio
+                imageViewContainerHeightConstraint.constant = height
+                DispatchQueue.global(qos: .background).async {
+                    let newImage = image
+                    DispatchQueue.main.async {
+                        self.cell_ImageView.image = newImage
+                        UIView.animate(withDuration: 0.5, animations: {
+                            self.cell_ImageView.alpha = 1
+                        })
+                    }
+                }
+            }
         }
     }
     
@@ -98,6 +113,19 @@ class NoteTableViewCell: UITableViewCell {
         } else if !self.topBlurView.isHidden {
             self.topBlurView.isHidden = true
         }
+    }
+    
+    override func prepareForReuse() {
+        note = nil
+        cell_ImageView.image = nil
+        cell_CommentLabel.text = nil
+        imageViewContainerHeightConstraint.constant = 0
+        commentViewBottomEdgeConstraint.constant = 0
+        commentViewTopEdgeConstraint.constant = 0
+        cell_ImageView.alpha = 0
+        topBlurView.isHidden = true
+        hashtagView.backgroundColor = UIColor.darkGray.withAlphaComponent(0.7)
+        hashtagView.isHidden = true
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

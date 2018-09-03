@@ -23,7 +23,8 @@ class NoteTableViewController: UIViewController, UITableViewDelegate, UITableVie
     var diary : Diary? {
         didSet {
             if let currentDiary = diary {
-                notes = Note.loadNoteFromDiary(currentDiary)
+                //notes = Note.loadNoteFromDiary(currentDiary)
+                notes = Note.allNotesFromDiary(currentDiary)
                 reloadTableView()
             }
         }
@@ -50,7 +51,6 @@ class NoteTableViewController: UIViewController, UITableViewDelegate, UITableVie
         noteTableView.dataSource = self
         noteTableView.register(UINib(nibName: "NoteTableViewCell", bundle: nil), forCellReuseIdentifier: "NoteCell")
         noteTableView.rowHeight = UITableViewAutomaticDimension
-        
         loadData()
     }
     
@@ -81,8 +81,11 @@ class NoteTableViewController: UIViewController, UITableViewDelegate, UITableVie
         return cell
     }
     
+    var selectedCellIndex : Int = 0
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? NoteTableViewCell {
+            selectedCellIndex = indexPath.row
             cell.selectedAction()
             noteTableView.scrollToRow(at: indexPath, at: .middle, animated: true)
         }
@@ -119,8 +122,12 @@ class NoteTableViewController: UIViewController, UITableViewDelegate, UITableVie
                 self.notes.remove(at: index!)
                 self.reloadTableView()
                 if self.notes.count != 0 {
-                    DispatchQueue.main.async {
-                        self.noteTableView.scrollToRow(at: [0,0], at: .middle, animated: true)
+                    let newIndex = self.selectedCellIndex - 1
+                    if newIndex >= 0 {
+                        let targetIndexPath = IndexPath(item: newIndex, section: 0)
+                        DispatchQueue.main.async {
+                            self.noteTableView.scrollToRow(at: targetIndexPath, at: .middle, animated: false)
+                        }
                     }
                 }
                 alert.dismiss(animated: true, completion: nil)
@@ -135,17 +142,7 @@ class NoteTableViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     fileprivate func generateCell(actualWidth width: CGFloat, noteData note: Note, targetCell cell: NoteTableViewCell) {
-        
-        func resetCell(cell targetCell: NoteTableViewCell) {
-            targetCell.delegate = self
-            targetCell.cell_CommentLabel.text = nil
-            targetCell.commentViewBottomEdgeConstraint.constant = 0
-            targetCell.commentViewTopEdgeConstraint.constant = 0
-            targetCell.cell_ImageView.alpha = 0
-            targetCell.topBlurView.isHidden = true
-        }
-        
-        resetCell(cell: cell)
+        cell.delegate = self
         cell.actualWidth = width
         cell.note = note
     }

@@ -26,7 +26,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n5W-jk-R3n" userLabel="ImageViewContainer">
                                 <rect key="frame" x="0.0" y="0.0" width="290" height="449"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dSw-8E-lOu">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dSw-8E-lOu">
                                         <rect key="frame" x="0.0" y="0.0" width="290" height="449"/>
                                     </imageView>
                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rSj-lf-ZJR" userLabel="hashtagView">
@@ -71,7 +71,7 @@
                                         <blurEffect style="light"/>
                                     </visualEffectView>
                                 </subviews>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.1960784314" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="dSw-8E-lOu" secondAttribute="trailing" id="4w2-dC-91u"/>
                                     <constraint firstAttribute="trailing" secondItem="RNS-bv-1Gr" secondAttribute="trailing" id="EoL-2y-6pg"/>
@@ -80,8 +80,8 @@
                                     <constraint firstItem="dSw-8E-lOu" firstAttribute="height" secondItem="n5W-jk-R3n" secondAttribute="height" id="LSy-04-NxE"/>
                                     <constraint firstItem="dSw-8E-lOu" firstAttribute="top" secondItem="n5W-jk-R3n" secondAttribute="top" id="Lha-RI-zcm"/>
                                     <constraint firstAttribute="bottom" secondItem="rSj-lf-ZJR" secondAttribute="bottom" id="Ukj-q4-yXu"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" id="V4s-La-yTM"/>
                                     <constraint firstItem="dSw-8E-lOu" firstAttribute="width" secondItem="n5W-jk-R3n" secondAttribute="width" id="bch-DW-cRm"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="50" constant="50" id="gOA-Mn-NOQ"/>
                                     <constraint firstAttribute="bottom" secondItem="dSw-8E-lOu" secondAttribute="bottom" id="jNu-ZZ-qDr"/>
                                     <constraint firstItem="dSw-8E-lOu" firstAttribute="leading" secondItem="n5W-jk-R3n" secondAttribute="leading" id="kLs-rF-lBJ"/>
                                     <constraint firstItem="RNS-bv-1Gr" firstAttribute="top" secondItem="n5W-jk-R3n" secondAttribute="top" id="nJy-II-Re0"/>
@@ -145,7 +145,7 @@
                 <outlet property="contentContainer" destination="cA4-N6-N10" id="2yp-Sb-70t"/>
                 <outlet property="hashtagView" destination="rSj-lf-ZJR" id="YzT-tu-SDm"/>
                 <outlet property="imageViewContainer" destination="n5W-jk-R3n" id="wOe-6A-A3o"/>
-                <outlet property="imageViewContainerHeightConstraint" destination="gOA-Mn-NOQ" id="TBv-Dg-AtA"/>
+                <outlet property="imageViewContainerHeightConstraint" destination="V4s-La-yTM" id="Qpd-am-jWI"/>
                 <outlet property="topBlurView" destination="RNS-bv-1Gr" id="eKi-Tt-279"/>
             </connections>
             <point key="canvasLocation" x="-106" y="74.5"/>

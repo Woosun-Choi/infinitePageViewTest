@@ -27,20 +27,22 @@ class NoteEditMainViewController: UIViewController, SetSavingData {
     var note : Note? {
         didSet {
             SavingContent.note = note
-            if let image = note?.image {
+            if let image = note?.noteImage?.originalImage {
                 SavingContent.image = image
+            }
+            if let thumbnail = note?.noteImage?.thumbnailImage {
+                SavingContent.thumbnail = thumbnail
             }
             if let comment = note?.comment {
                 SavingContent.comment = comment
-            }
-            if let thumbnail = note?.thumbnail {
-                SavingContent.thumbnail = thumbnail
             }
         }
     }
     
     @IBOutlet var leftButtonItem: UIButton!
+    
     @IBOutlet var rightButtonItem: UIButton!
+    
     @IBOutlet var barTitle: UILabel!
     
     override func viewDidLoad() {
@@ -60,7 +62,9 @@ class NoteEditMainViewController: UIViewController, SetSavingData {
     @IBAction func buttonPressed(_ sender: UIButton) {
         switch sender.currentTitle {
         case "Cancel":
-            self.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true, completion: {
+                SavingContent.resetSavingContent()
+            })
         case "Next":
             if checkedCurrentViewType == .ImageEditView {
                 leftButtonItem.setTitle("Back", for: .normal)
@@ -78,7 +82,7 @@ class NoteEditMainViewController: UIViewController, SetSavingData {
         case "Done":
             if checkedCurrentViewType == .TextEditView {
                 SavingContent.date = dateModel.myDate
-                NoteEditMainViewController.noteEditDelegate?.saveNewData(diary: SavingContent.diary, note: SavingContent.note, image: SavingContent.image, thumbnail: SavingContent.thumbnail, comment: SavingContent.comment, date: SavingContent.date)
+                NoteEditMainViewController.noteEditDelegate?.saveNewData()
                 self.dismiss(animated: true, completion: nil)
             }
         default:

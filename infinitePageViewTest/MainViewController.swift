@@ -9,13 +9,18 @@
 import UIKit
 
 class MainViewController: MainViewController_Default {
-
-    override func saveNewData(diary diaryData: Diary?, note noteData: Note?, image imageData: Data?, thumbnail thumbnailData: Data?, comment commentData: String?, date dateData: Date?) {
-        // can do deferent things with same data -- inheritance from motherview
-    }
     
     override func moveToDiaryWithSelectedNoteData(_ date: Date, note noteData: Note) {
-        // can do deferent things with same data -- inheritance from motherview
+        if let _ = mypageView.viewControllers![0] as? NotePhotoCollectionViewController {
+            mypageView.toThePage(0)
+            visibleDiaryView.mypageView.setVisibleNoteTableViewWithRequestedDate(date)
+            if let targetIndex = visibleDiaryView.visibleNoteTableView.notes.index(of: noteData) {
+                let indexPath = IndexPath(row: targetIndex, section: 0)
+                visibleDiaryView.visibleNoteTableView.moveToTargetCell(indexPath)
+            }
+            leftEdgeButton.isSelected = true
+            rightEdgeButton.isSelected = false
+        }
     }
 
 }

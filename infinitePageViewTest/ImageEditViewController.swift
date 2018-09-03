@@ -65,7 +65,6 @@ class ImageEditViewController: UIViewController, UICollectionViewDelegate, UICol
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! ImageEditViewCollectionViewCell
-        cell.cell_ImageView.alpha = 0
         cell.image = images[indexPath.row]
         return cell
     }
@@ -76,7 +75,8 @@ class ImageEditViewController: UIViewController, UICollectionViewDelegate, UICol
         if let cell = collectionView.cellForItem(at: indexPath) as? ImageEditViewCollectionViewCell {
             thumbnail = UIImageJPEGRepresentation(cell.cell_ImageView.image!, 1)
             DispatchQueue.global(qos: .background).async {
-                let result = PhotoGenerator.getOriginalImageWithImageFetchResultsArray(indexPath.row)
+                let result =
+                    PhotoGenerator.getOriginalImageWithImageFetchResultsArray(indexPath.row)
                 DispatchQueue.main.async {
                     self.seledtedImage = result
                 }

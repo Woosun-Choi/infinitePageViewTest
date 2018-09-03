@@ -17,6 +17,5 @@ class MyFetchedResultsControllerModel {
         let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
         return frc
     }
-    
 
 }

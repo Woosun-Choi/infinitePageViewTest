@@ -42,6 +42,12 @@ struct SavingContent {
         }
     }
     
+    static var hasTag : [String]? {
+        didSet {
+            print("SavingContent_ hastag setted")
+        }
+    }
+    
     static func resetSavingContent() {
         SavingContent.date = nil
         SavingContent.diary = nil
@@ -49,5 +55,6 @@ struct SavingContent {
         SavingContent.image = nil
         SavingContent.thumbnail = nil
         SavingContent.comment = nil
+        SavingContent.hasTag = nil
     }
 }

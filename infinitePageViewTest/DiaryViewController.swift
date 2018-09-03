@@ -29,9 +29,13 @@ class DiaryViewController: UIViewController, sendCurrentPagesDate {
     }
     
     @IBOutlet var weekdayLabel: UILabel!
+    
     @IBOutlet var dayLabel: UILabel!
+    
     @IBOutlet var monthLabel: UILabel!
+    
     @IBOutlet var topContainerView: UIView!
+    
     @IBOutlet weak var pageView: UIView!
     
     override func viewDidLoad() {

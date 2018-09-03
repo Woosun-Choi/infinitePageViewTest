@@ -63,8 +63,6 @@ class NotePhotoCollectionViewController: UICollectionViewController, UICollectio
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainCollectionViewCell", for: indexPath) as! NotePhotoCollectionViewCell
-        cell.imageView.image = UIImage()
-        cell.imageView.alpha = 0
         cell.note = myFetchResultController.object(at: indexPath) as Note
         
         return cell

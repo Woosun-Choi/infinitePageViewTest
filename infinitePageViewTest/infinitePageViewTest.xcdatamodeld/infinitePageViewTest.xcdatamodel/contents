@@ -8,6 +8,11 @@
         <attribute name="hashtag" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="notes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Note" inverseName="hashtags" inverseEntity="Note" syncable="YES"/>
     </entity>
+    <entity name="Image" representedClassName=".Image" syncable="YES" codeGenerationType="category">
+        <attribute name="originalImage" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="thumbnailImage" optional="YES" attributeType="Binary" syncable="YES"/>
+        <relationship name="note" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Note" inverseName="noteImage" inverseEntity="Note" syncable="YES"/>
+    </entity>
     <entity name="Note" representedClassName=".Note" syncable="YES" codeGenerationType="category">
         <attribute name="comment" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="createdDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
@@ -15,10 +20,12 @@
         <attribute name="thumbnail" optional="YES" attributeType="Binary" syncable="YES"/>
         <relationship name="diary" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Diary" inverseName="notes" inverseEntity="Diary" syncable="YES"/>
         <relationship name="hashtags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="HashTag" inverseName="notes" inverseEntity="HashTag" syncable="YES"/>
+        <relationship name="noteImage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Image" inverseName="note" inverseEntity="Image" syncable="YES"/>
     </entity>
     <elements>
         <element name="Diary" positionX="-2151" positionY="-18" width="128" height="73"/>
         <element name="HashTag" positionX="-1793" positionY="-19" width="128" height="73"/>
-        <element name="Note" positionX="-1962" positionY="-18" width="128" height="135"/>
+        <element name="Note" positionX="-1962" positionY="-18" width="128" height="148"/>
+        <element name="Image" positionX="-1773" positionY="126" width="128" height="88"/>
     </elements>
 </model>
