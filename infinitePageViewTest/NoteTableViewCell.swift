@@ -30,9 +30,24 @@ class NoteTableViewCell: UITableViewCell {
     
     var actualWidth : CGFloat!
     
+    var hashs : [HashTag]? {
+        didSet {
+            if hashs?.count != 0 {
+                hashtagView.areaWidth = actualWidth - 30
+                hashtagView.clearHashItem()
+                for hash in hashs! {
+                    hashtagView.addHashItem(text: hash.hashtag!)
+                }
+                hashTagViewHeightConstraint.constant = hashtagView.viewHeight + 30
+            }
+        }
+    }
+    
+    var hasTagCollectionViewLayout : UICollectionViewFlowLayout?
+    
     @IBOutlet weak var cell_ImageView: UIImageView!
     
-    @IBOutlet weak var hashtagView: UIView!
+    @IBOutlet weak var hashtagView: HashTagView!
     
     @IBOutlet weak var cell_CommentLabel: UILabel!
     
@@ -50,7 +65,7 @@ class NoteTableViewCell: UITableViewCell {
     
     @IBOutlet var commentViewTopEdgeConstraint: NSLayoutConstraint!
     
-    var heightAnk : NSLayoutConstraint!
+    @IBOutlet var hashTagViewHeightConstraint: NSLayoutConstraint!
     
     @IBAction func buttonPressed(_ sender: UIButton) {
         switch sender.currentTitle {
@@ -74,6 +89,11 @@ class NoteTableViewCell: UITableViewCell {
         }
         if note?.comment == nil {
             commentViewHeightConstraint.constant = 0
+        }
+        if note?.hashtags?.count != 0 {
+            if let myNote = note {
+                hashs = Note.allHashsFromNote(myNote)
+            }
         }
     }
     
@@ -99,9 +119,8 @@ class NoteTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        hashtagView.backgroundColor = UIColor.darkGray.withAlphaComponent(0.7)
-        hashtagView.isHidden = true
         topBlurView.isHidden = true
+        hashTagViewHeightConstraint.constant = 0
     }
     
     var zeroHeight : NSLayoutConstraint!
@@ -117,6 +136,10 @@ class NoteTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         note = nil
+        hashTagViewHeightConstraint.constant = 0
+        //generator?.clearHashItem()
+        hashtagView?.clearHashItem()
+        hashs = [HashTag]()
         cell_ImageView.image = nil
         cell_CommentLabel.text = nil
         imageViewContainerHeightConstraint.constant = 0
@@ -124,18 +147,54 @@ class NoteTableViewCell: UITableViewCell {
         commentViewTopEdgeConstraint.constant = 0
         cell_ImageView.alpha = 0
         topBlurView.isHidden = true
-        hashtagView.backgroundColor = UIColor.darkGray.withAlphaComponent(0.7)
-        hashtagView.isHidden = true
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
     }
     
 }
 
+//extension NoteTableViewCell : UICollectionViewDelegate, UICollectionViewDataSource {
+//
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return hashs?.count ?? 0
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HashTagCell", for: indexPath) as! NoteTableViewCell_CollectionViewCell
+//        //cell.contentView.translatesAutoresizingMaskIntoConstraints = false
+//        cell.cell_Label.text = String("# \(hashs![indexPath.row].hashtag!)")
+//        return cell
+//    }
+//
+//}
+
+//var nowX : CGFloat = 8.0
+//var nowY : CGFloat = 5.0
+//
+//func clearHashItem() {
+//    nowX = 8
+//    nowY = 5
+//    for subview in hashtagView.subviews {
+//        subview.removeFromSuperview()
+//    }
+//}
+//
+//func addHashItem(text: String) {
+//    let hash = HashTagItemView()
+//    let width = hash.setValueAndReturnSelfSize(text).width
+//    let height = hash.setValueAndReturnSelfSize(text).height
+//
+//    if nowX + width + 10 > actualWidth - 30 {
+//        nowY = height + 8 + nowY
+//        nowX = 8.0
+//    }
+//
+//    hash.frame = CGRect(x: nowX, y: nowY, width: width + 2.0, height: height + 4)
+//    nowX += width + 4.0
+//    hashtagView.addSubview(hash)
+//}
+
+extension NoteTableViewCell {
+    
+}
 
 
 

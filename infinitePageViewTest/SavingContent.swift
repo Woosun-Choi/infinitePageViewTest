@@ -42,7 +42,7 @@ struct SavingContent {
         }
     }
     
-    static var hasTag : [String]? {
+    static var hashTag : [String]? {
         didSet {
             print("SavingContent_ hastag setted")
         }
@@ -55,6 +55,6 @@ struct SavingContent {
         SavingContent.image = nil
         SavingContent.thumbnail = nil
         SavingContent.comment = nil
-        SavingContent.hasTag = nil
+        SavingContent.hashTag = nil
     }
 }

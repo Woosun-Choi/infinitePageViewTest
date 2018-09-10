@@ -47,6 +47,7 @@ class NoteTableViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewDidLoad() {
         print("tableview viewdid laoded")
         super.viewDidLoad()
+        
         noteTableView.delegate = self
         noteTableView.dataSource = self
         noteTableView.register(UINib(nibName: "NoteTableViewCell", bundle: nil), forCellReuseIdentifier: "NoteCell")
@@ -78,6 +79,7 @@ class NoteTableViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NoteCell", for: indexPath) as! NoteTableViewCell
         generateCell(actualWidth: actualMaxWidthOfContentCell, noteData: notes[indexPath.row], targetCell: cell)
+        cell.backgroundColor = UIColor.clear
         return cell
     }
     

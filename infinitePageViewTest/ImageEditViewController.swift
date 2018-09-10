@@ -76,7 +76,8 @@ class ImageEditViewController: UIViewController, UICollectionViewDelegate, UICol
             thumbnail = UIImageJPEGRepresentation(cell.cell_ImageView.image!, 1)
             DispatchQueue.global(qos: .background).async {
                 let result =
-                    PhotoGenerator.getOriginalImageWithImageFetchResultsArray(indexPath.row)
+                    //PhotoGenerator.getOriginalImageWithImageFetchResultsArray(indexPath.row)
+                    PhotoGenerator.getOriginalImageWithSize(indexPath.row, size: 600)
                 DispatchQueue.main.async {
                     self.seledtedImage = result
                 }

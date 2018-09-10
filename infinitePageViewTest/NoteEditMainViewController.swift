@@ -24,6 +24,8 @@ class NoteEditMainViewController: UIViewController, SetSavingData {
         }
     }
     
+    static var tags = [HashTag]()
+    
     var note : Note? {
         didSet {
             SavingContent.note = note
@@ -35,6 +37,18 @@ class NoteEditMainViewController: UIViewController, SetSavingData {
             }
             if let comment = note?.comment {
                 SavingContent.comment = comment
+            }
+            if let hashs = note?.hashtags {
+                if hashs.count > 0 {
+                    NoteEditMainViewController.tags = Note.allHashsFromNote(note!)
+                    for hash in NoteEditMainViewController.tags {
+                        if SavingContent.hashTag == nil {
+                            SavingContent.hashTag = [hash.hashtag] as? [String]
+                        } else {
+                            SavingContent.hashTag?.append(hash.hashtag!)
+                        }
+                    }
+                }
             }
         }
     }
@@ -64,26 +78,36 @@ class NoteEditMainViewController: UIViewController, SetSavingData {
         case "Cancel":
             self.dismiss(animated: true, completion: {
                 SavingContent.resetSavingContent()
+                NoteEditMainViewController.tags = [HashTag]()
             })
         case "Next":
-            if checkedCurrentViewType == .ImageEditView {
+            myPageView.nextPage()
+            if checkedCurrentViewType == .TextEditView {
                 leftButtonItem.setTitle("Back", for: .normal)
-                rightButtonItem.setTitle("Done", for: .normal)
-                myPageView.nextPage()
                 barTitle.text = "write a comment"
             }
+            if checkedCurrentViewType == .HashTagEditView {
+                leftButtonItem.setTitle("Back", for: .normal)
+                rightButtonItem.setTitle("Done", for: .normal)
+                barTitle.text = "add tags"
+            }
         case "Back":
+            myPageView.previousPage()
             if checkedCurrentViewType == .TextEditView {
-                leftButtonItem.setTitle("Cancel", for: .normal)
+                leftButtonItem.setTitle("Back", for: .normal)
                 rightButtonItem.setTitle("Next", for: .normal)
-                myPageView.previousPage()
+                barTitle.text = "write a comment"
+            }
+            if checkedCurrentViewType == .ImageEditView {
+                leftButtonItem.setTitle("Cancel", for: .normal)
                 barTitle.text = "choose a moment"
             }
         case "Done":
-            if checkedCurrentViewType == .TextEditView {
+            if checkedCurrentViewType == .HashTagEditView {
                 SavingContent.date = dateModel.myDate
                 NoteEditMainViewController.noteEditDelegate?.saveNewData()
                 self.dismiss(animated: true, completion: nil)
+                NoteEditMainViewController.tags = [HashTag]()
             }
         default:
             break
@@ -100,6 +124,7 @@ class NoteEditMainViewController: UIViewController, SetSavingData {
         case none
         case TextEditView
         case ImageEditView
+        case HashTagEditView
     }
     
     private var currentView : UIViewController {
@@ -109,6 +134,7 @@ class NoteEditMainViewController: UIViewController, SetSavingData {
     private var checkedCurrentViewType : currnetVCType {
         if currentView is TextEditViewController { return .TextEditView }
         if currentView is ImageEditViewController { return .ImageEditView}
+        if currentView is HashTagEditorViewController { return .HashTagEditView}
         return .none
     }
     

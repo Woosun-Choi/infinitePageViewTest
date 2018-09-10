@@ -20,7 +20,7 @@
         <attribute name="thumbnail" optional="YES" attributeType="Binary" syncable="YES"/>
         <relationship name="diary" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Diary" inverseName="notes" inverseEntity="Diary" syncable="YES"/>
         <relationship name="hashtags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="HashTag" inverseName="notes" inverseEntity="HashTag" syncable="YES"/>
-        <relationship name="noteImage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Image" inverseName="note" inverseEntity="Image" syncable="YES"/>
+        <relationship name="noteImage" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Image" inverseName="note" inverseEntity="Image" syncable="YES"/>
     </entity>
     <elements>
         <element name="Diary" positionX="-2151" positionY="-18" width="128" height="73"/>

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainViewController_Default : UIViewController, PrepareForSavingNewData, SendSeletedNotePhotoData {
+class MainViewController_Default : UIViewController, PrepareForSavingNewData, SendSeletedNotePhotoData, HashTagDelegate {
     
     var mypageView : MainPageViewController!
     
@@ -29,10 +29,11 @@ class MainViewController_Default : UIViewController, PrepareForSavingNewData, Se
     override func viewDidLoad() {
         super.viewDidLoad()
         setButtonColorForState()
-        changeButtonState(left: true, middle: false, right: false)
+        changeButtonState(leftSelected: true, middleHidden: false, rightSelected: false)
         
         NoteEditMainViewController.noteEditDelegate = self
         NotePhotoCollectionViewController.photoCellectionDelegate = self
+        HashTagItemView.delegate = self
         
         // Do any additional setup after loading the view.
     }
@@ -46,7 +47,7 @@ class MainViewController_Default : UIViewController, PrepareForSavingNewData, Se
         middleButton.setTitleColor(UIColor.gray, for: .disabled)
     }
     
-    private func changeButtonState(left leftButtonState: Bool?, middle middleButtonState: Bool?, right rightButtonState: Bool?) {
+    private func changeButtonState(leftSelected leftButtonState: Bool?, middleHidden middleButtonState: Bool?, rightSelected rightButtonState: Bool?) {
         if leftButtonState != nil {
             leftEdgeButton.isSelected = leftButtonState!
         }
@@ -66,13 +67,13 @@ class MainViewController_Default : UIViewController, PrepareForSavingNewData, Se
                 if let lastDate = lastViewedDate {
                     visibleDiaryView.mypageView.setVisibleNoteTableViewWithRequestedDate(lastDate)
                 }
-                changeButtonState(left: true, middle: false, right: false)
+                changeButtonState(leftSelected: true, middleHidden: false, rightSelected: false)
             }
         case "collection":
             if mypageView.checkedCurrentViewType != .PhotoCollection {
                 lastViewedDate = visibleDiaryView.visibleNoteTableView.dateModel.myDate
                 mypageView.toThePage(1)
-                changeButtonState(left: false, middle: true, right: true)
+                changeButtonState(leftSelected: false, middleHidden: true, rightSelected: true)
             }
         case "+":
             if mypageView.checkedCurrentViewType == .DiaryView {
@@ -110,36 +111,12 @@ class MainViewController_Default : UIViewController, PrepareForSavingNewData, Se
         
         print("saving data confirmed")
         if SavingContent.image != nil {
-            var newImageData: Data! {
-                didSet {
-                    do {
-                        try Note.saveDataOrCeate(SavingContent.diary, note: SavingContent.note, image: newImageData, thumbnail: SavingContent.thumbnail, comment: SavingContent.comment, date: SavingContent.date)
-                        visibleDiaryView.visibleNoteTableView.loadData()
-                        let targetIndexPath = IndexPath(item: visibleDiaryView.visibleNoteTableView.selectedCellIndex, section: 0)
-                        visibleDiaryView.visibleNoteTableView.noteTableView.scrollToRow(at: targetIndexPath, at: .middle, animated: false)
-                    } catch { return }
-                }
-            }
-            
-            func resizeImageForSave() {
-                let fullImage = UIImage(data: SavingContent.image!)
-                let newWidth = (visibleDiaryView.visibleNoteTableView.actualMaxWidthOfContentCell) - 30
-                let ratio = (fullImage?.size.height)!/(fullImage?.size.width)!
-                let newHeight = newWidth * ratio
-                let newImage = fullImage?.resizedImage(newSize:CGSize(width: newWidth, height: newHeight))
-                newImageData = UIImageJPEGRepresentation(newImage!, 1)
-            }
-            
-            if SavingContent.note == nil {
-                print("note nil case called")
-                resizeImageForSave()
-            } else if SavingContent.note != nil, SavingContent.note?.image != SavingContent.image {
-                print("deferent image case called")
-                resizeImageForSave()
-            } else if SavingContent.note != nil, SavingContent.note?.image == SavingContent.image {
-                print("same image case called")
-                newImageData = SavingContent.image
-            }
+            do {
+                try Note.saveDataOrCeate(SavingContent.diary, note: SavingContent.note, image: SavingContent.image, thumbnail: SavingContent.thumbnail, comment: SavingContent.comment, date: SavingContent.date)
+                visibleDiaryView.visibleNoteTableView.loadData()
+                let targetIndexPath = IndexPath(item: visibleDiaryView.visibleNoteTableView.selectedCellIndex, section: 0)
+                visibleDiaryView.visibleNoteTableView.noteTableView.scrollToRow(at: targetIndexPath, at: .middle, animated: false)
+            } catch { return }
             
         } else if SavingContent.image == nil {
             do {
@@ -158,7 +135,50 @@ class MainViewController_Default : UIViewController, PrepareForSavingNewData, Se
                 let indexPath = IndexPath(row: targetIndex, section: 0)
                 visibleDiaryView.visibleNoteTableView.moveToTargetCell(indexPath)
             }
-            changeButtonState(left: true, middle: false, right: false)
+            changeButtonState(leftSelected: true, middleHidden: false, rightSelected: false)
         }
     }
+    
+    func passingData(_ tag: String, editType type: requestedHashTagManagement) {
+        if type == .fetch {
+            let mynote = HashTag.fetchNoteTagWithString(tag)
+            print(mynote?.count)
+        }
+    }
+    
 }
+
+
+
+
+
+//            var newImageData: Data! {
+//                didSet {
+//                    do {
+//                        try Note.saveDataOrCeate(SavingContent.diary, note: SavingContent.note, image: newImageData, thumbnail: SavingContent.thumbnail, comment: SavingContent.comment, date: SavingContent.date)
+//                        visibleDiaryView.visibleNoteTableView.loadData()
+//                        let targetIndexPath = IndexPath(item: visibleDiaryView.visibleNoteTableView.selectedCellIndex, section: 0)
+//                        visibleDiaryView.visibleNoteTableView.noteTableView.scrollToRow(at: targetIndexPath, at: .middle, animated: false)
+//                    } catch { return }
+//                }
+//            }
+//
+//            func resizeImageForSave() {
+//                let fullImage = UIImage(data: SavingContent.image!)
+//                let newWidth = (visibleDiaryView.visibleNoteTableView.actualMaxWidthOfContentCell) - 30
+//                let ratio = (fullImage?.size.height)!/(fullImage?.size.width)!
+//                let newHeight = newWidth * ratio
+//                let newImage = fullImage?.resizedImage(newSize:CGSize(width: newWidth, height: newHeight))
+//                newImageData = UIImageJPEGRepresentation(newImage!, 1)
+//            }
+//
+//            if SavingContent.note == nil {
+//                print("note nil case called")
+//                resizeImageForSave()
+//            } else if SavingContent.note != nil, SavingContent.note?.image != SavingContent.image {
+//                print("deferent image case called")
+//                resizeImageForSave()
+//            } else if SavingContent.note != nil, SavingContent.note?.image == SavingContent.image {
+//                print("same image case called")
+//                newImageData = SavingContent.image
+//            }

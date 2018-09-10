@@ -11,14 +11,44 @@ import CoreData
 
 class HashTag: NSManagedObject {
     
-    class func deleteHashTagWithString(_ tag: String, note noteData: Note?) {
+    class func fetchingAllHashTags() -> [HashTag]? {
         let request : NSFetchRequest<HashTag> = HashTag.fetchRequest()
-        let predicate = NSPredicate(format: "Hashtag.hashtag == %@", tag)
+        let sort = NSSortDescriptor(key: "hashtag", ascending: true)
+        request.sortDescriptors = [sort]
+        
+        do {
+            let context = AppDelegate.viewContext
+            return try context.fetch(request)
+        } catch {
+            return nil
+        }
+    }
+    
+    class func fetchNoteTagWithString(_ tag: String) -> [Note]? {
+        let request : NSFetchRequest<HashTag> = HashTag.fetchRequest()
+        let predicate = NSPredicate(format: "hashtag == %@", tag)
+        request.predicate = predicate
+        do {
+            let context = AppDelegate.viewContext
+            let result = try context.fetch(request).first
+            if let notes = result?.notes as? Set<Note> {
+                return notes.reversed().sorted(by: ({
+                    $0.createdDate! > $1.createdDate!
+                }))
+            } else {
+                return nil
+            }
+        } catch { return nil }
+    }
+    
+    class func deleteHashTagOrRemoveFromNote(_ tag: String, note noteData: Note?) {
+        let request : NSFetchRequest<HashTag> = HashTag.fetchRequest()
+        let predicate = NSPredicate(format: "hashtag == %@", tag)
         request.predicate = predicate
         do {
             let context = AppDelegate.viewContext
             if let target = try context.fetch(request).first {
-                if (target.notes?.count)! > 1 && noteData != nil {
+                if (target.notes?.count)! >= 1 && noteData != nil {
                     target.removeFromNotes(noteData!)
                     try context.save()
                 } else {

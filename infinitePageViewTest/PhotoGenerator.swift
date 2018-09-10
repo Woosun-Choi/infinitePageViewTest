@@ -38,7 +38,7 @@ class PhotoGenerator {
         return myThumbnials
     }
     
-    class func getOriginalImageWithImageFetchResultsArray(_ index: Int) -> Data {
+    class func getOriginalImageWithImageFetchResultsArray(_ index: Int) -> Data? {
         
         var myImageData : Data!
         
@@ -55,10 +55,43 @@ class PhotoGenerator {
                 (data, string, orientation, hashable) in
                 myImageData = data
             }
+            return myImageData
         } else {
-            
+            return nil
         }
-        return myImageData
+    }
+    
+    class func getOriginalImageWithSize(_ index: Int, size targetSize: CGFloat) -> Data? {
+        
+        var myImageData : Data!
+        
+        requestOptions.resizeMode = .exact
+        requestOptions.isSynchronous = true
+        requestOptions.isNetworkAccessAllowed = true
+        requestOptions.deliveryMode = .opportunistic
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key:"creationDate", ascending: false)]
+        
+        let fetchResault : PHFetchResult = PHAsset.fetchAssets(with: .image, options: fetchOptions)
+        
+        if fetchResault.count > 0 {
+            let asset = fetchResault.object(at: index)
+            let ratio = CGFloat(Double(asset.pixelHeight)/Double(asset.pixelWidth))
+            print("height: \(asset.pixelHeight) width: \(asset.pixelWidth)")
+            print(ratio)
+            let newWidth = targetSize
+            let newHeight = newWidth * ratio
+            let newSize = CGSize(width: newWidth, height: newHeight)
+            imgManager.requestImage(for: asset, targetSize: newSize, contentMode: .aspectFill, options: requestOptions, resultHandler: {
+                image, error in
+                if let myImage = image {
+                    myImageData = UIImageJPEGRepresentation(myImage, 1)
+                    print(myImage.size.width)
+                }
+            })
+            return myImageData
+        } else {
+            return nil
+        }
     }
     
     class func resizeImageWithNewWidth(imageData data: Data, newWidth width: CGFloat) -> UIImage? {

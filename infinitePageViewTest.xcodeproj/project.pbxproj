@@ -20,6 +20,7 @@
 		A709A1D8212C248E009DACF3 /* NotePhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A709A1D6212C248E009DACF3 /* NotePhotoCollectionViewCell.swift */; };
 		A709A1DD212CFD01009DACF3 /* PhotoGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A709A1DC212CFD01009DACF3 /* PhotoGenerator.swift */; };
 		A709A1DF212D092C009DACF3 /* ImageEditViewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A709A1DE212D092C009DACF3 /* ImageEditViewCollectionViewCell.swift */; };
+		A70E3C872144D45100412DEB /* HashTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70E3C862144D45100412DEB /* HashTagView.swift */; };
 		A73A4A01211999EC00B6F8FE /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73A4A00211999EC00B6F8FE /* Note.swift */; };
 		A73A4A0321199C6600B6F8FE /* TextEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73A4A0221199C6600B6F8FE /* TextEditViewController.swift */; };
 		A74338CB2130201B00F07F36 /* NoteEditProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74338CA2130201B00F07F36 /* NoteEditProtocols.swift */; };
@@ -31,6 +32,13 @@
 		A74C3B5E2135AB0E0032EB3C /* makesubviewSampleCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74C3B5D2135AB0E0032EB3C /* makesubviewSampleCodes.swift */; };
 		A74C3B64213678CA0032EB3C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74C3B63213678CA0032EB3C /* MainViewController.swift */; };
 		A791F3CD213CCDD9006AE6AF /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = A791F3CC213CCDD9006AE6AF /* Image.swift */; };
+		A791F3D52140E00C006AE6AF /* NoteEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A791F3D42140E00C006AE6AF /* NoteEditorViewController.swift */; };
+		A791F3D72140E040006AE6AF /* HashTagEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A791F3D62140E040006AE6AF /* HashTagEditorViewController.swift */; };
+		A791F3D92140E0A0006AE6AF /* ImageSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A791F3D82140E0A0006AE6AF /* ImageSelectorViewController.swift */; };
+		A791F3DB2140E0C4006AE6AF /* CommentEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A791F3DA2140E0C4006AE6AF /* CommentEditorViewController.swift */; };
+		A791F3DD21411FBA006AE6AF /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A791F3DC21411FBA006AE6AF /* LeftAlignedCollectionViewFlowLayout.swift */; };
+		A791F3DF21418F11006AE6AF /* LeftAlignedCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A791F3DE21418F11006AE6AF /* LeftAlignedCollectionViewLayout.swift */; };
+		A791F3E12141F343006AE6AF /* HashTagItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A791F3E02141F343006AE6AF /* HashTagItemView.swift */; };
 		A7C7F26A21130C1D007C2C84 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C7F26921130C1D007C2C84 /* AppDelegate.swift */; };
 		A7C7F26F21130C1D007C2C84 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7C7F26D21130C1D007C2C84 /* Main.storyboard */; };
 		A7C7F27221130C1D007C2C84 /* infinitePageViewTest.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A7C7F27021130C1D007C2C84 /* infinitePageViewTest.xcdatamodeld */; };
@@ -57,6 +65,7 @@
 		A709A1D6212C248E009DACF3 /* NotePhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotePhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		A709A1DC212CFD01009DACF3 /* PhotoGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoGenerator.swift; sourceTree = "<group>"; };
 		A709A1DE212D092C009DACF3 /* ImageEditViewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEditViewCollectionViewCell.swift; sourceTree = "<group>"; };
+		A70E3C862144D45100412DEB /* HashTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashTagView.swift; sourceTree = "<group>"; };
 		A73A4A00211999EC00B6F8FE /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		A73A4A0221199C6600B6F8FE /* TextEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditViewController.swift; sourceTree = "<group>"; };
 		A74338CA2130201B00F07F36 /* NoteEditProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteEditProtocols.swift; sourceTree = "<group>"; };
@@ -68,6 +77,13 @@
 		A74C3B5D2135AB0E0032EB3C /* makesubviewSampleCodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = makesubviewSampleCodes.swift; sourceTree = "<group>"; };
 		A74C3B63213678CA0032EB3C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		A791F3CC213CCDD9006AE6AF /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
+		A791F3D42140E00C006AE6AF /* NoteEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteEditorViewController.swift; sourceTree = "<group>"; };
+		A791F3D62140E040006AE6AF /* HashTagEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashTagEditorViewController.swift; sourceTree = "<group>"; };
+		A791F3D82140E0A0006AE6AF /* ImageSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSelectorViewController.swift; sourceTree = "<group>"; };
+		A791F3DA2140E0C4006AE6AF /* CommentEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentEditorViewController.swift; sourceTree = "<group>"; };
+		A791F3DC21411FBA006AE6AF /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		A791F3DE21418F11006AE6AF /* LeftAlignedCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewLayout.swift; sourceTree = "<group>"; };
+		A791F3E02141F343006AE6AF /* HashTagItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashTagItemView.swift; sourceTree = "<group>"; };
 		A7C7F26621130C1D007C2C84 /* infinitePageViewTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = infinitePageViewTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7C7F26921130C1D007C2C84 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A7C7F26E21130C1D007C2C84 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -119,6 +135,10 @@
 				A709A1C22125683E009DACF3 /* NoteTableViewController.swift */,
 				A709A1C421256A00009DACF3 /* NoteTableViewCell.swift */,
 				A709A1C521256A00009DACF3 /* NoteTableViewCell.xib */,
+				A791F3DC21411FBA006AE6AF /* LeftAlignedCollectionViewFlowLayout.swift */,
+				A791F3DE21418F11006AE6AF /* LeftAlignedCollectionViewLayout.swift */,
+				A70E3C862144D45100412DEB /* HashTagView.swift */,
+				A791F3E02141F343006AE6AF /* HashTagItemView.swift */,
 			);
 			name = NoteTableViews;
 			sourceTree = "<group>";
@@ -126,6 +146,10 @@
 		A709A1CF212BD6BF009DACF3 /* NoteEditViews */ = {
 			isa = PBXGroup;
 			children = (
+				A791F3D82140E0A0006AE6AF /* ImageSelectorViewController.swift */,
+				A791F3D62140E040006AE6AF /* HashTagEditorViewController.swift */,
+				A791F3DA2140E0C4006AE6AF /* CommentEditorViewController.swift */,
+				A791F3D42140E00C006AE6AF /* NoteEditorViewController.swift */,
 				A709A1CA212BD5C2009DACF3 /* NoteEditMainViewController.swift */,
 				A709A1D0212BD6E7009DACF3 /* NoteEditPageViewController.swift */,
 				A73A4A0221199C6600B6F8FE /* TextEditViewController.swift */,
@@ -312,14 +336,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				A74338D22131454500F07F36 /* sampleCodesForCoreDataFetch.swift in Sources */,
+				A791F3D92140E0A0006AE6AF /* ImageSelectorViewController.swift in Sources */,
 				A74338D42132E43600F07F36 /* MainViewController_Default.swift in Sources */,
 				A74C3B5E2135AB0E0032EB3C /* makesubviewSampleCodes.swift in Sources */,
+				A791F3DF21418F11006AE6AF /* LeftAlignedCollectionViewLayout.swift in Sources */,
 				A709A1D3212BD72E009DACF3 /* ImageEditViewController.swift in Sources */,
 				A709A1C9212BD205009DACF3 /* NotePhotoCollectionViewController.swift in Sources */,
+				A791F3E12141F343006AE6AF /* HashTagItemView.swift in Sources */,
 				A7C7F2AF2119403C007C2C84 /* DiaryViewController.swift in Sources */,
 				A73A4A0321199C6600B6F8FE /* TextEditViewController.swift in Sources */,
+				A791F3D72140E040006AE6AF /* HashTagEditorViewController.swift in Sources */,
 				A709A1DD212CFD01009DACF3 /* PhotoGenerator.swift in Sources */,
 				A7C7F26A21130C1D007C2C84 /* AppDelegate.swift in Sources */,
+				A70E3C872144D45100412DEB /* HashTagView.swift in Sources */,
 				A74C3B64213678CA0032EB3C /* MainViewController.swift in Sources */,
 				A73A4A01211999EC00B6F8FE /* Note.swift in Sources */,
 				A74338D92132F69B00F07F36 /* SavingContent.swift in Sources */,
@@ -331,13 +360,16 @@
 				A7C831D62125576E00A62EA1 /* NoteDataManager.swift in Sources */,
 				A7C7F28321134A21007C2C84 /* DateBrain.swift in Sources */,
 				A791F3CD213CCDD9006AE6AF /* Image.swift in Sources */,
+				A791F3D52140E00C006AE6AF /* NoteEditorViewController.swift in Sources */,
 				A709A1D5212C11D5009DACF3 /* CustomExtentions.swift in Sources */,
+				A791F3DD21411FBA006AE6AF /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
 				A7C7F27221130C1D007C2C84 /* infinitePageViewTest.xcdatamodeld in Sources */,
 				A7C7F27F21130C53007C2C84 /* DiaryPageViewController.swift in Sources */,
 				A709A1D1212BD6E7009DACF3 /* NoteEditPageViewController.swift in Sources */,
 				A709A1BD2125630B009DACF3 /* HashTag.swift in Sources */,
 				A7C7F28221134A21007C2C84 /* DateCoreModel.swift in Sources */,
 				A709A1D8212C248E009DACF3 /* NotePhotoCollectionViewCell.swift in Sources */,
+				A791F3DB2140E0C4006AE6AF /* CommentEditorViewController.swift in Sources */,
 				A709A1C32125683E009DACF3 /* NoteTableViewController.swift in Sources */,
 				A74338D62132E45200F07F36 /* MainPageViewController.swift in Sources */,
 				A709A1BF21256379009DACF3 /* Diary.swift in Sources */,
