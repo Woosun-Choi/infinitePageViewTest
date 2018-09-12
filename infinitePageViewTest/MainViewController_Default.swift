@@ -33,9 +33,12 @@ class MainViewController_Default : UIViewController, PrepareForSavingNewData, Se
         
         NoteEditMainViewController.noteEditDelegate = self
         NotePhotoCollectionViewController.photoCellectionDelegate = self
-        HashTagItemView.delegate = self
         
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        HashTagItemView.delegate = self
     }
     
     private func setButtonColorForState() {
@@ -102,6 +105,10 @@ class MainViewController_Default : UIViewController, PrepareForSavingNewData, Se
                     destinationVC.diary = settedDiary
                 }
             }
+        case "ShowNotesInTag":
+            if let destibationVC = segue.destination as? ShowNotesInHashTagViewController {
+                destibationVC.nowTag = passingTag
+            }
         default:
             break
         }
@@ -139,10 +146,12 @@ class MainViewController_Default : UIViewController, PrepareForSavingNewData, Se
         }
     }
     
+    private var passingTag : String?
+    
     func passingData(_ tag: String, editType type: requestedHashTagManagement) {
         if type == .fetch {
-            let mynote = HashTag.fetchNoteTagWithString(tag)
-            print(mynote?.count)
+            passingTag = tag
+            performSegue(withIdentifier: "ShowNotesInTag", sender: self)
         }
     }
     

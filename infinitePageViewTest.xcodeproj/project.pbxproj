@@ -47,6 +47,7 @@
 		A7C7F28221134A21007C2C84 /* DateCoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C7F28021134A21007C2C84 /* DateCoreModel.swift */; };
 		A7C7F28321134A21007C2C84 /* DateBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C7F28121134A21007C2C84 /* DateBrain.swift */; };
 		A7C7F2AF2119403C007C2C84 /* DiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C7F2AE2119403C007C2C84 /* DiaryViewController.swift */; };
+		A7E0C1E62149632A00825256 /* ShowNotesInHashTagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E0C1E52149632A00825256 /* ShowNotesInHashTagViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,6 +93,7 @@
 		A7C7F28021134A21007C2C84 /* DateCoreModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateCoreModel.swift; sourceTree = "<group>"; };
 		A7C7F28121134A21007C2C84 /* DateBrain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateBrain.swift; sourceTree = "<group>"; };
 		A7C7F2AE2119403C007C2C84 /* DiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewController.swift; sourceTree = "<group>"; };
+		A7E0C1E52149632A00825256 /* ShowNotesInHashTagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowNotesInHashTagViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +180,7 @@
 				A74338D72132F11500F07F36 /* MainViews */,
 				A709A1CC212BD614009DACF3 /* PhotoCollectionViews */,
 				A709A1CD212BD65E009DACF3 /* DiaryViews */,
+				A7E0C1E72149634300825256 /* ShowNotesInTag View */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -257,6 +260,14 @@
 				A74338C6212FE00500F07F36 /* Models */,
 			);
 			path = infinitePageViewTest;
+			sourceTree = "<group>";
+		};
+		A7E0C1E72149634300825256 /* ShowNotesInTag View */ = {
+			isa = PBXGroup;
+			children = (
+				A7E0C1E52149632A00825256 /* ShowNotesInHashTagViewController.swift */,
+			);
+			name = "ShowNotesInTag View";
 			sourceTree = "<group>";
 		};
 		A7E6AF47211D29B500920DAC /* NoteDataModels */ = {
@@ -375,6 +386,7 @@
 				A7C7F27F21130C53007C2C84 /* DiaryPageViewController.swift in Sources */,
 				A709A1D1212BD6E7009DACF3 /* NoteEditPageViewController.swift in Sources */,
 				A709A1BD2125630B009DACF3 /* HashTag.swift in Sources */,
+				A7E0C1E62149632A00825256 /* ShowNotesInHashTagViewController.swift in Sources */,
 				A7C7F28221134A21007C2C84 /* DateCoreModel.swift in Sources */,
 				A709A1D8212C248E009DACF3 /* NotePhotoCollectionViewCell.swift in Sources */,
 				A791F3DB2140E0C4006AE6AF /* CommentEditorViewController.swift in Sources */,

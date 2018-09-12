@@ -455,6 +455,81 @@
             </objects>
             <point key="canvasLocation" x="1948" y="1057"/>
         </scene>
+        <!--Show Notes In Hash Tag View Controller-->
+        <scene sceneID="ANy-Ys-vzm">
+            <objects>
+                <viewController id="tP6-35-7eh" customClass="ShowNotesInHashTagViewController" customModule="infinitePageViewTest" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fSm-SL-Wvw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eFf-Gz-fVr" userLabel="TopConatinerView">
+                                <rect key="frame" x="0.0" y="20" width="375" height="75"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tag" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="CV1-Fn-hj7">
+                                        <rect key="frame" x="94.5" y="23" width="187.5" height="29.5"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="25"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6TJ-ZV-amg">
+                                        <rect key="frame" x="16" y="23" width="34" height="30"/>
+                                        <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="back"/>
+                                        <connections>
+                                            <action selector="backButtonPressed:" destination="tP6-35-7eh" eventType="touchUpInside" id="x2h-XO-02X"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.31372549020000001" green="0.31764705879999999" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="75" id="7qa-Ut-5ho"/>
+                                    <constraint firstItem="CV1-Fn-hj7" firstAttribute="centerX" secondItem="AnI-hq-xiY" secondAttribute="centerX" id="9jI-i7-OSs"/>
+                                    <constraint firstItem="6TJ-ZV-amg" firstAttribute="centerY" secondItem="AnI-hq-xiY" secondAttribute="centerY" id="SE1-7q-KDs"/>
+                                    <constraint firstItem="CV1-Fn-hj7" firstAttribute="width" secondItem="eFf-Gz-fVr" secondAttribute="width" multiplier="0.5" id="ajC-7p-Pw0"/>
+                                    <constraint firstItem="AnI-hq-xiY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="6TJ-ZV-amg" secondAttribute="trailing" priority="999" constant="325" id="bVf-Xc-8SJ"/>
+                                    <constraint firstItem="CV1-Fn-hj7" firstAttribute="centerY" secondItem="AnI-hq-xiY" secondAttribute="centerY" id="jYs-fD-GnQ"/>
+                                    <constraint firstItem="6TJ-ZV-amg" firstAttribute="leading" secondItem="AnI-hq-xiY" secondAttribute="leading" constant="16" id="syg-YK-o41"/>
+                                </constraints>
+                                <viewLayoutGuide key="safeArea" id="AnI-hq-xiY"/>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9GQ-QU-M00">
+                                <rect key="frame" x="16" y="103" width="343" height="544"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="8Nf-28-944">
+                                        <rect key="frame" x="0.0" y="28" width="343" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8Nf-28-944" id="on6-2L-5F8">
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.31372549020000001" green="0.31764705879999999" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="eFf-Gz-fVr" firstAttribute="top" secondItem="pCT-mx-23t" secondAttribute="top" id="43h-nd-dut"/>
+                            <constraint firstItem="eFf-Gz-fVr" firstAttribute="leading" secondItem="pCT-mx-23t" secondAttribute="leading" id="5G2-6E-S3e"/>
+                            <constraint firstItem="pCT-mx-23t" firstAttribute="bottom" secondItem="9GQ-QU-M00" secondAttribute="bottom" constant="20" id="IXB-IK-YI4"/>
+                            <constraint firstItem="9GQ-QU-M00" firstAttribute="leading" secondItem="pCT-mx-23t" secondAttribute="leading" constant="16" id="Ivz-AO-jhg"/>
+                            <constraint firstItem="pCT-mx-23t" firstAttribute="trailing" secondItem="9GQ-QU-M00" secondAttribute="trailing" constant="16" id="QrT-ft-YHk"/>
+                            <constraint firstItem="pCT-mx-23t" firstAttribute="trailing" secondItem="eFf-Gz-fVr" secondAttribute="trailing" id="h2M-Um-dVP"/>
+                            <constraint firstItem="9GQ-QU-M00" firstAttribute="top" secondItem="eFf-Gz-fVr" secondAttribute="bottom" constant="8" id="yZU-0A-uyh"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="pCT-mx-23t"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="1t6-xA-8QN"/>
+                    <connections>
+                        <outlet property="noteTableView" destination="9GQ-QU-M00" id="DPS-vu-LLP"/>
+                        <outlet property="tagLabel" destination="CV1-Fn-hj7" id="f44-O9-Jpm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Mxh-oX-Dmq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="310" y="1166"/>
+        </scene>
         <!--Main View Controller Default-->
         <scene sceneID="bel-F8-O80">
             <objects>
@@ -536,6 +611,7 @@
                         <outlet property="middleButton" destination="8Za-mi-PK4" id="daA-Nq-kWC"/>
                         <outlet property="rightEdgeButton" destination="MTT-hV-8JS" id="inX-YL-Cc7"/>
                         <segue destination="ufa-Q0-82r" kind="show" identifier="ToCreateNote" id="fdD-0Z-BV6"/>
+                        <segue destination="tP6-35-7eh" kind="presentation" identifier="ShowNotesInTag" modalTransitionStyle="flipHorizontal" id="Vnx-qG-VSd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3L2-7d-eNe" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -650,7 +726,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mf2-jS-JTK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1284" y="1719"/>
+            <point key="canvasLocation" x="3511" y="1057"/>
         </scene>
         <!--Note Editor View Controller-->
         <scene sceneID="mxa-HJ-1Xg">
@@ -799,7 +875,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B6G-RP-mA8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1948" y="1719"/>
+            <point key="canvasLocation" x="4146" y="1057"/>
         </scene>
         <!--Image Selector View Controller-->
         <scene sceneID="uHa-Oj-KyM">
@@ -903,7 +979,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k2t-tQ-eTq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2626" y="1719"/>
+            <point key="canvasLocation" x="4775" y="1057"/>
         </scene>
         <!--Hash Tag Editor View Controller-->
         <scene sceneID="1IS-gl-Ptb">
