@@ -63,7 +63,7 @@ class MainViewController_Default : UIViewController, PrepareForSavingNewData, Se
         switch sender.currentTitle {
         case "main":
             if mypageView.checkedCurrentViewType != .DiaryView {
-                mypageView.toThePage(0)
+                mypageView.toThePage(.Diary)
                 if let lastDate = lastViewedDate {
                     visibleDiaryView.mypageView.setVisibleNoteTableViewWithRequestedDate(lastDate)
                 }
@@ -72,7 +72,7 @@ class MainViewController_Default : UIViewController, PrepareForSavingNewData, Se
         case "collection":
             if mypageView.checkedCurrentViewType != .PhotoCollection {
                 lastViewedDate = visibleDiaryView.visibleNoteTableView.dateModel.myDate
-                mypageView.toThePage(1)
+                mypageView.toThePage(.PhotoCollection)
                 changeButtonState(leftSelected: false, middleHidden: true, rightSelected: true)
             }
         case "+":
@@ -129,7 +129,7 @@ class MainViewController_Default : UIViewController, PrepareForSavingNewData, Se
     
     func moveToDiaryWithSelectedNoteData(_ date: Date, note noteData: Note) {
         if let _ = mypageView.viewControllers![0] as? NotePhotoCollectionViewController {
-            mypageView.toThePage(0)
+            mypageView.toThePage(.Diary)
             visibleDiaryView.mypageView.setVisibleNoteTableViewWithRequestedDate(date)
             if let targetIndex = visibleDiaryView.visibleNoteTableView.notes.index(of: noteData) {
                 let indexPath = IndexPath(row: targetIndex, section: 0)

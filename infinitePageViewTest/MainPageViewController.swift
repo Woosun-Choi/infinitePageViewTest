@@ -23,17 +23,27 @@ class MainPageViewController: UIPageViewController {
         }
     }
     
+    enum vcTypes {
+        case Diary
+        case PhotoCollection
+    }
+    
+    var vcTypeChecker : Dictionary<vcTypes,Int> = [
+        .Diary : 0,
+        .PhotoCollection : 1
+    ]
+    
     var loadedVCIndex = 0
     
-    func toThePage(_ index : Int) {
-        if loadedVCIndex < index {
-            let newViewController = viewControllerList[index]
+    func toThePage(_ index : vcTypes) {
+        if loadedVCIndex < vcTypeChecker[index]! {
+            let newViewController = viewControllerList[vcTypeChecker[index]!]
             setViewControllers([newViewController], direction: .forward, animated: true, completion: nil)
-            loadedVCIndex = index
-        } else if loadedVCIndex > index {
-            let newViewController = viewControllerList[index]
+            loadedVCIndex = vcTypeChecker[index]!
+        } else if loadedVCIndex > vcTypeChecker[index]! {
+            let newViewController = viewControllerList[vcTypeChecker[index]!]
             setViewControllers([newViewController], direction: .reverse, animated: true, completion: nil)
-            loadedVCIndex = index
+            loadedVCIndex = vcTypeChecker[index]!
         }
     }
     

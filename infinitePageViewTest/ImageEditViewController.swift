@@ -34,6 +34,11 @@ class ImageEditViewController: UIViewController, UICollectionViewDelegate, UICol
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        spinnerContainer.isHidden = true
+        //spinnerContainer.backgroundColor = UIColor.gray.withAlphaComponent(0.35)
+        spinnerContainer.backgroundColor = UIColor.init(red: 80/255, green: 80/255, blue: 81/255, alpha: 0.45)
+        spinnerContainer.layer.cornerRadius = 8
+        
         imageCollectionView.delegate = self
         imageCollectionView.dataSource = self
         imageView.layer.backgroundColor = UIColor.white.withAlphaComponent(0).cgColor
@@ -69,17 +74,43 @@ class ImageEditViewController: UIViewController, UICollectionViewDelegate, UICol
         return cell
     }
     
+    //MARK: Loading Block settings
+    
+    var nowLoading = false
+    
+    @IBOutlet var spinnerContainer: UIView!
+    
+    @IBOutlet var loadingSpinner: UIActivityIndicatorView!
+    
+    func starSpinner() {
+        nowLoading = true
+        spinnerContainer.isHidden = false
+        loadingSpinner.startAnimating()
+    }
+    
+    func endSpinner() {
+        nowLoading = false
+        spinnerContainer.isHidden = true
+        loadingSpinner.stopAnimating()
+    }
+    
+    // Loading block ended
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         UIApplication.shared.beginIgnoringInteractionEvents()
         
         if let cell = collectionView.cellForItem(at: indexPath) as? ImageEditViewCollectionViewCell {
-            thumbnail = UIImageJPEGRepresentation(cell.cell_ImageView.image!, 1)
-            DispatchQueue.global(qos: .background).async {
-                let result =
-                    //PhotoGenerator.getOriginalImageWithImageFetchResultsArray(indexPath.row)
-                    PhotoGenerator.getOriginalImageWithSize(indexPath.row, size: 600)
-                DispatchQueue.main.async {
-                    self.seledtedImage = result
+            if nowLoading == false {
+                starSpinner()
+                thumbnail = UIImageJPEGRepresentation(cell.cell_ImageView.image!, 1)
+                DispatchQueue.global(qos: .background).async {
+                    let result =
+                        //PhotoGenerator.getOriginalImageWithImageFetchResultsArray(indexPath.row)
+                        PhotoGenerator.getOriginalImageWithSize(indexPath.row, size: 600)
+                    DispatchQueue.main.async {
+                        self.seledtedImage = result
+                        self.endSpinner()
+                    }
                 }
             }
         }

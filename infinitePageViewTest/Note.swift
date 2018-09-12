@@ -47,6 +47,18 @@ class Note: NSManagedObject {
         }
     }
     
+    class func test(_ diary: Diary, date dateData: Date) {
+        let request : NSFetchRequest<Diary> = Diary.fetchRequest()
+        let predicate = NSPredicate(format: "date == %@", dateData as CVarArg)
+        request.predicate = predicate
+        let context = AppDelegate.viewContext
+        do {
+            let a = try context.fetch(request)
+            
+        } catch { }
+        
+    }
+    
     class func allNotesFromHashtag(_ hashTag: HashTag) -> [Note] {
         return ((hashTag.notes as? Set<Note>)?.reversed().sorted(by:({($0.diary?.date!)! > ($1.diary?.date!)!})))!
     }
@@ -114,7 +126,6 @@ class Note: NSManagedObject {
         let context = AppDelegate.viewContext
         if diary == nil {
             let newNote = Note(context: context)
-            //setDataToNote(newNote, image: imageData, thumbnail: thumbnailData, comment: commentData)
             saveDataToNote(newNote, image: imageData, thumbnail: thumbnailData, comment: commentData)
             newNote.createdDate = Date()
             let notesDiary = Diary(context: newNote.managedObjectContext!)
@@ -124,13 +135,11 @@ class Note: NSManagedObject {
         } else {
             print("diary else state activated")
             if noteData != nil {
-                //setDataToNote(noteData!, image: imageData, thumbnail: thumbnailData, comment: commentData)
                 saveDataToNote(noteData!, image: imageData, thumbnail: thumbnailData, comment: commentData)
                 saveOrCreateHashTags(tags: SavingContent.hashTag /* set tags*/ , note: noteData)
             } else if noteData == nil {
                 print("note else state activated")
                 let newNote = Note(context: context)
-                //setDataToNote(newNote, image: imageData, thumbnail: thumbnailData, comment: commentData)
                 saveDataToNote(newNote, image: imageData, thumbnail: thumbnailData, comment: commentData)
                 newNote.createdDate = Date()
                 diary?.addToNotes(newNote)
@@ -139,7 +148,7 @@ class Note: NSManagedObject {
         }
         do {
             try context.save()
-        } catch {
+        } catch let error {
             throw error
         }
     }
@@ -167,18 +176,6 @@ class Note: NSManagedObject {
             if let comment = commentData {
                 note.comment = comment
             }
-        }
-    }
-    
-    private static func setDataToNote(_ note: Note, image imageData: Data?, thumbnail thumbnailData: Data? ,comment commentData: String?) {
-        if let image = imageData {
-            note.image = image
-        }
-        if let comment = commentData {
-            note.comment = comment
-        }
-        if let thumbnail = thumbnailData {
-            note.thumbnail = thumbnail
         }
     }
     

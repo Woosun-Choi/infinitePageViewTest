@@ -21,11 +21,12 @@
 		A709A1DD212CFD01009DACF3 /* PhotoGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A709A1DC212CFD01009DACF3 /* PhotoGenerator.swift */; };
 		A709A1DF212D092C009DACF3 /* ImageEditViewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A709A1DE212D092C009DACF3 /* ImageEditViewCollectionViewCell.swift */; };
 		A70E3C872144D45100412DEB /* HashTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70E3C862144D45100412DEB /* HashTagView.swift */; };
+		A70E3C8B2148ACCA00412DEB /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70E3C8A2148ACCA00412DEB /* User.swift */; };
 		A73A4A01211999EC00B6F8FE /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73A4A00211999EC00B6F8FE /* Note.swift */; };
 		A73A4A0321199C6600B6F8FE /* TextEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73A4A0221199C6600B6F8FE /* TextEditViewController.swift */; };
 		A74338CB2130201B00F07F36 /* NoteEditProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74338CA2130201B00F07F36 /* NoteEditProtocols.swift */; };
 		A74338D021313F8700F07F36 /* MyFetchedResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74338CF21313F8700F07F36 /* MyFetchedResultsController.swift */; };
-		A74338D22131454500F07F36 /* sampleCodesForCoreDataFetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74338D12131454500F07F36 /* sampleCodesForCoreDataFetch.swift */; };
+		A74338D22131454500F07F36 /* sampleCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74338D12131454500F07F36 /* sampleCodes.swift */; };
 		A74338D42132E43600F07F36 /* MainViewController_Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74338D32132E43600F07F36 /* MainViewController_Default.swift */; };
 		A74338D62132E45200F07F36 /* MainPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74338D52132E45200F07F36 /* MainPageViewController.swift */; };
 		A74338D92132F69B00F07F36 /* SavingContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74338D82132F69B00F07F36 /* SavingContent.swift */; };
@@ -36,8 +37,6 @@
 		A791F3D72140E040006AE6AF /* HashTagEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A791F3D62140E040006AE6AF /* HashTagEditorViewController.swift */; };
 		A791F3D92140E0A0006AE6AF /* ImageSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A791F3D82140E0A0006AE6AF /* ImageSelectorViewController.swift */; };
 		A791F3DB2140E0C4006AE6AF /* CommentEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A791F3DA2140E0C4006AE6AF /* CommentEditorViewController.swift */; };
-		A791F3DD21411FBA006AE6AF /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A791F3DC21411FBA006AE6AF /* LeftAlignedCollectionViewFlowLayout.swift */; };
-		A791F3DF21418F11006AE6AF /* LeftAlignedCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A791F3DE21418F11006AE6AF /* LeftAlignedCollectionViewLayout.swift */; };
 		A791F3E12141F343006AE6AF /* HashTagItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A791F3E02141F343006AE6AF /* HashTagItemView.swift */; };
 		A7C7F26A21130C1D007C2C84 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C7F26921130C1D007C2C84 /* AppDelegate.swift */; };
 		A7C7F26F21130C1D007C2C84 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7C7F26D21130C1D007C2C84 /* Main.storyboard */; };
@@ -48,7 +47,6 @@
 		A7C7F28221134A21007C2C84 /* DateCoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C7F28021134A21007C2C84 /* DateCoreModel.swift */; };
 		A7C7F28321134A21007C2C84 /* DateBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C7F28121134A21007C2C84 /* DateBrain.swift */; };
 		A7C7F2AF2119403C007C2C84 /* DiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C7F2AE2119403C007C2C84 /* DiaryViewController.swift */; };
-		A7C831D62125576E00A62EA1 /* NoteDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C831D52125576E00A62EA1 /* NoteDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,11 +64,12 @@
 		A709A1DC212CFD01009DACF3 /* PhotoGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoGenerator.swift; sourceTree = "<group>"; };
 		A709A1DE212D092C009DACF3 /* ImageEditViewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEditViewCollectionViewCell.swift; sourceTree = "<group>"; };
 		A70E3C862144D45100412DEB /* HashTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashTagView.swift; sourceTree = "<group>"; };
+		A70E3C8A2148ACCA00412DEB /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A73A4A00211999EC00B6F8FE /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		A73A4A0221199C6600B6F8FE /* TextEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditViewController.swift; sourceTree = "<group>"; };
 		A74338CA2130201B00F07F36 /* NoteEditProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteEditProtocols.swift; sourceTree = "<group>"; };
 		A74338CF21313F8700F07F36 /* MyFetchedResultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFetchedResultsController.swift; sourceTree = "<group>"; };
-		A74338D12131454500F07F36 /* sampleCodesForCoreDataFetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sampleCodesForCoreDataFetch.swift; sourceTree = "<group>"; };
+		A74338D12131454500F07F36 /* sampleCodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sampleCodes.swift; sourceTree = "<group>"; };
 		A74338D32132E43600F07F36 /* MainViewController_Default.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController_Default.swift; sourceTree = "<group>"; };
 		A74338D52132E45200F07F36 /* MainPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageViewController.swift; sourceTree = "<group>"; };
 		A74338D82132F69B00F07F36 /* SavingContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingContent.swift; sourceTree = "<group>"; };
@@ -81,8 +80,6 @@
 		A791F3D62140E040006AE6AF /* HashTagEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashTagEditorViewController.swift; sourceTree = "<group>"; };
 		A791F3D82140E0A0006AE6AF /* ImageSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSelectorViewController.swift; sourceTree = "<group>"; };
 		A791F3DA2140E0C4006AE6AF /* CommentEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentEditorViewController.swift; sourceTree = "<group>"; };
-		A791F3DC21411FBA006AE6AF /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
-		A791F3DE21418F11006AE6AF /* LeftAlignedCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewLayout.swift; sourceTree = "<group>"; };
 		A791F3E02141F343006AE6AF /* HashTagItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashTagItemView.swift; sourceTree = "<group>"; };
 		A7C7F26621130C1D007C2C84 /* infinitePageViewTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = infinitePageViewTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7C7F26921130C1D007C2C84 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -95,7 +92,6 @@
 		A7C7F28021134A21007C2C84 /* DateCoreModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateCoreModel.swift; sourceTree = "<group>"; };
 		A7C7F28121134A21007C2C84 /* DateBrain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateBrain.swift; sourceTree = "<group>"; };
 		A7C7F2AE2119403C007C2C84 /* DiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewController.swift; sourceTree = "<group>"; };
-		A7C831D52125576E00A62EA1 /* NoteDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,11 +130,6 @@
 			children = (
 				A709A1C22125683E009DACF3 /* NoteTableViewController.swift */,
 				A709A1C421256A00009DACF3 /* NoteTableViewCell.swift */,
-				A709A1C521256A00009DACF3 /* NoteTableViewCell.xib */,
-				A791F3DC21411FBA006AE6AF /* LeftAlignedCollectionViewFlowLayout.swift */,
-				A791F3DE21418F11006AE6AF /* LeftAlignedCollectionViewLayout.swift */,
-				A70E3C862144D45100412DEB /* HashTagView.swift */,
-				A791F3E02141F343006AE6AF /* HashTagItemView.swift */,
 			);
 			name = NoteTableViews;
 			sourceTree = "<group>";
@@ -157,6 +148,28 @@
 				A709A1DE212D092C009DACF3 /* ImageEditViewCollectionViewCell.swift */,
 			);
 			name = NoteEditViews;
+			sourceTree = "<group>";
+		};
+		A70E3C882148925500412DEB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A70E3C862144D45100412DEB /* HashTagView.swift */,
+				A791F3E02141F343006AE6AF /* HashTagItemView.swift */,
+				A709A1C521256A00009DACF3 /* NoteTableViewCell.xib */,
+				A7C7F26D21130C1D007C2C84 /* Main.storyboard */,
+				A7C7F27521130C21007C2C84 /* LaunchScreen.storyboard */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		A70E3C892148927B00412DEB /* SupprotingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				A7C7F27821130C21007C2C84 /* Info.plist */,
+				A7C7F27321130C21007C2C84 /* Assets.xcassets */,
+				A7C7F26921130C1D007C2C84 /* AppDelegate.swift */,
+			);
+			name = SupprotingFiles;
 			sourceTree = "<group>";
 		};
 		A73A4A06211D28ED00B6F8FE /* Controllers */ = {
@@ -235,17 +248,13 @@
 		A7C7F26821130C1D007C2C84 /* infinitePageViewTest */ = {
 			isa = PBXGroup;
 			children = (
-				A7C7F26921130C1D007C2C84 /* AppDelegate.swift */,
-				A7C7F26D21130C1D007C2C84 /* Main.storyboard */,
-				A74338D12131454500F07F36 /* sampleCodesForCoreDataFetch.swift */,
+				A74338D12131454500F07F36 /* sampleCodes.swift */,
 				A74C3B5D2135AB0E0032EB3C /* makesubviewSampleCodes.swift */,
+				A70E3C892148927B00412DEB /* SupprotingFiles */,
+				A70E3C882148925500412DEB /* Views */,
 				A74338CC2130207200F07F36 /* CustomExtentions */,
 				A73A4A06211D28ED00B6F8FE /* Controllers */,
 				A74338C6212FE00500F07F36 /* Models */,
-				A7C7F27521130C21007C2C84 /* LaunchScreen.storyboard */,
-				A7C7F27821130C21007C2C84 /* Info.plist */,
-				A7C7F27321130C21007C2C84 /* Assets.xcassets */,
-				A7C7F27021130C1D007C2C84 /* infinitePageViewTest.xcdatamodeld */,
 			);
 			path = infinitePageViewTest;
 			sourceTree = "<group>";
@@ -253,12 +262,13 @@
 		A7E6AF47211D29B500920DAC /* NoteDataModels */ = {
 			isa = PBXGroup;
 			children = (
+				A7C7F27021130C1D007C2C84 /* infinitePageViewTest.xcdatamodeld */,
 				A73A4A00211999EC00B6F8FE /* Note.swift */,
 				A791F3CC213CCDD9006AE6AF /* Image.swift */,
 				A709A1BC2125630B009DACF3 /* HashTag.swift */,
 				A709A1BE21256379009DACF3 /* Diary.swift */,
-				A7C831D52125576E00A62EA1 /* NoteDataManager.swift */,
 				A74338CF21313F8700F07F36 /* MyFetchedResultsController.swift */,
+				A70E3C8A2148ACCA00412DEB /* User.swift */,
 			);
 			name = NoteDataModels;
 			sourceTree = "<group>";
@@ -335,11 +345,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A74338D22131454500F07F36 /* sampleCodesForCoreDataFetch.swift in Sources */,
+				A74338D22131454500F07F36 /* sampleCodes.swift in Sources */,
 				A791F3D92140E0A0006AE6AF /* ImageSelectorViewController.swift in Sources */,
 				A74338D42132E43600F07F36 /* MainViewController_Default.swift in Sources */,
 				A74C3B5E2135AB0E0032EB3C /* makesubviewSampleCodes.swift in Sources */,
-				A791F3DF21418F11006AE6AF /* LeftAlignedCollectionViewLayout.swift in Sources */,
 				A709A1D3212BD72E009DACF3 /* ImageEditViewController.swift in Sources */,
 				A709A1C9212BD205009DACF3 /* NotePhotoCollectionViewController.swift in Sources */,
 				A791F3E12141F343006AE6AF /* HashTagItemView.swift in Sources */,
@@ -357,12 +366,11 @@
 				A74338D021313F8700F07F36 /* MyFetchedResultsController.swift in Sources */,
 				A709A1C621256A00009DACF3 /* NoteTableViewCell.swift in Sources */,
 				A709A1DF212D092C009DACF3 /* ImageEditViewCollectionViewCell.swift in Sources */,
-				A7C831D62125576E00A62EA1 /* NoteDataManager.swift in Sources */,
 				A7C7F28321134A21007C2C84 /* DateBrain.swift in Sources */,
+				A70E3C8B2148ACCA00412DEB /* User.swift in Sources */,
 				A791F3CD213CCDD9006AE6AF /* Image.swift in Sources */,
 				A791F3D52140E00C006AE6AF /* NoteEditorViewController.swift in Sources */,
 				A709A1D5212C11D5009DACF3 /* CustomExtentions.swift in Sources */,
-				A791F3DD21411FBA006AE6AF /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
 				A7C7F27221130C1D007C2C84 /* infinitePageViewTest.xcdatamodeld in Sources */,
 				A7C7F27F21130C53007C2C84 /* DiaryPageViewController.swift in Sources */,
 				A709A1D1212BD6E7009DACF3 /* NoteEditPageViewController.swift in Sources */,

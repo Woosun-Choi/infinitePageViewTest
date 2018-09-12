@@ -91,7 +91,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="kCx-wh-63r">
-                                <rect key="frame" x="16" y="271.5" width="343" height="375.5"/>
+                                <rect key="frame" x="19" y="271.5" width="337.5" height="375.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hU2-zc-ORB">
                                     <size key="itemSize" width="50" height="50"/>
@@ -129,7 +129,7 @@
                                 </connections>
                             </collectionView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dam-Gl-e7G">
-                                <rect key="frame" x="16" y="30" width="343" height="233.5"/>
+                                <rect key="frame" x="19" y="30" width="337.5" height="233.5"/>
                                 <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="self.cornerRadius">
@@ -137,28 +137,47 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nS5-zQ-vnB">
+                                <rect key="frame" x="18.5" y="30" width="337.5" height="233.5"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="ldY-HA-AUw">
+                                        <rect key="frame" x="149.5" y="98" width="37" height="37"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="ldY-HA-AUw" firstAttribute="centerX" secondItem="nS5-zQ-vnB" secondAttribute="centerX" id="M80-R6-ECk"/>
+                                    <constraint firstItem="ldY-HA-AUw" firstAttribute="centerY" secondItem="nS5-zQ-vnB" secondAttribute="centerY" id="WEB-kX-xn0"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="nS5-zQ-vnB" firstAttribute="height" secondItem="dam-Gl-e7G" secondAttribute="height" id="16Z-z3-S6N"/>
+                            <constraint firstItem="dam-Gl-e7G" firstAttribute="width" secondItem="TDn-lY-2p6" secondAttribute="width" multiplier="0.9" id="1Oc-mG-wUr"/>
+                            <constraint firstItem="nS5-zQ-vnB" firstAttribute="centerY" secondItem="dam-Gl-e7G" secondAttribute="centerY" id="2zx-LK-Ah6"/>
                             <constraint firstItem="kCx-wh-63r" firstAttribute="leading" secondItem="dam-Gl-e7G" secondAttribute="leading" id="3jj-Xi-0xg"/>
                             <constraint firstAttribute="bottom" secondItem="kCx-wh-63r" secondAttribute="bottom" constant="20" symbolic="YES" id="Dt6-Yf-P9h"/>
                             <constraint firstItem="dam-Gl-e7G" firstAttribute="height" secondItem="TDn-lY-2p6" secondAttribute="height" multiplier="0.35" id="JrC-lY-PdB"/>
                             <constraint firstItem="kCx-wh-63r" firstAttribute="trailing" secondItem="dam-Gl-e7G" secondAttribute="trailing" id="ZaO-AH-aNz"/>
                             <constraint firstItem="dam-Gl-e7G" firstAttribute="top" secondItem="tDb-2L-inj" secondAttribute="top" constant="10" id="ZpM-M4-jN5"/>
-                            <constraint firstItem="dam-Gl-e7G" firstAttribute="trailing" secondItem="TDn-lY-2p6" secondAttribute="trailingMargin" id="ctE-Lb-OBQ"/>
-                            <constraint firstItem="dam-Gl-e7G" firstAttribute="leading" secondItem="TDn-lY-2p6" secondAttribute="leadingMargin" id="qkG-Ne-Xxz"/>
+                            <constraint firstItem="nS5-zQ-vnB" firstAttribute="width" secondItem="dam-Gl-e7G" secondAttribute="width" id="kTY-DN-a49"/>
                             <constraint firstItem="kCx-wh-63r" firstAttribute="top" secondItem="dam-Gl-e7G" secondAttribute="bottom" constant="8" symbolic="YES" id="rmO-o3-DPg"/>
+                            <constraint firstItem="nS5-zQ-vnB" firstAttribute="centerX" secondItem="dam-Gl-e7G" secondAttribute="centerX" id="wFS-nQ-dgy"/>
+                            <constraint firstItem="dam-Gl-e7G" firstAttribute="centerX" secondItem="tDb-2L-inj" secondAttribute="centerX" id="zA7-uT-ObD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="tDb-2L-inj"/>
                     </view>
                     <connections>
                         <outlet property="imageCollectionView" destination="kCx-wh-63r" id="4AD-5m-y4e"/>
                         <outlet property="imageView" destination="dam-Gl-e7G" id="sXA-GU-l7e"/>
+                        <outlet property="loadingSpinner" destination="ldY-HA-AUw" id="6BD-qh-M0b"/>
+                        <outlet property="spinnerContainer" destination="nS5-zQ-vnB" id="X8C-b7-9Rf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hb2-BL-D39" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3287" y="-517"/>
+            <point key="canvasLocation" x="3285.5999999999999" y="-517.6911544227886"/>
         </scene>
         <!--Text Edit View Controller-->
         <scene sceneID="xf7-Lb-pdK">

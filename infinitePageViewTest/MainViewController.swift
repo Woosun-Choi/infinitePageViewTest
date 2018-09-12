@@ -12,7 +12,7 @@ class MainViewController: MainViewController_Default {
     
     override func moveToDiaryWithSelectedNoteData(_ date: Date, note noteData: Note) {
         if let _ = mypageView.viewControllers![0] as? NotePhotoCollectionViewController {
-            mypageView.toThePage(0)
+            mypageView.toThePage(.Diary)
             visibleDiaryView.mypageView.setVisibleNoteTableViewWithRequestedDate(date)
             if let targetIndex = visibleDiaryView.visibleNoteTableView.notes.index(of: noteData) {
                 let indexPath = IndexPath(row: targetIndex, section: 0)
