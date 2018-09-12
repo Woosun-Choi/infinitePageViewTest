@@ -22,7 +22,7 @@ class HashTagEditorViewController: UIViewController, UITextFieldDelegate, HashTa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        hashTagTextField.delegate = self
         HashTagItemView.delegate = self
         
     }
@@ -43,7 +43,13 @@ class HashTagEditorViewController: UIViewController, UITextFieldDelegate, HashTa
     }
     
     @IBAction func addButtonPressed(_ sender: UIButton) {
-        hashTagTextField.endEditing(true)
+        addHashToSavingContent(true)
+    }
+    
+    func addHashToSavingContent(_ endEditing: Bool) {
+        if endEditing == true {
+            hashTagTextField.endEditing(endEditing)
+        }
         if let newTag = hashTagTextField.text {
             if newTag != "" && newTag.first != " " {
                 if SavingContent.hashTag == nil {
@@ -75,13 +81,13 @@ class HashTagEditorViewController: UIViewController, UITextFieldDelegate, HashTa
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        hashTagTextField.endEditing(true)
+        addHashToSavingContent(true)
         return false
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if string == " " {
-            hashTagTextField.endEditing(true)
+            addHashToSavingContent(false)
             return false
         } else {
             return true
