@@ -14,6 +14,8 @@ protocol sendCurrentPagesDate: class {
 
 class DiaryPageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     
+    var loadingStatus = false
+    
     let dateModel = DateCoreModel()
     
     weak var pageviewDelegate : sendCurrentPagesDate?
@@ -26,15 +28,27 @@ class DiaryPageViewController: UIPageViewController, UIPageViewControllerDataSou
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
-        self.dataSource = self
-        setVisibleNoteTableViewWithRequestedDate(dateModel.currentDate)
+        requestViewUpdate()
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         
-        if let dateInFocusedPage = (viewController as! NoteTableViewController).date {
-            if let result = generateTableViewWithDate(dateModel.setNewDateWithDistanceFromDate(direction: .present, from: dateInFocusedPage, distance: dateDistance.aDay)!) {
-                return result
+        if loadingStatus {
+            if let nowIndex = lastIndex {
+                let targetIndex = nowIndex - 1
+                if targetIndex >= 0 {
+                    return generateTableViewWithDate(notedDates[targetIndex])
+                } else if targetIndex < 0 {
+                    return nil
+                }
+            } else {
+                return nil
+            }
+        } else if !loadingStatus {
+            if let dateInFocusedPage = (viewController as! NoteTableViewController).date {
+                if let result = generateTableViewWithDate(dateModel.setNewDateWithDistanceFromDate(direction: .present, from: dateInFocusedPage, distance: dateDistance.aDay)!) {
+                    return result
+                }
             }
         }
         return nil
@@ -42,10 +56,23 @@ class DiaryPageViewController: UIPageViewController, UIPageViewControllerDataSou
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         
-        if let dateInFocusedPage = (viewController as! NoteTableViewController).date {
-            if dateInFocusedPage < dateModel.currentDate {
-                if let result = generateTableViewWithDate(dateModel.setNewDateWithDistanceFromDate(direction: .after, from: dateInFocusedPage, distance: dateDistance.aDay)!) {
-                    return result
+        if loadingStatus {
+            if let nowIndex = lastIndex {
+                let targetIndex = nowIndex + 1
+                if targetIndex < notedDates.count {
+                    return generateTableViewWithDate(notedDates[targetIndex])
+                } else if targetIndex >= notedDates.count {
+                    return nil
+                }
+            } else {
+                return nil
+            }
+        } else if !loadingStatus {
+            if let dateInFocusedPage = (viewController as! NoteTableViewController).date {
+                if dateInFocusedPage < dateModel.currentDate {
+                    if let result = generateTableViewWithDate(dateModel.setNewDateWithDistanceFromDate(direction: .after, from: dateInFocusedPage, distance: dateDistance.aDay)!) {
+                        return result
+                    }
                 }
             }
         }
@@ -57,9 +84,31 @@ class DiaryPageViewController: UIPageViewController, UIPageViewControllerDataSou
         if (!completed)
         {
             return
+        } else {
+            if let currentPage = pageViewController.viewControllers![0] as? NoteTableViewController {
+                updateLoadedIndex(currentPage.date!)
+                pageviewDelegate?.passedDate(currentPage.date!)
+            }
         }
-        if let currentPage = pageViewController.viewControllers![0] as? NoteTableViewController {
-            pageviewDelegate?.passedDate(currentPage.dateModel.myDate)
+    }
+    
+    func updateLoadedIndex(_ date: Date) {
+        if loadingStatus {
+            if let index = notedDates.index(of: date) {
+                lastIndex = index
+            }
+        } else {
+            return
+        }
+    }
+    
+    func requestViewUpdate() {
+        if loadingStatus {
+            getDateFromDiary()
+            lastIndex = (notedDates.count - 1)
+            setVisibleNoteTableViewWithRequestedDate(notedDates.last!)
+        } else {
+            setVisibleNoteTableViewWithRequestedDate(dateModel.currentDate)
         }
     }
     
@@ -77,6 +126,26 @@ class DiaryPageViewController: UIPageViewController, UIPageViewControllerDataSou
         let tableViewController = self.storyboard?.instantiateViewController(withIdentifier: "NoteTableView") as? NoteTableViewController
         tableViewController?.date = date
         return tableViewController
+    }
+    
+    var notedDates = [Date]()
+    
+    var lastIndex : Int?
+    
+    func getDateFromDiary() {
+        notedDates = [Date]()
+        if let diarys = try? Diary.loadAllDiary() {
+            for diary in diarys {
+                if let date = diary.date {
+                    notedDates.append(date)
+                }
+            }
+            notedDates.sort(){$0 < $1}
+            if notedDates.last != dateModel.currentDate {
+                notedDates.insert(dateModel.currentDate, at: notedDates.count)
+            }
+            print(notedDates)
+        }
     }
     
 }

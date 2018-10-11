@@ -29,12 +29,13 @@ class HashTagEditorViewController: UIViewController, UITextFieldDelegate, HashTa
     
     override func viewWillAppear(_ animated: Bool) {
         if let selectableHashs = HashTag.fetchingAllHashTags() {
+            categoryView.clearHashItem()
             for hash in selectableHashs {
                 if let tag = hash.hashtag {
                     categoryView.addHashItem(text: tag, touchType: .addToSavingContent)
                 }
             }
-            categoryViewHeightConstraint.constant = categoryView.viewHeight + 30
+            categoryViewHeightConstraint.constant = categoryView.viewHeight
         }
         
         if SavingContent.hashTag != nil {
@@ -74,7 +75,7 @@ class HashTagEditorViewController: UIViewController, UITextFieldDelegate, HashTa
             for hash in hashs {
                 self.addedView.addHashItem(text: hash, touchType: .removeFromSavingContent)
             }
-            self.addedViewHeightConstraint.constant = self.addedView.viewHeight + 30
+            self.addedViewHeightConstraint.constant = self.addedView.viewHeight
         }
         addedView.setNeedsLayout()
         addedView.layoutIfNeeded()

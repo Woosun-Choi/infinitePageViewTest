@@ -16,7 +16,7 @@ class DiaryViewController: UIViewController, sendCurrentPagesDate {
     var mypageView : DiaryPageViewController!
     
     var visibleNoteTableView : NoteTableViewController {
-        return (mypageView.viewControllers?[0] as? NoteTableViewController)!
+        return (mypageView.visibleViewController as? NoteTableViewController)!
     }
     
     var settedDate : Date? {

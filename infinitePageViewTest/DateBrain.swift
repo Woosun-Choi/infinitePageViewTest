@@ -13,20 +13,20 @@ class DateBrain {
     var calendar : Calendar!
     
     var currentDate : Date {
-        return setDateWithDateComponents()
+        //return setDateWithDateComponents()
+        return Date().dateWithDateComponents()
     }
     
     var currentDay : Int {
-        return performDateTransformTo(type: .day_Int, from: currentDate) as! Int
+        return transformDateTo(type: .day_Int, from: currentDate) ?? 0
     }
     
     var currentMonth : Int {
-        return performDateTransformTo(type: .month_Int, from: currentDate) as! Int
+        return transformDateTo(type: .month_Int, from: currentDate) ?? 0
     }
     
-    // can make get only property as like this
     var currentYear : Int {
-        return performDateTransformTo(type: .year_Int, from: currentDate) as! Int
+        return transformDateTo(type: .year_Int, from: currentDate) ?? 0
     }
     
     private var targetDate : Date = Date()
@@ -35,7 +35,8 @@ class DateBrain {
         get {
             return targetDate
         } set {
-            targetDate = setDateWithDateComponents(from: newValue)
+            //targetDate = setDateWithDateComponents(from: newValue)
+            targetDate = newValue.dateWithDateComponents()
         }
     }
     
@@ -73,12 +74,12 @@ class DateBrain {
         case year_Int
     }
     
-    private enum requieredDateTransform {
+    private enum requiredDateTransform {
         case transformToString((Date) -> String)
         case transformToInt((Date) -> Int)
     }
     
-    private var transformTypeForDate : Dictionary<dateformatterCases,requieredDateTransform> = [
+    private var transformTypeForDate : Dictionary<dateformatterCases,requiredDateTransform> = [
         .month_String : .transformToString({
             return setDatecomponentsForTransform.transformToStringCase(dateformat: "MMM", from: $0)
         }),
@@ -89,11 +90,7 @@ class DateBrain {
             let ruffStyle = Int(setDatecomponentsForTransform.transformToStringCase(dateformat: "dd", from: $0))
             let calculateForDensity = (ruffStyle! - (ruffStyle! % 10)) + (ruffStyle! % 10)
             var dayString = ""
-            if calculateForDensity < 10 {
-                dayString = " " + "\(calculateForDensity)"
-            } else {
-                dayString = "\(calculateForDensity)"
-            }
+            (calculateForDensity < 10) ? (dayString = " " + "\(calculateForDensity)") : (dayString = "\(calculateForDensity)")
             return dayString
         }),
         .year_String : .transformToString({
@@ -113,20 +110,28 @@ class DateBrain {
         })
     ]
     
-    func performDateTransformTo(type formWith: dateformatterCases, from date: Date = Date()) -> Any? {
-        var transformed : Any?
+    func transformDateTo<T>(type formWith: dateformatterCases, from date: Date = Date()) -> T? {
         if let recommendedType = transformTypeForDate[formWith] {
             switch recommendedType {
-            case .transformToString(let form) : transformed = form(date)
-            case .transformToInt(let form) : transformed = form(date)
+            case .transformToString(let form) : return form(date) as? T
+            case .transformToInt(let form) : return form(date) as? T
             }
         }
-        return transformed
+        return nil
     }
     
     //init setting
     
     init() {
         calendar = Calendar.current
+    }
+}
+
+extension Date {
+    func dateWithDateComponents() -> Date {
+        let calendar = Calendar.current
+        let dateComponents = calendar.dateComponents([.year, .month, .day], from: self)
+        let date = calendar.date(from: dateComponents)
+        return date!
     }
 }

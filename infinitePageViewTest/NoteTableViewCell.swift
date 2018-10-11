@@ -28,6 +28,8 @@ class NoteTableViewCell: UITableViewCell {
         }
     }
     
+    var shadowEffect = false
+    
     var actualWidth : CGFloat!
     
     var hashs : [HashTag]? {
@@ -38,7 +40,7 @@ class NoteTableViewCell: UITableViewCell {
                 for hash in hashs! {
                     hashtagView.addHashItem(text: hash.hashtag!)
                 }
-                hashTagViewHeightConstraint.constant = hashtagView.viewHeight + 30
+                hashTagViewHeightConstraint.constant = hashtagView.viewHeight
             }
         }
     }
@@ -91,10 +93,11 @@ class NoteTableViewCell: UITableViewCell {
             commentViewHeightConstraint.constant = 0
         }
         if note?.hashtags?.count != 0 {
-            if let myNote = note {
-                hashs = Note.allHashsFromNote(myNote)
+            if let newNote = note {
+                hashs = Note.allHashsFromNote(newNote)
             }
         }
+        //setShadow()
     }
     
     func setImageAndResizingImageView(_ actualWidth: CGFloat) {
@@ -126,7 +129,6 @@ class NoteTableViewCell: UITableViewCell {
     var zeroHeight : NSLayoutConstraint!
     
     func selectedAction() {
-        
         if self.topBlurView.isHidden {
             self.topBlurView.isHidden = false
         } else if !self.topBlurView.isHidden {
@@ -134,10 +136,26 @@ class NoteTableViewCell: UITableViewCell {
         }
     }
     
+    func setShadow() {
+        contentContainer.layer.masksToBounds = false
+        contentContainer.layer.shadowPath = UIBezierPath(rect: contentContainer.bounds).cgPath
+        contentContainer.layer.shadowColor = UIColor.lightGray.cgColor
+        contentContainer.layer.shadowOpacity = 0.9
+        contentContainer.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
+        contentContainer.layer.shadowRadius = 5
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        contentContainer.layoutIfNeeded()
+        if shadowEffect {
+            setShadow()
+        }
+    }
+    
     override func prepareForReuse() {
         note = nil
         hashTagViewHeightConstraint.constant = 0
-        //generator?.clearHashItem()
         hashtagView?.clearHashItem()
         hashs = [HashTag]()
         cell_ImageView.image = nil
@@ -151,49 +169,10 @@ class NoteTableViewCell: UITableViewCell {
     
 }
 
-//extension NoteTableViewCell : UICollectionViewDelegate, UICollectionViewDataSource {
-//
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return hashs?.count ?? 0
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HashTagCell", for: indexPath) as! NoteTableViewCell_CollectionViewCell
-//        //cell.contentView.translatesAutoresizingMaskIntoConstraints = false
-//        cell.cell_Label.text = String("# \(hashs![indexPath.row].hashtag!)")
-//        return cell
-//    }
-//
-//}
-
-//var nowX : CGFloat = 8.0
-//var nowY : CGFloat = 5.0
-//
-//func clearHashItem() {
-//    nowX = 8
-//    nowY = 5
-//    for subview in hashtagView.subviews {
-//        subview.removeFromSuperview()
-//    }
-//}
-//
-//func addHashItem(text: String) {
-//    let hash = HashTagItemView()
-//    let width = hash.setValueAndReturnSelfSize(text).width
-//    let height = hash.setValueAndReturnSelfSize(text).height
-//
-//    if nowX + width + 10 > actualWidth - 30 {
-//        nowY = height + 8 + nowY
-//        nowX = 8.0
-//    }
-//
-//    hash.frame = CGRect(x: nowX, y: nowY, width: width + 2.0, height: height + 4)
-//    nowX += width + 4.0
-//    hashtagView.addSubview(hash)
-//}
-
 extension NoteTableViewCell {
-    
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return cell_ImageView
+    }
 }
 
 

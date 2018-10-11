@@ -13,7 +13,7 @@ class MainViewController_Default : UIViewController, PrepareForSavingNewData, Se
     var mypageView : MainPageViewController!
     
     var visibleDiaryView : DiaryViewController {
-        return (mypageView.viewControllers?[0] as? DiaryViewController)!
+        return (mypageView.visibleViewController as? DiaryViewController)!
     }
     
     var lastViewedDate : Date?
@@ -38,6 +38,7 @@ class MainViewController_Default : UIViewController, PrepareForSavingNewData, Se
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         HashTagItemView.delegate = self
     }
     
@@ -74,13 +75,13 @@ class MainViewController_Default : UIViewController, PrepareForSavingNewData, Se
             }
         case "collection":
             if mypageView.checkedCurrentViewType != .PhotoCollection {
-                lastViewedDate = visibleDiaryView.visibleNoteTableView.dateModel.myDate
+                lastViewedDate = visibleDiaryView.visibleNoteTableView.date
                 mypageView.toThePage(.PhotoCollection)
                 changeButtonState(leftSelected: false, middleHidden: true, rightSelected: true)
             }
         case "+":
             if mypageView.checkedCurrentViewType == .DiaryView {
-                if visibleDiaryView.dateModel.myDate == visibleDiaryView.visibleNoteTableView.dateModel.myDate {
+                if visibleDiaryView.dateModel.myDate == visibleDiaryView.visibleNoteTableView.date {
                     visibleDiaryView.visibleNoteTableView.selectedCellIndex = 0
                     performSegue(withIdentifier: "ToCreateNote", sender: self)
                 }
@@ -100,7 +101,8 @@ class MainViewController_Default : UIViewController, PrepareForSavingNewData, Se
         case "ToCreateNote":
             if let destinationVC = segue.destination as? NoteEditMainViewController {
                 //SavingContent.resetSavingContent()
-                destinationVC.dateModel.myDate = visibleDiaryView.visibleNoteTableView.dateModel.myDate
+                guard let date = visibleDiaryView.visibleNoteTableView.date else { return }
+                destinationVC.dateModel.myDate = date
                 if let settedDiary = visibleDiaryView.visibleNoteTableView.diary {
                     destinationVC.diary = settedDiary
                 }
@@ -138,6 +140,9 @@ class MainViewController_Default : UIViewController, PrepareForSavingNewData, Se
         if let _ = mypageView.viewControllers![0] as? NotePhotoCollectionViewController {
             mypageView.toThePage(.Diary)
             visibleDiaryView.mypageView.setVisibleNoteTableViewWithRequestedDate(date)
+            // -- update loaded index
+            visibleDiaryView.mypageView.updateLoadedIndex(date)
+            //
             if let targetIndex = visibleDiaryView.visibleNoteTableView.notes.index(of: noteData) {
                 let indexPath = IndexPath(row: targetIndex, section: 0)
                 visibleDiaryView.visibleNoteTableView.moveToTargetCell(indexPath)
@@ -157,37 +162,9 @@ class MainViewController_Default : UIViewController, PrepareForSavingNewData, Se
     
 }
 
-
-
-
-
-//            var newImageData: Data! {
-//                didSet {
-//                    do {
-//                        try Note.saveDataOrCeate(SavingContent.diary, note: SavingContent.note, image: newImageData, thumbnail: SavingContent.thumbnail, comment: SavingContent.comment, date: SavingContent.date)
-//                        visibleDiaryView.visibleNoteTableView.loadData()
-//                        let targetIndexPath = IndexPath(item: visibleDiaryView.visibleNoteTableView.selectedCellIndex, section: 0)
-//                        visibleDiaryView.visibleNoteTableView.noteTableView.scrollToRow(at: targetIndexPath, at: .middle, animated: false)
-//                    } catch { return }
-//                }
-//            }
-//
-//            func resizeImageForSave() {
-//                let fullImage = UIImage(data: SavingContent.image!)
-//                let newWidth = (visibleDiaryView.visibleNoteTableView.actualMaxWidthOfContentCell) - 30
-//                let ratio = (fullImage?.size.height)!/(fullImage?.size.width)!
-//                let newHeight = newWidth * ratio
-//                let newImage = fullImage?.resizedImage(newSize:CGSize(width: newWidth, height: newHeight))
-//                newImageData = UIImageJPEGRepresentation(newImage!, 1)
-//            }
-//
-//            if SavingContent.note == nil {
-//                print("note nil case called")
-//                resizeImageForSave()
-//            } else if SavingContent.note != nil, SavingContent.note?.image != SavingContent.image {
-//                print("deferent image case called")
-//                resizeImageForSave()
-//            } else if SavingContent.note != nil, SavingContent.note?.image == SavingContent.image {
-//                print("same image case called")
-//                newImageData = SavingContent.image
-//            }
+//visibleDiaryView.view.alpha = 0
+//visibleDiaryView.mypageView.loadingStatus = !visibleDiaryView.mypageView.loadingStatus
+//visibleDiaryView.mypageView.requestViewUpdate()
+//UIView.animate(withDuration: 1.5) {
+//    self.visibleDiaryView.view.alpha = 1
+//}

@@ -47,18 +47,6 @@ class Note: NSManagedObject {
         }
     }
     
-    class func test(_ diary: Diary, date dateData: Date) {
-        let request : NSFetchRequest<Diary> = Diary.fetchRequest()
-        let predicate = NSPredicate(format: "date == %@", dateData as CVarArg)
-        request.predicate = predicate
-        let context = AppDelegate.viewContext
-        do {
-            let a = try context.fetch(request)
-            
-        } catch { }
-        
-    }
-    
     class func allNotesFromHashtag(_ hashTag: HashTag) -> [Note] {
         return ((hashTag.notes as? Set<Note>)?.reversed().sorted(by:({($0.diary?.date!)! > ($1.diary?.date!)!})))!
     }
@@ -69,21 +57,6 @@ class Note: NSManagedObject {
     
     class func allNotesFromDiary(_ diary: Diary) -> [Note] {
         return ((diary.notes as? Set<Note>)?.reversed().sorted(by: ({$0.createdDate! > $1.createdDate!})))!
-    }
-    
-    class func loadDataFromDiary(_ diary: Diary) throws -> [Note] {
-        let request : NSFetchRequest<Note> = Note.fetchRequest()
-        //if set Data attribute in Note, it will be working but not yet.
-        let predicate = NSPredicate(format: "Note.date == %@", (diary.date)! as CVarArg)
-        let sortDescriptor = NSSortDescriptor(key: "createdDate", ascending: false)
-        request.sortDescriptors = [sortDescriptor]
-        request.predicate = predicate
-        let context = AppDelegate.viewContext
-        do {
-            return try context.fetch(request)
-        } catch {
-            throw error
-        }
     }
     
     class func saveOrCreateHashTags(tags hashTags: [String]?, note noteData: Note?) {
@@ -126,7 +99,7 @@ class Note: NSManagedObject {
         let context = AppDelegate.viewContext
         if diary == nil {
             let newNote = Note(context: context)
-            saveDataToNote(newNote, image: imageData, thumbnail: thumbnailData, comment: commentData)
+            setDataToNote(newNote)
             newNote.createdDate = Date()
             let notesDiary = Diary(context: newNote.managedObjectContext!)
             newNote.diary = notesDiary
@@ -135,12 +108,12 @@ class Note: NSManagedObject {
         } else {
             print("diary else state activated")
             if noteData != nil {
-                saveDataToNote(noteData!, image: imageData, thumbnail: thumbnailData, comment: commentData)
+                setDataToNote(noteData!)
                 saveOrCreateHashTags(tags: SavingContent.hashTag /* set tags*/ , note: noteData)
             } else if noteData == nil {
                 print("note else state activated")
                 let newNote = Note(context: context)
-                saveDataToNote(newNote, image: imageData, thumbnail: thumbnailData, comment: commentData)
+                setDataToNote(newNote)
                 newNote.createdDate = Date()
                 diary?.addToNotes(newNote)
                 saveOrCreateHashTags(tags: SavingContent.hashTag /* set tags*/ , note: newNote)
@@ -153,29 +126,25 @@ class Note: NSManagedObject {
         }
     }
     
-    private class func saveDataToNote(_ note: Note, image imageData: Data?, thumbnail thumbnailData: Data? ,comment commentData: String?) {
-        if let _ = note.noteImage {
-            if let image = imageData {
-                note.noteImage?.originalImage = image
-            }
-            if let thumbnail = thumbnailData {
-                note.noteImage?.thumbnailImage = thumbnail
-            }
-            if let comment = commentData {
-                note.comment = comment
-            }
+    private class func inputDataToNote(_ note: Note) {
+        if let image = SavingContent.image {
+            note.noteImage?.originalImage = image
+        }
+        if let thumbnail = SavingContent.thumbnail {
+            note.noteImage?.thumbnailImage = thumbnail
+        }
+        if let comment = SavingContent.comment {
+            note.comment = comment
+        }
+    }
+    
+    private class func setDataToNote(_ note: Note) {
+        if note.noteImage != nil {
+            inputDataToNote(note)
         } else {
             let newImageDirection = Image(context: note.managedObjectContext!)
             note.noteImage = newImageDirection
-            if let image = imageData {
-                note.noteImage?.originalImage = image
-            }
-            if let thumbnail = thumbnailData {
-                note.noteImage?.thumbnailImage = thumbnail
-            }
-            if let comment = commentData {
-                note.comment = comment
-            }
+            inputDataToNote(note)
         }
     }
     

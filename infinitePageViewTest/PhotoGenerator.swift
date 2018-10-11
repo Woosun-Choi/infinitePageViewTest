@@ -84,7 +84,7 @@ class PhotoGenerator {
             imgManager.requestImage(for: asset, targetSize: newSize, contentMode: .aspectFill, options: requestOptions, resultHandler: {
                 image, error in
                 if let myImage = image {
-                    myImageData = UIImageJPEGRepresentation(myImage, 1)
+                    myImageData = myImage.jpegData(compressionQuality: 1)
                     print(myImage.size.width)
                 }
             })

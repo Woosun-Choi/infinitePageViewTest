@@ -10,20 +10,17 @@ import UIKit
 
 class NoteTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, RequestActionForNote {
     
-    let dateModel = DateCoreModel()
+    //let dateModel = DateCoreModel()
     
     var notes = [Note]()
     
-    var date : Date? {
-        didSet {
-            dateModel.myDate = date!
-        }
-    }
+    var date : Date?
     
     var diary : Diary? {
         didSet {
             if let currentDiary = diary {
                 //notes = Note.loadNoteFromDiary(currentDiary)
+                Diary.checkEmptyStatus(currentDiary)
                 notes = Note.allNotesFromDiary(currentDiary)
                 reloadTableView()
             }
@@ -51,7 +48,7 @@ class NoteTableViewController: UIViewController, UITableViewDelegate, UITableVie
         noteTableView.delegate = self
         noteTableView.dataSource = self
         noteTableView.register(UINib(nibName: "NoteTableViewCell", bundle: nil), forCellReuseIdentifier: "NoteCell")
-        noteTableView.rowHeight = UITableViewAutomaticDimension
+        noteTableView.rowHeight = UITableView.automaticDimension
         loadData()
     }
     
@@ -61,7 +58,8 @@ class NoteTableViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func loadData() {
         do {
-            diary = try Diary.loadDiaryFromDate(dateModel.myDate)
+            guard let targetDate = date else { return }
+            diary = try Diary.loadDiaryFromDate(targetDate)
         } catch {
             print(error.localizedDescription)
         }
@@ -120,7 +118,8 @@ class NoteTableViewController: UIViewController, UITableViewDelegate, UITableVie
             }
             let okButton = UIAlertAction(title: "YES", style: .default, handler: {[unowned self] (action) in
                 let index = self.notes.index(of: note)
-                Note.deleteNote(note)
+                //Note.deleteNote(note)
+                DataManager.deleteObject(object: note)
                 self.notes.remove(at: index!)
                 self.reloadTableView()
                 if self.notes.count != 0 {

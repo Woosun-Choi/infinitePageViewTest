@@ -13,11 +13,17 @@ class HashTagView: UIView {
     private var targetWidth : CGFloat?
     
     var areaWidth : CGFloat? {
-        get { return targetWidth }
+        get {
+            if targetWidth == nil {
+                return self.bounds.width
+            } else {
+                return targetWidth
+            }
+        }
         set { targetWidth = newValue } //targetView.bounds.width
     }
     
-    fileprivate struct generatorSettings {
+    fileprivate struct generalSettings {
         static var verticalEdgeMargin : CGFloat = 5
         static var horizontalEdgeMargin : CGFloat = 8
         static var itemVerticalSpace : CGFloat = 4
@@ -25,43 +31,50 @@ class HashTagView: UIView {
     }
     
     var viewHeight: CGFloat {
-        return nowY
+        return estimateHeight
     }
     
-    private var nowX : CGFloat = generatorSettings.horizontalEdgeMargin
-    private var nowY : CGFloat = generatorSettings.verticalEdgeMargin
+    private var estimateHeight : CGFloat = 0
+    
+    private var nowX : CGFloat = generalSettings.horizontalEdgeMargin
+    private var nowY : CGFloat = generalSettings.verticalEdgeMargin
     
     func clearHashItem() {
-        nowX = generatorSettings.horizontalEdgeMargin
-        nowY = generatorSettings.verticalEdgeMargin
+        nowX = generalSettings.horizontalEdgeMargin
+        nowY = generalSettings.verticalEdgeMargin
         for subview in self.subviews {
             subview.removeFromSuperview()
         }
     }
     
+    lazy var widthLimit : CGFloat = {
+        return areaWidth! - (generalSettings.horizontalEdgeMargin*2)
+    }()
+    
     func addHashItem(text: String, touchType type: requestedHashTagManagement = .fetch) {
-        let hash = HashTagItemView()
-        hash.touchType = type
-        let width = hash.setValueAndReturnSelfSize(text).width
-        let height = hash.setValueAndReturnSelfSize(text).height
-        let fullWidth = areaWidth ?? self.bounds.width
+        let hash = HashTagItemView(limitWidth: widthLimit, tag: text, touchType: type)
+        guard let width = hash.itemSize?.width else { return }
+        guard let height = hash.itemSize?.height else { return }
         
-        if nowX + width + (generatorSettings.horizontalEdgeMargin * 2) > fullWidth {
-            nowY = height + generatorSettings.verticalEdgeMargin + nowY
-            nowX = generatorSettings.horizontalEdgeMargin
+        if nowX + width > widthLimit + generalSettings.horizontalEdgeMargin {
+            nowY = height + generalSettings.verticalEdgeMargin + nowY
+            nowX = generalSettings.horizontalEdgeMargin
         }
         
-        hash.frame = CGRect(x: nowX, y: nowY, width: width + (generatorSettings.itemHorizontalSpace / 2), height: height + (generatorSettings.itemVerticalSpace * 2))
-        nowX += width + generatorSettings.itemHorizontalSpace
+        hash.frame = CGRect(x: nowX, y: nowY, width: width + (generalSettings.itemHorizontalSpace / 2), height: height + (generalSettings.itemVerticalSpace * 2))
+        nowX += width + generalSettings.itemHorizontalSpace
         self.addSubview(hash)
+        estimateHeight = nowY + height + generalSettings.verticalEdgeMargin
     }
-    
-    func initializingHashView(areaWidth with: CGFloat, verticalEdgeMargin VEMargin: CGFloat, horizontalEdgeMargin HEMargin: CGFloat, itemVerticalMargin IVMargin: CGFloat, itemHorizontalMargin IHMargin: CGFloat) {
-        areaWidth = with
-        generatorSettings.verticalEdgeMargin = VEMargin
-        generatorSettings.horizontalEdgeMargin = HEMargin
-        generatorSettings.itemVerticalSpace = IVMargin
-        generatorSettings.itemHorizontalSpace = IHMargin
-    }
+}
 
+extension HashTagView {
+    convenience init(areaWidth with: CGFloat, verticalEdgeMargin VEMargin: CGFloat, horizontalEdgeMargin HEMargin: CGFloat, itemVerticalMargin IVMargin: CGFloat, itemHorizontalMargin IHMargin: CGFloat) {
+        self.init()
+        areaWidth = with
+        generalSettings.verticalEdgeMargin = VEMargin
+        generalSettings.horizontalEdgeMargin = HEMargin
+        generalSettings.itemVerticalSpace = IVMargin
+        generalSettings.itemHorizontalSpace = IHMargin
+    }
 }

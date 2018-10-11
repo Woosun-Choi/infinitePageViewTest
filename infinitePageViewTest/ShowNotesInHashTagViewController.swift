@@ -27,7 +27,7 @@ class ShowNotesInHashTagViewController: UIViewController, UITableViewDelegate, U
         noteTableView.delegate = self
         noteTableView.dataSource = self
         noteTableView.register(UINib(nibName: "NoteTableViewCell", bundle: nil), forCellReuseIdentifier: "NoteCell")
-        noteTableView.rowHeight = UITableViewAutomaticDimension
+        noteTableView.rowHeight = UITableView.automaticDimension
         
         HashTagItemView.delegate = self
         
@@ -55,6 +55,7 @@ class ShowNotesInHashTagViewController: UIViewController, UITableViewDelegate, U
         let cell = tableView.dequeueReusableCell(withIdentifier: "NoteCell", for: indexPath) as! NoteTableViewCell
         generateCell(actualWidth: actualMaxWidthOfContentCell, noteData: notes[indexPath.row], targetCell: cell)
         cell.backgroundColor = UIColor.clear
+        cell.shadowEffect = true
         return cell
     }
     

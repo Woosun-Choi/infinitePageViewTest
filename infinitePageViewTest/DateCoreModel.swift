@@ -10,29 +10,29 @@ import Foundation
 
 class DateCoreModel: DateBrain {
     
-    var day_String : String {
-        return performDateTransformTo(type: .day_String, from: myDate) as! String
+    public var day_String : String {
+        return transformDateTo(type: .day_String, from: myDate) ?? ""
     }
     
     var month_String : String {
-        return performDateTransformTo(type: .month_String, from: myDate) as! String
+        return transformDateTo(type: .month_String, from: myDate) ?? ""
     }
     
     var weekday_String : String {
-        return performDateTransformTo(type: .weekday_String, from: myDate) as! String
+        return transformDateTo(type: .weekday_String, from: myDate) ?? ""
     }
     
-    lazy var dat_Int : Int = {
-        performDateTransformTo(type: .day_Int, from: myDate) as! Int
-    }()
+    var dat_Int : Int {
+        return transformDateTo(type: .day_Int, from: myDate) ?? 0
+    }
     
-    lazy var month_Int : Int = {
-        performDateTransformTo(type: .month_Int, from: myDate) as! Int
-    }()
+    var month_Int : Int {
+        return transformDateTo(type: .month_Int, from: myDate) ?? 0
+    }
     
-    lazy var year_Int : Int = {
-        performDateTransformTo(type: .year_Int, from: myDate) as! Int
-    }()
+    var year_Int : Int {
+        return transformDateTo(type: .year_Int, from: myDate) ?? 0
+    }
     
     enum directions {
         case present
@@ -40,28 +40,17 @@ class DateCoreModel: DateBrain {
     }
     
     func setNewDateWithDistanceFromDate(direction presentorafter: directions, from date: Date, distance datedistance: Int) -> Date? {
-        var result : Date?
+        let calendar = Calendar.current
+        var dateComponents = DateComponents()
+        
         switch presentorafter {
         case .present:
-            let calendar = Calendar.current
-            var dateComponents = DateComponents()
-            if datedistance <= 0 {
-                dateComponents.day = datedistance
-            } else if datedistance > 0 {
-                dateComponents.day = -datedistance
-            }
-            result = calendar.date(byAdding: dateComponents, to: date)!
+            (datedistance <= 0) ? (dateComponents.day = datedistance) : (dateComponents.day = -datedistance)
+            return calendar.date(byAdding: dateComponents, to: date)!
         case .after:
-            let calendar = Calendar.current
-            var dateComponents = DateComponents()
-            if datedistance >= 0 {
-                dateComponents.day = datedistance
-            } else if datedistance < 0 {
-                dateComponents.day = -datedistance
-            }
-            result = calendar.date(byAdding: dateComponents, to: date)!
+            (datedistance >= 0) ? (dateComponents.day = datedistance) : (dateComponents.day = -datedistance)
+            return calendar.date(byAdding: dateComponents, to: date)!
         }
-        return result
     }
     
 }

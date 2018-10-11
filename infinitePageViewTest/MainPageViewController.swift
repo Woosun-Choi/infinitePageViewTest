@@ -64,3 +64,19 @@ class MainPageViewController: UIPageViewController {
     }
     
 }
+
+extension UIPageViewController {
+    var visibleViewController: UIViewController {
+        return self.viewControllers![0]
+    }
+    
+    var visibleController: UIViewController {
+        if let controller = visibleViewController as? DiaryViewController {
+            return controller
+        }
+        if let controller = visibleViewController as? NoteTableViewController {
+            return controller
+        }
+        return self
+    }
+}

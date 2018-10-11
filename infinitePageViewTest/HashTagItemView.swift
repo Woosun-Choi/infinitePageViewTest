@@ -26,7 +26,11 @@ class HashTagItemView: UIView {
     
     static weak var delegate : HashTagDelegate?
     
+    var widthLimit : CGFloat?
+    
     var tagString : String?
+    
+    var itemSize : CGSize?
     
     var touchType : requestedHashTagManagement!
     
@@ -58,27 +62,57 @@ class HashTagItemView: UIView {
     }
     
     func setValueAndReturnSelfSize(_ tag: String) -> CGSize {
-        tagString = tag
         designItem()
         addGesture()
         let str = NSString(string: "# " + tag)
-        let itemSize = str.size(withAttributes: [NSAttributedStringKey.font : tagItem.font])
+        let itemSize = str.size(withAttributes: [NSAttributedString.Key.font : tagItem.font])
+        
+        var width: CGFloat {
+            if let limit = widthLimit {
+                let expectedSize = itemSize.width + (leftAndRightMargins * 2)
+                if expectedSize > limit - (leftAndRightMargins * 2) {
+                    return limit
+                } else {
+                    return expectedSize
+                }
+            } else {
+                return 0
+            }
+        }
+        
         tagItem.text = str as String
-        tagItem.frame = CGRect(x: 0, y: 0, width: itemSize.width + (leftAndRightMargins * 2), height: itemSize.height + (topAndBottomMargins * 2))
+        tagItem.frame = CGRect(x: 0, y: 0, width: width, height: itemSize.height + (topAndBottomMargins * 2))
         let requieredRatio = cornerRadiusRatio / 100
         tagItem.layer.cornerRadius = (itemSize.height + topAndBottomMargins) / (2 * requieredRatio)
         
         return tagItem.frame.size
     }
+}
+
+extension HashTagItemView {
     
-    convenience init(fontSize size: CGFloat = 11, textColor TXColor: UIColor = UIColor.white, textBackground TBColor: CGColor = UIColor.lightGray.cgColor, leftAndRightMargins LRMargin: CGFloat = 8, topAndBottomMargins TBMargin: CGFloat = 5, cornerRadiusRatio ratio: CGFloat = 100) {
+    convenience init(limitWidth width: CGFloat, tag tagStr: String, touchType type: requestedHashTagManagement) {
         self.init()
+        widthLimit = width
+        tagString = tagStr
+        touchType = type
+        
+        guard let tag = tagString else { return }
+        itemSize = setValueAndReturnSelfSize(tag)
+    }
+    
+    convenience init(limitWidth width: CGFloat, tag tagStr: String, fontSize size: CGFloat = 11, textColor TXColor: UIColor = UIColor.white, textBackground TBColor: CGColor = UIColor.lightGray.cgColor, leftAndRightMargins LRMargin: CGFloat = 8, topAndBottomMargins TBMargin: CGFloat = 5, cornerRadiusRatio ratio: CGFloat = 100) {
+        self.init()
+        widthLimit = width
+        tagString = tagStr
         fontSize = size
         textColor = TXColor
         textBackground = TBColor
         leftAndRightMargins = LRMargin
         topAndBottomMargins = TBMargin
         cornerRadiusRatio = ratio
+        
+        guard let tag = tagString else { return }
+        itemSize = setValueAndReturnSelfSize(tag)
     }
-    
 }
