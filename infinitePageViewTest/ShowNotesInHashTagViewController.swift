@@ -55,7 +55,6 @@ class ShowNotesInHashTagViewController: UIViewController, UITableViewDelegate, U
         let cell = tableView.dequeueReusableCell(withIdentifier: "NoteCell", for: indexPath) as! NoteTableViewCell
         generateCell(actualWidth: actualMaxWidthOfContentCell, noteData: notes[indexPath.row], targetCell: cell)
         cell.backgroundColor = UIColor.clear
-        cell.shadowEffect = true
         return cell
     }
     
@@ -82,3 +81,4 @@ class ShowNotesInHashTagViewController: UIViewController, UITableViewDelegate, U
     }
     
 }
+

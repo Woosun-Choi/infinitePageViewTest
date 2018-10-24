@@ -28,27 +28,19 @@ class NotePhotoCollectionViewController: UICollectionViewController, UICollectio
         return frc
     }()
     
-    //var myFetchResultController : NSFetchedResultsController<Note>!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.collectionView?.delegate = self
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-        
-        //        myFetchResultController = MyFetchedResultsControllerModel.NoteFetchedResultController()
-        //        myFetchResultController?.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
         do {
             try self.myFetchResultController.performFetch()
             self.collectionView?.reloadData()
         } catch { return }
         print("collectionview view appear")
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        print("collectionview disapear")
     }
     
     // MARK: UICollectionViewDataSource
@@ -72,8 +64,10 @@ class NotePhotoCollectionViewController: UICollectionViewController, UICollectio
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? NotePhotoCollectionViewCell {
-            passingDate = returnMyDate(cell)
-            toNoteMainPageView(cell.note!)
+            passingDate = returnMyDate(cell) ?? Date().dateWithDateComponents()
+            if let note = cell.note {
+                toNoteMainPageView(note)
+            }
         }
     }
     
@@ -92,8 +86,16 @@ class NotePhotoCollectionViewController: UICollectionViewController, UICollectio
         }
     }
     
-    private func returnMyDate(_ cell: NotePhotoCollectionViewCell) -> Date {
-        return (cell.note?.diary?.date)!
+    private func returnMyDate(_ cell: NotePhotoCollectionViewCell) -> Date? {
+        guard let date = cell.note?.diary?.date else {
+            if let note = cell.note {
+                DataManager.deleteObject(object: note) {
+                    return
+                }
+            }
+            return nil
+        }
+        return date
     }
     
     //MARK : collectionView flowLayout settings

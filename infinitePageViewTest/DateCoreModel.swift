@@ -8,30 +8,44 @@
 
 import Foundation
 
-class DateCoreModel: DateBrain {
+class DateCoreModel {
+    
+    var currentDate : Date {
+        return Date().dateWithDateComponents()
+    }
+    
+    private var targetDate : Date = Date()
+    
+    var myDate : Date {
+        get {
+            return targetDate
+        } set {
+            targetDate = newValue.dateWithDateComponents()
+        }
+    }
     
     public var day_String : String {
-        return transformDateTo(type: .day_String, from: myDate) ?? ""
+        return myDate.requestStringFromDate(data: .day) ?? ""
     }
     
     var month_String : String {
-        return transformDateTo(type: .month_String, from: myDate) ?? ""
+        return myDate.requestStringFromDate(data: .month) ?? ""
     }
     
     var weekday_String : String {
-        return transformDateTo(type: .weekday_String, from: myDate) ?? ""
+        return myDate.requestStringFromDate(data: .weekday) ?? ""
     }
     
-    var dat_Int : Int {
-        return transformDateTo(type: .day_Int, from: myDate) ?? 0
+    var day_Int : Int {
+        return myDate.requestIntFromDate(data: .day) ?? 0
     }
     
     var month_Int : Int {
-        return transformDateTo(type: .month_Int, from: myDate) ?? 0
+        return myDate.requestIntFromDate(data: .month) ?? 0
     }
     
     var year_Int : Int {
-        return transformDateTo(type: .year_Int, from: myDate) ?? 0
+        return myDate.requestIntFromDate(data: .year) ?? 0
     }
     
     enum directions {

@@ -33,8 +33,6 @@ class MainViewController_Default : UIViewController, PrepareForSavingNewData, Se
         
         NoteEditMainViewController.noteEditDelegate = self
         NotePhotoCollectionViewController.photoCellectionDelegate = self
-        
-        // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -70,6 +68,7 @@ class MainViewController_Default : UIViewController, PrepareForSavingNewData, Se
                 mypageView.toThePage(.Diary)
                 if let lastDate = lastViewedDate {
                     visibleDiaryView.mypageView.setVisibleNoteTableViewWithRequestedDate(lastDate)
+                    visibleDiaryView.mypageView.updateLoadedIndex(lastDate)
                 }
                 changeButtonState(leftSelected: true, middleHidden: false, rightSelected: false)
             }
@@ -81,10 +80,12 @@ class MainViewController_Default : UIViewController, PrepareForSavingNewData, Se
             }
         case "+":
             if mypageView.checkedCurrentViewType == .DiaryView {
-                if visibleDiaryView.dateModel.myDate == visibleDiaryView.visibleNoteTableView.date {
-                    visibleDiaryView.visibleNoteTableView.selectedCellIndex = 0
-                    performSegue(withIdentifier: "ToCreateNote", sender: self)
-                }
+                visibleDiaryView.visibleNoteTableView.selectedCellIndex = 0
+                performSegue(withIdentifier: "ToCreateNote", sender: self)
+//                if visibleDiaryView.dateModel.myDate == visibleDiaryView.visibleNoteTableView.date {
+//                    visibleDiaryView.visibleNoteTableView.selectedCellIndex = 0
+//                    performSegue(withIdentifier: "ToCreateNote", sender: self)
+//                }
             }
         default:
             break
@@ -121,7 +122,7 @@ class MainViewController_Default : UIViewController, PrepareForSavingNewData, Se
         print("saving data confirmed")
         if SavingContent.image != nil {
             do {
-                try Note.saveDataOrCeate(SavingContent.diary, note: SavingContent.note, image: SavingContent.image, thumbnail: SavingContent.thumbnail, comment: SavingContent.comment, date: SavingContent.date)
+                try Note.saveDataOrCeate()
                 visibleDiaryView.visibleNoteTableView.loadData()
                 let targetIndexPath = IndexPath(item: visibleDiaryView.visibleNoteTableView.selectedCellIndex, section: 0)
                 visibleDiaryView.visibleNoteTableView.noteTableView.scrollToRow(at: targetIndexPath, at: .middle, animated: false)
@@ -129,7 +130,7 @@ class MainViewController_Default : UIViewController, PrepareForSavingNewData, Se
             
         } else if SavingContent.image == nil {
             do {
-                try Note.saveDataOrCeate(SavingContent.diary, note: SavingContent.note, image: SavingContent.image, thumbnail: SavingContent.image, comment: SavingContent.comment, date: SavingContent.date)
+                try Note.saveDataOrCeate()
                 visibleDiaryView.visibleNoteTableView.loadData()
             } catch { return }
         }

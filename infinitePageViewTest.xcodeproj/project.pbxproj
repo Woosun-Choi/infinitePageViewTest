@@ -46,7 +46,6 @@
 		A7C7F27721130C21007C2C84 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7C7F27521130C21007C2C84 /* LaunchScreen.storyboard */; };
 		A7C7F27F21130C53007C2C84 /* DiaryPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C7F27E21130C53007C2C84 /* DiaryPageViewController.swift */; };
 		A7C7F28221134A21007C2C84 /* DateCoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C7F28021134A21007C2C84 /* DateCoreModel.swift */; };
-		A7C7F28321134A21007C2C84 /* DateBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C7F28121134A21007C2C84 /* DateBrain.swift */; };
 		A7C7F2AF2119403C007C2C84 /* DiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C7F2AE2119403C007C2C84 /* DiaryViewController.swift */; };
 		A7E0C1E62149632A00825256 /* ShowNotesInHashTagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E0C1E52149632A00825256 /* ShowNotesInHashTagViewController.swift */; };
 /* End PBXBuildFile section */
@@ -93,7 +92,6 @@
 		A7C7F27821130C21007C2C84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A7C7F27E21130C53007C2C84 /* DiaryPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryPageViewController.swift; sourceTree = "<group>"; };
 		A7C7F28021134A21007C2C84 /* DateCoreModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateCoreModel.swift; sourceTree = "<group>"; };
-		A7C7F28121134A21007C2C84 /* DateBrain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateBrain.swift; sourceTree = "<group>"; };
 		A7C7F2AE2119403C007C2C84 /* DiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewController.swift; sourceTree = "<group>"; };
 		A7E0C1E52149632A00825256 /* ShowNotesInHashTagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowNotesInHashTagViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -191,7 +189,6 @@
 			isa = PBXGroup;
 			children = (
 				A7C7F28021134A21007C2C84 /* DateCoreModel.swift */,
-				A7C7F28121134A21007C2C84 /* DateBrain.swift */,
 			);
 			name = DateModels;
 			sourceTree = "<group>";
@@ -381,7 +378,6 @@
 				A74338D021313F8700F07F36 /* MyFetchedResultsController.swift in Sources */,
 				A709A1C621256A00009DACF3 /* NoteTableViewCell.swift in Sources */,
 				A709A1DF212D092C009DACF3 /* ImageEditViewCollectionViewCell.swift in Sources */,
-				A7C7F28321134A21007C2C84 /* DateBrain.swift in Sources */,
 				A70E3C8B2148ACCA00412DEB /* User.swift in Sources */,
 				A791F3CD213CCDD9006AE6AF /* Image.swift in Sources */,
 				A791F3D52140E00C006AE6AF /* NoteEditorViewController.swift in Sources */,

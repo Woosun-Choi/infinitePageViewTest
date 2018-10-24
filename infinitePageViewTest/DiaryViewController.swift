@@ -9,9 +9,7 @@
 import UIKit
 import CoreData
 
-class DiaryViewController: UIViewController, sendCurrentPagesDate {
-    
-    let dateModel = DateCoreModel()
+class DiaryViewController: UIViewController {
     
     var mypageView : DiaryPageViewController!
     
@@ -19,41 +17,22 @@ class DiaryViewController: UIViewController, sendCurrentPagesDate {
         return (mypageView.visibleViewController as? NoteTableViewController)!
     }
     
-    var settedDate : Date? {
-        didSet {
-            dateModel.myDate = settedDate!
-            checkLabelTextAndTransitionTo(weekdayLabel, text: dateModel.weekday_String)
-            checkLabelTextAndTransitionTo(monthLabel, text: dateModel.month_String)
-            checkLabelTextAndTransitionTo((dayLabel), text: dateModel.day_String)
-        }
-    }
-    
-    @IBOutlet var weekdayLabel: UILabel!
-    
-    @IBOutlet var dayLabel: UILabel!
-    
-    @IBOutlet var monthLabel: UILabel!
-    
-    @IBOutlet var topContainerView: UIView!
-    
     @IBOutlet weak var pageView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let tabGuestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(backToCurrentDate))
         tabGuestureRecognizer.numberOfTapsRequired = 2
-        topContainerView.addGestureRecognizer(tabGuestureRecognizer)
     }
     
     @objc func backToCurrentDate() {
-        mypageView?.setVisibleNoteTableViewWithRequestedDate(dateModel.currentDate)
+        mypageView?.setVisibleNoteTableViewWithRequestedDate(Date().dateWithDateComponents())
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "PageView":
             if let loadedPageVC = segue.destination as? DiaryPageViewController {
-                loadedPageVC.pageviewDelegate = self
                 self.mypageView = loadedPageVC
                 print("diary pageview setted")
             }
@@ -74,10 +53,6 @@ class DiaryViewController: UIViewController, sendCurrentPagesDate {
                           animations: {
                             label.text = textData},
                           completion: nil)
-    }
-    
-    func passedDate(_ date: Date) {
-        settedDate = date
     }
     
 }

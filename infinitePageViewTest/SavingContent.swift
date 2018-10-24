@@ -12,41 +12,17 @@ struct SavingContent {
     
     static var date : Date?
     
-    static var diary : Diary? {
-        didSet {
-            print("SavingContent_ diary data setted")
-        }
-    }
+    static var diary : Diary?
     
-    static var note : Note? {
-        didSet {
-            print("SavingContent_ note data setted")
-        }
-    }
+    static var note : Note?
     
-    static var image : Data? {
-        didSet {
-            print("SavingContent_ image data setted")
-        }
-    }
+    static var image : Data?
     
-    static var thumbnail : Data? {
-        didSet {
-            print("SavingContent_ thumbnail data setted")
-        }
-    }
+    static var thumbnail : Data?
     
-    static var comment : String? {
-        didSet {
-            print("SavingContent_ comment setted")
-        }
-    }
+    static var comment : String?
     
-    static var hashTag : [String]? {
-        didSet {
-            print("SavingContent_ hastag setted")
-        }
-    }
+    static var hashTag : [String]?
     
     static func resetSavingContent() {
         SavingContent.date = nil

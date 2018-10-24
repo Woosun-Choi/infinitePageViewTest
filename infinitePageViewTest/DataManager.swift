@@ -10,8 +10,9 @@ import Foundation
 import CoreData
 
 class DataManager {
-    class func deleteObject(object: NSManagedObject) {
+    class func deleteObject(object: NSManagedObject, completion: (() -> ())?) {
         let context = AppDelegate.viewContext
         context.delete(object)
+        completion?()
     }
 }

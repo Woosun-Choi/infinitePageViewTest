@@ -48,15 +48,15 @@ class Note: NSManagedObject {
     }
     
     class func allNotesFromHashtag(_ hashTag: HashTag) -> [Note] {
-        return ((hashTag.notes as? Set<Note>)?.reversed().sorted(by:({($0.diary?.date!)! > ($1.diary?.date!)!})))!
+        return (hashTag.notes as? Set<Note>)?.reversed().sorted(by:({($0.diary?.date!)! > ($1.diary?.date!)!})) ?? []
     }
     
     class func allHashsFromNote(_ note: Note) -> [HashTag] {
-        return ((note.hashtags as? Set<HashTag>)?.reversed().sorted(by:({($0.hashtag)! < ($1.hashtag)!})))!
+        return (note.hashtags as? Set<HashTag>)?.reversed().sorted(by:({($0.hashtag)! < ($1.hashtag)!})) ?? []
     }
     
     class func allNotesFromDiary(_ diary: Diary) -> [Note] {
-        return ((diary.notes as? Set<Note>)?.reversed().sorted(by: ({$0.createdDate! > $1.createdDate!})))!
+        return (diary.notes as? Set<Note>)?.reversed().sorted(by: ({$0.createdDate! > $1.createdDate!})) ?? []
     }
     
     class func saveOrCreateHashTags(tags hashTags: [String]?, note noteData: Note?) {
@@ -93,29 +93,29 @@ class Note: NSManagedObject {
         }
     }
     
-    class func saveDataOrCeate(_ diary: Diary?, note noteData: Note?, image imageData: Data?, thumbnail thumbnailData: Data? ,comment commentData: String?, date dateData: Date?) throws {
+    class func saveDataOrCeate() throws {
         print("saving method called")
         
         let context = AppDelegate.viewContext
-        if diary == nil {
+        if SavingContent.diary == nil {
             let newNote = Note(context: context)
             setDataToNote(newNote)
             newNote.createdDate = Date()
             let notesDiary = Diary(context: newNote.managedObjectContext!)
             newNote.diary = notesDiary
-            newNote.diary?.date = dateData
+            newNote.diary?.date = SavingContent.date
             saveOrCreateHashTags(tags: SavingContent.hashTag /* set tags*/ , note: newNote)
         } else {
             print("diary else state activated")
-            if noteData != nil {
-                setDataToNote(noteData!)
-                saveOrCreateHashTags(tags: SavingContent.hashTag /* set tags*/ , note: noteData)
-            } else if noteData == nil {
+            if SavingContent.note != nil {
+                setDataToNote(SavingContent.note!)
+                saveOrCreateHashTags(tags: SavingContent.hashTag /* set tags*/ , note: SavingContent.note)
+            } else if SavingContent.note == nil {
                 print("note else state activated")
                 let newNote = Note(context: context)
                 setDataToNote(newNote)
                 newNote.createdDate = Date()
-                diary?.addToNotes(newNote)
+                SavingContent.diary?.addToNotes(newNote)
                 saveOrCreateHashTags(tags: SavingContent.hashTag /* set tags*/ , note: newNote)
             }
         }
@@ -142,8 +142,8 @@ class Note: NSManagedObject {
         if note.noteImage != nil {
             inputDataToNote(note)
         } else {
-            let newImageDirection = Image(context: note.managedObjectContext!)
-            note.noteImage = newImageDirection
+            let newImage = Image(context: note.managedObjectContext!)
+            note.noteImage = newImage
             inputDataToNote(note)
         }
     }

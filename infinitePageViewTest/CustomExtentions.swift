@@ -68,4 +68,61 @@ extension UIView {
         layer.shouldRasterize = true
         layer.rasterizationScale = scale ? UIScreen.main.scale : 1
     }
+    
+    func setShadow() {
+        self.layoutIfNeeded() ; self.layoutSubviews()
+        layer.masksToBounds = false
+        layer.shadowPath = UIBezierPath(rect: self.bounds).cgPath
+        layer.shadowColor = UIColor.lightGray.cgColor
+        layer.shadowOpacity = 0.25
+        layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
+        layer.shadowRadius = 1
+    }
+}
+
+extension Date {
+    
+    func dateWithDateComponents() -> Date {
+        let calendar = Calendar.current
+        let dateComponents = calendar.dateComponents([.year, .month, .day], from: self)
+        let date = calendar.date(from: dateComponents)
+        return date!
+    }
+    
+    private struct datecomponentsForTransform {
+        static func transformToIntCase(_ com: Calendar.Component, from date: Date) -> DateComponents {
+            let calendar = Calendar.current
+            return calendar.dateComponents([com], from: date)
+        }
+        static func transformToStringCase(dateformat format: String, from date: Date) -> String {
+            let formatter = DateFormatter()
+            formatter.dateFormat = format
+            return formatter.string(from: date)
+        }
+    }
+    
+    enum requestedDateData {
+        case day
+        case weekday
+        case month
+        case year
+    }
+    
+    func requestStringFromDate(data: requestedDateData) -> String? {
+        switch data {
+        case .day: return datecomponentsForTransform.transformToStringCase(dateformat: "dd", from: self)
+        case .weekday: return datecomponentsForTransform.transformToStringCase(dateformat: "EEEE", from: self)
+        case .month: return datecomponentsForTransform.transformToStringCase(dateformat: "MMM", from: self)
+        case .year: return datecomponentsForTransform.transformToStringCase(dateformat: "YYYY", from: self)
+        }
+    }
+    
+    func requestIntFromDate(data: requestedDateData) -> Int? {
+        switch data {
+        case .day: return datecomponentsForTransform.transformToIntCase(.day, from: self).day
+        case .weekday: return nil
+        case .month: return datecomponentsForTransform.transformToIntCase(.month, from: self).month
+        case .year: return datecomponentsForTransform.transformToIntCase(.year, from: self).year
+        }
+    }
 }

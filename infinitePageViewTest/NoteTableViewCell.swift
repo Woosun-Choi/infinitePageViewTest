@@ -28,15 +28,12 @@ class NoteTableViewCell: UITableViewCell {
         }
     }
     
-    var shadowEffect = false
-    
     var actualWidth : CGFloat!
     
     var hashs : [HashTag]? {
         didSet {
             if hashs?.count != 0 {
-                hashtagView.areaWidth = actualWidth - 30
-                hashtagView.clearHashItem()
+                hashtagView.areaWidth = actualWidth
                 for hash in hashs! {
                     hashtagView.addHashItem(text: hash.hashtag!)
                 }
@@ -53,9 +50,9 @@ class NoteTableViewCell: UITableViewCell {
     
     @IBOutlet weak var cell_CommentLabel: UILabel!
     
-    @IBOutlet var contentContainer: UIView!
+    @IBOutlet var contentContainer: UIView! {didSet{layoutIfNeeded();layoutSubviews()}}
     
-    @IBOutlet var imageViewContainer: UIView!
+    @IBOutlet var imageViewContainer: UIView! {didSet{layoutIfNeeded()}}
     
     @IBOutlet var topBlurView: UIVisualEffectView!
     
@@ -81,12 +78,10 @@ class NoteTableViewCell: UITableViewCell {
     }
     
     func setData() {
-        if let _ = note?.noteImage?.originalImage {
-            setImageAndResizingImageView(actualWidth)
-        }
+        setImageAndResizingImageView(actualWidth, completion: imageChecker)
         if let comment = note?.comment {
             commentViewTopEdgeConstraint.constant = 8
-            commentViewBottomEdgeConstraint.constant = 10
+            commentViewBottomEdgeConstraint.constant = 8
             cell_CommentLabel.text = comment
         }
         if note?.comment == nil {
@@ -97,26 +92,30 @@ class NoteTableViewCell: UITableViewCell {
                 hashs = Note.allHashsFromNote(newNote)
             }
         }
-        //setShadow()
     }
     
-    func setImageAndResizingImageView(_ actualWidth: CGFloat) {
-        if let imageData = self.note?.noteImage?.originalImage {
-            if let image = UIImage(data: imageData) {
-                let width = actualWidth - 30 // table view - sum of margins
-                let ratio = image.size.height/image.size.width
-                let height = width * ratio
-                imageViewContainerHeightConstraint.constant = height
-                DispatchQueue.global(qos: .background).async {
-                    let newImage = image
-                    DispatchQueue.main.async {
-                        self.cell_ImageView.image = newImage
-                        UIView.animate(withDuration: 0.5, animations: {
-                            self.cell_ImageView.alpha = 1
-                        })
-                    }
-                }
-            }
+    private let imageChecker: (Bool) -> () = {
+        if $0 {
+            print("image loaded")
+        }
+    }
+    
+    func setImageAndResizingImageView(_ actualWidth: CGFloat, completion: ((Bool) -> Void)?) {
+        guard let data = self.note?.noteImage?.originalImage else { return }
+        guard let image = UIImage(data: data) else { return }
+        
+        let width = actualWidth - 16
+        let ratio = image.size.height/image.size.width
+        let height = width * ratio
+        
+        imageViewContainerHeightConstraint.constant = height
+        
+        DispatchQueue.main.async {
+            self.cell_ImageView.image = image
+            UIView.animate(withDuration: 0.5, animations: {
+                self.cell_ImageView.alpha = 1
+                completion?(true)
+            })
         }
     }
     
@@ -126,8 +125,6 @@ class NoteTableViewCell: UITableViewCell {
         hashTagViewHeightConstraint.constant = 0
     }
     
-    var zeroHeight : NSLayoutConstraint!
-    
     func selectedAction() {
         if self.topBlurView.isHidden {
             self.topBlurView.isHidden = false
@@ -136,30 +133,26 @@ class NoteTableViewCell: UITableViewCell {
         }
     }
     
-    func setShadow() {
-        contentContainer.layer.masksToBounds = false
-        contentContainer.layer.shadowPath = UIBezierPath(rect: contentContainer.bounds).cgPath
-        contentContainer.layer.shadowColor = UIColor.lightGray.cgColor
-        contentContainer.layer.shadowOpacity = 0.9
-        contentContainer.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
-        contentContainer.layer.shadowRadius = 5
-    }
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         contentContainer.layoutIfNeeded()
-        if shadowEffect {
-            setShadow()
-        }
     }
     
     override func prepareForReuse() {
+        resetCellData()
+        resetCellLayout()
+    }
+    
+    func resetCellData() {
         note = nil
-        hashTagViewHeightConstraint.constant = 0
-        hashtagView?.clearHashItem()
-        hashs = [HashTag]()
         cell_ImageView.image = nil
         cell_CommentLabel.text = nil
+        hashs = [HashTag]()
+    }
+    
+    func resetCellLayout() {
+        hashTagViewHeightConstraint.constant = 0
+        hashtagView?.clearHashItem()
         imageViewContainerHeightConstraint.constant = 0
         commentViewBottomEdgeConstraint.constant = 0
         commentViewTopEdgeConstraint.constant = 0

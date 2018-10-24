@@ -19,13 +19,19 @@ class NoteTableViewController: UIViewController, UITableViewDelegate, UITableVie
     var diary : Diary? {
         didSet {
             if let currentDiary = diary {
-                //notes = Note.loadNoteFromDiary(currentDiary)
-                Diary.checkEmptyStatus(currentDiary)
                 notes = Note.allNotesFromDiary(currentDiary)
                 reloadTableView()
             }
         }
     }
+    
+    @IBOutlet var weekDayLabel: UILabel!
+    
+    @IBOutlet var monthLabel: UILabel!
+    
+    @IBOutlet var dayLabel: UILabel!
+    
+    @IBOutlet var topContainerView: UIView!
     
     @IBOutlet weak var noteTableView: UITableView! {
         didSet {
@@ -45,15 +51,27 @@ class NoteTableViewController: UIViewController, UITableViewDelegate, UITableVie
         print("tableview viewdid laoded")
         super.viewDidLoad()
         
+        topContainerView.setShadow()
         noteTableView.delegate = self
         noteTableView.dataSource = self
         noteTableView.register(UINib(nibName: "NoteTableViewCell", bundle: nil), forCellReuseIdentifier: "NoteCell")
         noteTableView.rowHeight = UITableView.automaticDimension
         loadData()
+        setLabels()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         checkNotesAndPresentPlaceHolder()
+    }
+    
+    func setLabels() {
+        weekDayLabel?.text = date?.requestStringFromDate(data: .weekday) ?? ""
+        monthLabel?.text = date?.requestStringFromDate(data: .month) ?? ""
+        if let day = date?.requestIntFromDate(data: .day) {
+            dayLabel?.text = String(day)
+        } else {
+            dayLabel?.text = ""
+        }
     }
     
     func loadData() {
@@ -87,7 +105,7 @@ class NoteTableViewController: UIViewController, UITableViewDelegate, UITableVie
         if let cell = tableView.cellForRow(at: indexPath) as? NoteTableViewCell {
             selectedCellIndex = indexPath.row
             cell.selectedAction()
-            noteTableView.scrollToRow(at: indexPath, at: .middle, animated: true)
+            noteTableView.scrollToRow(at: indexPath, at: .top, animated: true)
         }
         tableView.deselectRow(at: indexPath, animated: false)
     }
@@ -119,15 +137,22 @@ class NoteTableViewController: UIViewController, UITableViewDelegate, UITableVie
             let okButton = UIAlertAction(title: "YES", style: .default, handler: {[unowned self] (action) in
                 let index = self.notes.index(of: note)
                 //Note.deleteNote(note)
-                DataManager.deleteObject(object: note)
-                self.notes.remove(at: index!)
-                self.reloadTableView()
-                if self.notes.count != 0 {
-                    let newIndex = self.selectedCellIndex - 1
-                    if newIndex >= 0 {
-                        let targetIndexPath = IndexPath(item: newIndex, section: 0)
-                        DispatchQueue.main.async {
-                            self.noteTableView.scrollToRow(at: targetIndexPath, at: .middle, animated: false)
+                DataManager.deleteObject(object: note) {
+                    print("note has deleted")
+                    self.notes.remove(at: index!)
+                    self.reloadTableView()
+                    guard let result = self.diary else { return }
+                    if self.notes.count == 0 {
+                        let context = AppDelegate.viewContext
+                        context.delete(result)
+                        self.diary = nil
+                    } else {
+                        let newIndex = self.selectedCellIndex - 1
+                        if newIndex >= 0 {
+                            let targetIndexPath = IndexPath(item: newIndex, section: 0)
+                            DispatchQueue.main.async {
+                                self.noteTableView.scrollToRow(at: targetIndexPath, at: .middle, animated: false)
+                            }
                         }
                     }
                 }
