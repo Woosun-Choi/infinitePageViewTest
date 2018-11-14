@@ -70,7 +70,7 @@ extension UIView {
     }
     
     func setShadow() {
-        self.layoutIfNeeded() ; self.layoutSubviews()
+        layoutIfNeeded() ; layoutSubviews()
         layer.masksToBounds = false
         layer.shadowPath = UIBezierPath(rect: self.bounds).cgPath
         layer.shadowColor = UIColor.lightGray.cgColor

@@ -72,7 +72,7 @@ class ShowNotesInHashTagViewController: UIViewController, UITableViewDelegate, U
         noteTableView.scrollToRow(at: index, at: .middle, animated: false)
     }
     
-    func passingData(_ tag: String, editType type: requestedHashTagManagement) {
+    func requestHashTagAction(_ tag: String, editType type: requestedHashTagManagement) {
         if type == .fetch {
             nowTag = tag
             loadNotesWithTag(nowTag)

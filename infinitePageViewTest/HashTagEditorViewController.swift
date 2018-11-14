@@ -8,39 +8,33 @@
 
 import UIKit
 
-class HashTagEditorViewController: UIViewController, UITextFieldDelegate, HashTagDelegate {
+class HashTagEditorViewController: UIViewController, UITextFieldDelegate, HashTagDelegate, UIScrollViewDelegate {
     
     @IBOutlet var hashTagTextField: UITextField!
     
-    @IBOutlet var addedView: HashTagView!
+    @IBOutlet var hashTagAddedSectionScrollView: HashTagScrollView!
     
-    @IBOutlet var addedViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet var topLabelView: UIView!
     
-    @IBOutlet var categoryViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet var middleLabelView: UIView!
     
-    @IBOutlet var categoryView: HashTagView!
+    @IBOutlet var hashTagCategorySectionScrollView: HashTagScrollView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        hashTagCategorySectionScrollView.delegate = self
+        hashTagAddedSectionScrollView.delegate = self
         hashTagTextField.delegate = self
         HashTagItemView.delegate = self
-        
+        topLabelView.setShadow()
+        middleLabelView.setShadow()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        if let selectableHashs = HashTag.fetchingAllHashTags() {
-            categoryView.clearHashItem()
-            for hash in selectableHashs {
-                if let tag = hash.hashtag {
-                    categoryView.addHashItem(text: tag, touchType: .addToSavingContent)
-                }
-            }
-            categoryViewHeightConstraint.constant = categoryView.viewHeight
-        }
-        
-        if SavingContent.hashTag != nil {
-            checkContentAndRedrawAddedView()
-        }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        hashTagAddedSectionScrollView.viewType = .addingType
+        hashTagCategorySectionScrollView.viewType = .categoryType
+        loadHashContents()
     }
     
     @IBAction func addButtonPressed(_ sender: UIButton) {
@@ -63,22 +57,38 @@ class HashTagEditorViewController: UIViewController, UITextFieldDelegate, HashTa
                 hashTagTextField.text = ""
                 DispatchQueue.main.async {
                     self.checkContentAndRedrawAddedView()
-                    print("reloaded")
                 }
             }
         }
     }
     
-    func checkContentAndRedrawAddedView() {
-        addedView.clearHashItem()
-        if let hashs = SavingContent.hashTag {
-            for hash in hashs {
-                self.addedView.addHashItem(text: hash, touchType: .removeFromSavingContent)
+    private func loadHashContents() {
+        hashTagCategorySectionScrollView.hashTagView.clearHashItem()
+        if let selectableHashs = HashTag.fetchingAllHashTags() {
+            var hashs = [String]()
+            for hash in selectableHashs {
+                if let tag = hash.hashtag {
+                    hashs.append(tag)
+                }
             }
-            self.addedViewHeightConstraint.constant = self.addedView.viewHeight
+            hashTagCategorySectionScrollView.createHashTagView(tag: hashs)
         }
-        addedView.setNeedsLayout()
-        addedView.layoutIfNeeded()
+        
+        if SavingContent.hashTag != nil {
+            checkContentAndRedrawAddedView()
+        }
+        
+        hashTagCategorySectionScrollView.setNeedsLayout()
+        hashTagCategorySectionScrollView.setNeedsDisplay()
+        hashTagAddedSectionScrollView.setNeedsLayout()
+        hashTagAddedSectionScrollView.setNeedsDisplay()
+    }
+    
+    private func checkContentAndRedrawAddedView() {
+        hashTagAddedSectionScrollView.hashTagView.clearHashItem()
+        if let hashs = SavingContent.hashTag {
+            hashTagAddedSectionScrollView.createHashTagView(tag: hashs)
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -95,7 +105,7 @@ class HashTagEditorViewController: UIViewController, UITextFieldDelegate, HashTa
         }
     }
     
-    func passingData(_ tag: String, editType type: requestedHashTagManagement) {
+    func requestHashTagAction(_ tag: String, editType type: requestedHashTagManagement) {
         if type == .addToSavingContent {
             if SavingContent.hashTag == nil {
                 SavingContent.hashTag = [tag]

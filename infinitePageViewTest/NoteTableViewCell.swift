@@ -21,19 +21,14 @@ class NoteTableViewCell: UITableViewCell {
     
     weak var delegate : RequestActionForNote?
     
-    weak var note : Note?
-        {
-        didSet {
-            setData()
-        }
-    }
+    weak var note : Note?{ didSet {setData {self.updateLayingouts()} } }
     
     var actualWidth : CGFloat!
     
     var hashs : [HashTag]? {
         didSet {
             if hashs?.count != 0 {
-                hashtagView.areaWidth = actualWidth
+                hashtagView.areaWidth = actualWidth - 16
                 for hash in hashs! {
                     hashtagView.addHashItem(text: hash.hashtag!)
                 }
@@ -50,9 +45,9 @@ class NoteTableViewCell: UITableViewCell {
     
     @IBOutlet weak var cell_CommentLabel: UILabel!
     
-    @IBOutlet var contentContainer: UIView! {didSet{layoutIfNeeded();layoutSubviews()}}
+    @IBOutlet var contentContainer: UIView!
     
-    @IBOutlet var imageViewContainer: UIView! {didSet{layoutIfNeeded()}}
+    @IBOutlet var imageViewContainer: UIView!
     
     @IBOutlet var topBlurView: UIVisualEffectView!
     
@@ -77,31 +72,31 @@ class NoteTableViewCell: UITableViewCell {
         }
     }
     
-    func setData() {
-        setImageAndResizingImageView(actualWidth, completion: imageChecker)
-        if let comment = note?.comment {
+    func updateLayingouts() {
+        setNeedsDisplay()
+        setNeedsLayout()
+    }
+    
+    func setData(completion:(() -> Void)?) {
+        setImageAndResizingImageView(actualWidth, completion: nil)
+        if note?.comment == nil {
+            commentViewHeightConstraint.constant = 0
+        } else {
+            guard let comment = note?.comment else {return}
             commentViewTopEdgeConstraint.constant = 8
             commentViewBottomEdgeConstraint.constant = 8
             cell_CommentLabel.text = comment
-        }
-        if note?.comment == nil {
-            commentViewHeightConstraint.constant = 0
         }
         if note?.hashtags?.count != 0 {
             if let newNote = note {
                 hashs = Note.allHashsFromNote(newNote)
             }
         }
+        completion?()
     }
     
-    private let imageChecker: (Bool) -> () = {
-        if $0 {
-            print("image loaded")
-        }
-    }
-    
-    func setImageAndResizingImageView(_ actualWidth: CGFloat, completion: ((Bool) -> Void)?) {
-        guard let data = self.note?.noteImage?.originalImage else { return }
+    func setImageAndResizingImageView(_ actualWidth: CGFloat, completion: (() -> Void)?) {
+        guard let data = self.note?.noteImage?.originalImage else { imageViewContainerHeightConstraint.constant = 0; return }
         guard let image = UIImage(data: data) else { return }
         
         let width = actualWidth - 16
@@ -111,10 +106,10 @@ class NoteTableViewCell: UITableViewCell {
         imageViewContainerHeightConstraint.constant = height
         
         DispatchQueue.main.async {
-            self.cell_ImageView.image = image
+            self.cell_ImageView.image = image.resizedImage(newSize: CGSize(width: width, height: height))
             UIView.animate(withDuration: 0.5, animations: {
                 self.cell_ImageView.alpha = 1
-                completion?(true)
+                completion?()
             })
         }
     }
@@ -122,6 +117,7 @@ class NoteTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         topBlurView.isHidden = true
+        hashtagView.autoResize = false
         hashTagViewHeightConstraint.constant = 0
     }
     
@@ -135,7 +131,7 @@ class NoteTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        contentContainer.layoutIfNeeded()
+        contentContainer.setShadow()
     }
     
     override func prepareForReuse() {
@@ -153,11 +149,14 @@ class NoteTableViewCell: UITableViewCell {
     func resetCellLayout() {
         hashTagViewHeightConstraint.constant = 0
         hashtagView?.clearHashItem()
-        imageViewContainerHeightConstraint.constant = 0
         commentViewBottomEdgeConstraint.constant = 0
         commentViewTopEdgeConstraint.constant = 0
         cell_ImageView.alpha = 0
         topBlurView.isHidden = true
+    }
+    
+    override func draw(_ rect: CGRect) {
+        
     }
     
 }

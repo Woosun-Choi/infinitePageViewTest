@@ -36,11 +36,18 @@ class NotePhotoCollectionViewController: UICollectionViewController, UICollectio
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
+        fetchingNotes(completion: requestUpdateCollectionView)
+    }
+    
+    private func requestUpdateCollectionView() {
+        self.collectionView.reloadData()
+    }
+    
+    func fetchingNotes(completion: (() -> Void)?) {
         do {
             try self.myFetchResultController.performFetch()
-            self.collectionView?.reloadData()
         } catch { return }
-        print("collectionview view appear")
+        completion?()
     }
     
     // MARK: UICollectionViewDataSource
@@ -76,7 +83,7 @@ class NotePhotoCollectionViewController: UICollectionViewController, UICollectio
         NotePhotoCollectionViewController.photoCellectionDelegate?.moveToDiaryWithSelectedNoteData(passingDate, note: note)
     }
     
-    private var targetDate : Date!
+    private var targetDate : Date = Date().dateWithDateComponents()
     
     private var passingDate : Date {
         get {

@@ -33,11 +33,7 @@ class NoteTableViewController: UIViewController, UITableViewDelegate, UITableVie
     
     @IBOutlet var topContainerView: UIView!
     
-    @IBOutlet weak var noteTableView: UITableView! {
-        didSet {
-            print("tableview has set")
-        }
-    }
+    @IBOutlet weak var noteTableView: UITableView!
     
     @IBOutlet var tableViewContainer: UIView!
     
@@ -48,7 +44,6 @@ class NoteTableViewController: UIViewController, UITableViewDelegate, UITableVie
     }()
     
     override func viewDidLoad() {
-        print("tableview viewdid laoded")
         super.viewDidLoad()
         
         topContainerView.setShadow()
@@ -135,25 +130,22 @@ class NoteTableViewController: UIViewController, UITableViewDelegate, UITableVie
                 alert.dismiss(animated: true, completion: nil)
             }
             let okButton = UIAlertAction(title: "YES", style: .default, handler: {[unowned self] (action) in
-                let index = self.notes.index(of: note)
+                guard let index = self.notes.index(of: note) else { return }
+                let path = IndexPath(row: index, section: 0)
                 //Note.deleteNote(note)
                 DataManager.deleteObject(object: note) {
                     print("note has deleted")
-                    self.notes.remove(at: index!)
-                    self.reloadTableView()
+                    self.notes.remove(at: index)
+                    self.noteTableView.deleteRows(at: [path], with: .fade)
+                    //self.reloadTableView()
                     guard let result = self.diary else { return }
                     if self.notes.count == 0 {
                         let context = AppDelegate.viewContext
                         context.delete(result)
                         self.diary = nil
+                        self.reloadTableView()
                     } else {
-                        let newIndex = self.selectedCellIndex - 1
-                        if newIndex >= 0 {
-                            let targetIndexPath = IndexPath(item: newIndex, section: 0)
-                            DispatchQueue.main.async {
-                                self.noteTableView.scrollToRow(at: targetIndexPath, at: .middle, animated: false)
-                            }
-                        }
+                        return
                     }
                 }
                 alert.dismiss(animated: true, completion: nil)
@@ -174,7 +166,6 @@ class NoteTableViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func moveToTargetCell(_ index: IndexPath) {
-        print("move starts")
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.noteTableView.scrollToRow(at: index, at: .middle, animated: true)
         }

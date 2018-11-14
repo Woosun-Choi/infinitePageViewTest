@@ -20,6 +20,11 @@
 		A709A1D8212C248E009DACF3 /* NotePhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A709A1D6212C248E009DACF3 /* NotePhotoCollectionViewCell.swift */; };
 		A709A1DD212CFD01009DACF3 /* PhotoGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A709A1DC212CFD01009DACF3 /* PhotoGenerator.swift */; };
 		A709A1DF212D092C009DACF3 /* ImageEditViewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A709A1DE212D092C009DACF3 /* ImageEditViewCollectionViewCell.swift */; };
+		A70DB4BF2192C09900885AC3 /* NoteDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70DB4BE2192C09900885AC3 /* NoteDetailView.swift */; };
+		A70DB4C12193DCB600885AC3 /* LoadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70DB4C02193DCB600885AC3 /* LoadManager.swift */; };
+		A70DB4C321990F7A00885AC3 /* DiaryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70DB4C221990F7A00885AC3 /* DiaryManager.swift */; };
+		A70DB4C521990FE100885AC3 /* TodaysDiary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70DB4C421990FE100885AC3 /* TodaysDiary.swift */; };
+		A70DB4C7219C18B600885AC3 /* HashTagScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70DB4C6219C18B600885AC3 /* HashTagScrollView.swift */; };
 		A70E3C872144D45100412DEB /* HashTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70E3C862144D45100412DEB /* HashTagView.swift */; };
 		A70E3C8B2148ACCA00412DEB /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70E3C8A2148ACCA00412DEB /* User.swift */; };
 		A72B4DC62152565A00A5221C /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B4DC52152565A00A5221C /* DataManager.swift */; };
@@ -64,6 +69,11 @@
 		A709A1D6212C248E009DACF3 /* NotePhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotePhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		A709A1DC212CFD01009DACF3 /* PhotoGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoGenerator.swift; sourceTree = "<group>"; };
 		A709A1DE212D092C009DACF3 /* ImageEditViewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEditViewCollectionViewCell.swift; sourceTree = "<group>"; };
+		A70DB4BE2192C09900885AC3 /* NoteDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteDetailView.swift; sourceTree = "<group>"; };
+		A70DB4C02193DCB600885AC3 /* LoadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadManager.swift; sourceTree = "<group>"; };
+		A70DB4C221990F7A00885AC3 /* DiaryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryManager.swift; sourceTree = "<group>"; };
+		A70DB4C421990FE100885AC3 /* TodaysDiary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysDiary.swift; sourceTree = "<group>"; };
+		A70DB4C6219C18B600885AC3 /* HashTagScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashTagScrollView.swift; sourceTree = "<group>"; };
 		A70E3C862144D45100412DEB /* HashTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashTagView.swift; sourceTree = "<group>"; };
 		A70E3C8A2148ACCA00412DEB /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A72B4DC52152565A00A5221C /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
@@ -121,6 +131,9 @@
 			children = (
 				A7C7F2AE2119403C007C2C84 /* DiaryViewController.swift */,
 				A7C7F27E21130C53007C2C84 /* DiaryPageViewController.swift */,
+				A70DB4C02193DCB600885AC3 /* LoadManager.swift */,
+				A70DB4C221990F7A00885AC3 /* DiaryManager.swift */,
+				A70DB4C421990FE100885AC3 /* TodaysDiary.swift */,
 				A709A1CF212BD6BF009DACF3 /* NoteEditViews */,
 				A709A1CE212BD692009DACF3 /* NoteTableViews */,
 			);
@@ -132,6 +145,7 @@
 			children = (
 				A709A1C22125683E009DACF3 /* NoteTableViewController.swift */,
 				A709A1C421256A00009DACF3 /* NoteTableViewCell.swift */,
+				A70DB4BE2192C09900885AC3 /* NoteDetailView.swift */,
 			);
 			name = NoteTableViews;
 			sourceTree = "<group>";
@@ -148,6 +162,7 @@
 				A73A4A0221199C6600B6F8FE /* TextEditViewController.swift */,
 				A709A1D2212BD72E009DACF3 /* ImageEditViewController.swift */,
 				A709A1DE212D092C009DACF3 /* ImageEditViewCollectionViewCell.swift */,
+				A70DB4C6219C18B600885AC3 /* HashTagScrollView.swift */,
 			);
 			name = NoteEditViews;
 			sourceTree = "<group>";
@@ -358,6 +373,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A74338D22131454500F07F36 /* sampleCodes.swift in Sources */,
+				A70DB4C521990FE100885AC3 /* TodaysDiary.swift in Sources */,
 				A791F3D92140E0A0006AE6AF /* ImageSelectorViewController.swift in Sources */,
 				A74338D42132E43600F07F36 /* MainViewController_Default.swift in Sources */,
 				A74C3B5E2135AB0E0032EB3C /* makesubviewSampleCodes.swift in Sources */,
@@ -382,15 +398,19 @@
 				A791F3CD213CCDD9006AE6AF /* Image.swift in Sources */,
 				A791F3D52140E00C006AE6AF /* NoteEditorViewController.swift in Sources */,
 				A709A1D5212C11D5009DACF3 /* CustomExtentions.swift in Sources */,
+				A70DB4C321990F7A00885AC3 /* DiaryManager.swift in Sources */,
 				A7C7F27221130C1D007C2C84 /* infinitePageViewTest.xcdatamodeld in Sources */,
 				A7C7F27F21130C53007C2C84 /* DiaryPageViewController.swift in Sources */,
 				A709A1D1212BD6E7009DACF3 /* NoteEditPageViewController.swift in Sources */,
 				A709A1BD2125630B009DACF3 /* HashTag.swift in Sources */,
+				A70DB4BF2192C09900885AC3 /* NoteDetailView.swift in Sources */,
 				A7E0C1E62149632A00825256 /* ShowNotesInHashTagViewController.swift in Sources */,
 				A7C7F28221134A21007C2C84 /* DateCoreModel.swift in Sources */,
+				A70DB4C12193DCB600885AC3 /* LoadManager.swift in Sources */,
 				A709A1D8212C248E009DACF3 /* NotePhotoCollectionViewCell.swift in Sources */,
 				A72B4DC62152565A00A5221C /* DataManager.swift in Sources */,
 				A791F3DB2140E0C4006AE6AF /* CommentEditorViewController.swift in Sources */,
+				A70DB4C7219C18B600885AC3 /* HashTagScrollView.swift in Sources */,
 				A709A1C32125683E009DACF3 /* NoteTableViewController.swift in Sources */,
 				A74338D62132E45200F07F36 /* MainPageViewController.swift in Sources */,
 				A709A1BF21256379009DACF3 /* Diary.swift in Sources */,

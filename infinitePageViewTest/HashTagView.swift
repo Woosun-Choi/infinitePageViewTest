@@ -39,6 +39,10 @@ class HashTagView: UIView {
     private var nowX : CGFloat = generalSettings.horizontalEdgeMargin
     private var nowY : CGFloat = generalSettings.verticalEdgeMargin
     
+    var nowOffSet : CGPoint {
+        return CGPoint(x: nowX, y: nowY)
+    }
+    
     func clearHashItem() {
         nowX = generalSettings.horizontalEdgeMargin
         nowY = generalSettings.verticalEdgeMargin
@@ -53,28 +57,44 @@ class HashTagView: UIView {
     
     func addHashItem(text: String, touchType type: requestedHashTagManagement = .fetch) {
         let hash = HashTagItemView(limitWidth: widthLimit, tag: text, touchType: type)
-        guard let width = hash.itemSize?.width else { return }
-        guard let height = hash.itemSize?.height else { return }
+//        let width = hash.tagItem.frame.width
+//        let height = hash.tagItem.frame.height
+        let width = hash.viewSize.width
+        let height = hash.viewSize.height
         
         if nowX + width > widthLimit + generalSettings.horizontalEdgeMargin {
             nowY = height + generalSettings.verticalEdgeMargin + nowY
             nowX = generalSettings.horizontalEdgeMargin
         }
         
-        hash.frame = CGRect(x: nowX, y: nowY, width: width + (generalSettings.itemHorizontalSpace / 2), height: height + (generalSettings.itemVerticalSpace * 2))
-        nowX += width + generalSettings.itemHorizontalSpace
-        self.addSubview(hash)
+        hash.frame = CGRect(x: nowOffSet.x, y: nowOffSet.y, width: width, height: height)
+        nowX += (width + generalSettings.itemHorizontalSpace)
         estimateHeight = nowY + height + generalSettings.verticalEdgeMargin
+        self.addSubview(hash)
+        setNeedsDisplay()
+        setNeedsLayout()
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
+    var viewHeightAnchor : NSLayoutConstraint!
+    var autoResize = true
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+//        if autoResize {
+//            viewHeightAnchor?.isActive = false
+//            viewHeightAnchor = heightAnchor.constraint(equalToConstant: estimateHeight)
+//            viewHeightAnchor.isActive = true
+//        }
+        self.frame = CGRect(origin: self.frame.origin, size: CGSize(width: self.frame.width, height: estimateHeight))
+        //        frame.size.width = self.frame.width
+        //        frame.size.height = estimateHeight
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        
+    override func draw(_ rect: CGRect) {
+        let path = UIBezierPath(rect: CGRect(origin: self.frame.origin, size: bounds.size))
+        path.addClip()
+        UIColor.clear.setFill()
+        path.fill()
     }
 }
 

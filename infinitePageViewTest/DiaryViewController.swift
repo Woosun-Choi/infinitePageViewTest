@@ -21,12 +21,22 @@ class DiaryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        addGesture()
+    }
+    
+    private func addGesture() {
         let tabGuestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(backToCurrentDate))
         tabGuestureRecognizer.numberOfTapsRequired = 2
+        pageView.addGestureRecognizer(tabGuestureRecognizer)
     }
     
     @objc func backToCurrentDate() {
-        mypageView?.setVisibleNoteTableViewWithRequestedDate(Date().dateWithDateComponents())
+        if LoadManager.loadingStatus == .showAll {
+            LoadManager.loadingStatus = .showNoteExistOnly
+        } else {
+            LoadManager.loadingStatus = .showAll
+        }
+        mypageView?.requestViewUpdate()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
